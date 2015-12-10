@@ -76,7 +76,7 @@ final class Autoload
         // internal Application object invoked
         if (0 === strpos($objectName, self::$namespace)) {
             $objectFile = self::fixSlashes(sprintf(
-                '%s/class/%s/%s.php', __dir__,
+                '%s/%s/%s.php', __dir__,
                     self::$namespace,
                         // remove Application namespace once
                         substr_replace($objectName, '', 0, strlen(self::$namespace))
@@ -84,7 +84,7 @@ final class Autoload
         } else {
             // external object invoked with namespace
             $objectFile = self::fixSlashes(sprintf(
-                '%s/class/%s/%s.php', __dir__,
+                '%s/%s/%s.php', __dir__,
                     // here namespace a prefix as subdir
                     strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
                         $objectName
@@ -92,7 +92,7 @@ final class Autoload
             // try without namespace
             if (!is_file($objectFile)) {
                 $objectFile = self::fixSlashes(sprintf(
-                    '%s/class/%s/%s.php', __dir__,
+                    '%s/%s/%s.php', __dir__,
                         // here namespace a prefix as subdir
                         strtolower($objectName),
                             $objectName
