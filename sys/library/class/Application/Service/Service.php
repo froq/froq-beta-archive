@@ -2,26 +2,29 @@
 
 use \Application\Http\Uri\UriPath;
 
-final class Service
+abstract class Service
     implements ServiceInterface
 {
-    private $name;
-    private $nameDefault = 'Home';
+    protected $name;
+    protected $allowedMethods = [];
 
-    final public function __construct() {
-        $uriPath = new UriPath();
-        if ($uriPath->isRoot()) {
-            $name = $this->nameDefault;
-        } else {
-            $name = $uriPath->getSegment(0);
-        }
-
-        $this->name = $this->toName($name);
+    final public function isMethodAllowed($method) {
+        return in_array($method, $this->allowedMethods);
     }
 
-    final public function toName($name) {
-        return preg_replace_callback('~-([a-z])~i', function($match) {
-            return ucfirst($match[1]);
-        }, ucfirst($name));
+    final public function setAllowedMethods(...$allowedMethods) {
+        $this->allowedMethods = $allowedMethods;
     }
+    final public function getAllowedMethods() {
+        return $this->allowedMethods;
+    }
+
+    final public function setName($name) {
+        $this->name = $name;
+    }
+    final public function getName() {
+        return $this->name;
+    }
+
+    // final
 }
