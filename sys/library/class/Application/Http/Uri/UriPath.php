@@ -2,8 +2,9 @@
 namespace Application\Http\Uri;
 
 /*
-/book/123
+"/book/123"
 bunu parse edip hangi servisin cagrildigini soylicek
+misal burda BookService istendi
  */
 final class UriPath
 {
