@@ -1,28 +1,37 @@
 <?php defined('root') or die('Access denied!');
 /**
- * Global cfg stack.
- * @var array
+ * Default configuration file.
  */
-$cfg = [];
+$config = [];
 
-/*** app ***/
-$cfg['hosts'] = ['hazirtur.com', 'hazirtur.com.local'];
-/*** app paths ***/
-$cfg['app.dir.tmp'] = root .'/.tmp';
-$cfg['app.dir.class'] = root .'/sys/library/class';
-$cfg['app.dir.function'] = root .'/sys/library/function';
-/*** app defaults ***/
-$cfg['app.language'] = 'en';
-$cfg['app.timezone'] = 'UTC';
-$cfg['app.encoding'] = 'utf-8';
-$cfg['app.locale']   = 'en_US';
-$cfg['app.locales']  = [
-    'tr_TR' => 'Türkçe',
-    'en_US' => 'English'
+/**
+ * Application options.
+ */
+$config['app'] = [];
+
+// load avg
+$config['app']['loadAvg'] = 85.0;
+
+// protocols
+$config['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
+$config['app']['https'] = 'https://'. $_SERVER['SERVER_NAME'];
+
+// directories
+$config['app']['dir'] = [
+    'tmp' => root .'/.tmp',
+    'class' => root .'/sys/library/class',
+    'function' => root .'/sys/library/function',
 ];
 
-/*** initial headers ***/
-$cfg['site.init.headers'] = [
+// defaults
+$config['app']['language'] = 'en';
+$config['app']['timezone'] = 'UTC';
+$config['app']['encoding'] = 'utf-8';
+$config['app']['locale']   = 'en_US';
+$config['app']['locales']  = ['en_US' => 'English'];
+
+// initial headers
+$config['app']['headers'] = [
     'Expires' => 'Thu, 19 Nov 1981 08:10:00 GMT',
     'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0',
     'Pragma' => 'no-cache',
@@ -33,77 +42,37 @@ $cfg['site.init.headers'] = [
     'X-XSS-Protection' => '1; mode=block',
     'X-Content-Type-Options' => 'nosniff',
 ];
-/*** initial cookies ***/
-$cfg['site.init.cookies'] = [];
 
-/*** site session ***/
-$cfg['site.session.cookie'] = [
+// initial cookies
+$config['app']['cookies'] = [];
+
+// session
+$config['app']['session'] = [
     'name'      => 'SID',   'domain'   => null,
     'path'      => '/',     'secure'   => false,
     'httponly'  => false,   'lifetime' => 0,
-    'save_path' => $cfg['app.dir.tmp'] .'/session',
-    // 128-bit
-    'length' => 128
+    'save_path' => $config['app']['dir']['tmp'] .'/session',
+    'length'    => 128, // 128-bit
 ];
-/*** site meta (used in site module) ***/
-$cfg['site.name'] = '';
-$cfg['site.title'] = '';
-$cfg['site.description'] = '';
-$cfg['site.http'] = 'http://'. $_SERVER['SERVER_NAME'];
-$cfg['site.https'] = 'https://'. $_SERVER['SERVER_NAME'];
 
-/*** image ***/
-$cfg['image.mimeTypes'] = [
-    'image/jpeg', 'image/pjpeg',
-    'image/png',  'image/x-png', 'image/gif',
-];
-$cfg['image.tmp.path'] = '/upload/_tmp';
-$cfg['image.maxUploadSize'] = 2097152; // 2MB
+/**
+ * Security options.
+ */
+$config['security'] = [];
+$config['security']['maxRequest'] = 100;
+$config['security']['allowEmptyUserAgent'] = false;
+$config['security']['allowFileExtensionSniff'] = false;
 
-/*** etc ***/
+/**
+ * Etc. options.
+ */
+$config['etc'] = [];
+
 // pager
-$cfg['etc.pager.s'] = 's';
-$cfg['etc.pager.limit'] = 5;
-// currency
-$cfg['etc.currency'] = ['EUR' => 'EUR (€)', 'GBP' => 'GBP (£)', 'TRY' => 'TRY (₺)', 'USD' => 'USD ($)'];
+$config['etc']['pager'] = [
+    's'     => 's',   // start
+    'ss'    => 'ss',  // stop
+    'limit' => 10,    // limit
+];
 
-// set into globals.cfg
-$GLOBALS['@']['cfg'] = $cfg;
-
-// remove cfg from global scope
-unset($cfg);
-
-/**
- * Global config setter/getter.
- * @param  string $key
- * @param  mixed  $value
- * @return mixed
- */
-function cfg($key = null, $value = null) {
-    // get all
-    if ($key === null) {
-        return $GLOBALS['@']['cfg'];
-    }
-    // get
-    if ($value === null) {
-        return isset($GLOBALS['@']['cfg'][$key])
-            ? $GLOBALS['@']['cfg'][$key] : null;
-    }
-    // set
-    $GLOBALS['@']['cfg'][$key] = $value;
-}
-
-/**
- * Load cfg file.
- * @param  string $name
- * @return array
- */
-function cfg_load($name) {
-    $file = sprintf('%s/sys/global/cfg/%s.php', root, $name);
-    // check file
-    if (!is_file($file)) {
-        throw new \RuntimeException("Config file `{$file}` not found!");
-    }
-
-    return include($file);
-}
+return $config;
