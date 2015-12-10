@@ -12,12 +12,7 @@ final class Config
         if (!is_array($data)) {
             throw new \RuntimeException('Config data must be array or path to array file!');
         }
-
-        $dataDefaultFile = './sys/global/cfg.php';
-        if (!is_file($dataDefaultFile)) {
-            throw new \RuntimeException('Default config file not found in /sys/global directory!');
-        }
-        $this->data = self::merge($data, include($dataDefaultFile));
+        $this->data = self::merge($data, include('./sys/global/cfg.php'));
     }
 
     final public function set($key, $value) {}
