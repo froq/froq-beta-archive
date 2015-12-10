@@ -10,7 +10,7 @@ $config = [];
 $config['app'] = [];
 
 // load avg
-$config['app']['loadAvg'] = 85.0;
+$config['app']['loadAvg'] = 85.01;
 
 // protocols
 $config['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
