@@ -13,8 +13,10 @@ final class UriPath
 
     final public function __construct() {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $this->path = $path;
-        $this->segments = self::parse($path);
+        if ($path != '') {
+            $this->path = $path;
+            $this->segments = self::parse($path);
+        }
     }
 
     final public function getPath() {
