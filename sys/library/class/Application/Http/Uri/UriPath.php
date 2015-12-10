@@ -19,6 +19,10 @@ final class UriPath
         }
     }
 
+    final public function isRoot() {
+        return ($this->path == '/');
+    }
+
     final public function getPath() {
         return $this->path;
     }
