@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2015 Hazır Tur
+ * Copyright (c) 2015 Hazır Tur
  *    <http://hazirtur.com>
  */
 
