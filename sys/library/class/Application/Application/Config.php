@@ -5,7 +5,14 @@ final class Config
 {
     private $data = [];
 
-    final public function __construct(array $data) {
+    final public function __construct($data) {
+        if (is_string($data)) {
+            $data = include($data);
+        }
+        if (!is_array($data)) {
+            throw new \RuntimeException('Config data must be array or path to array file!');
+        }
+
         $dataDefaultFile = './sys/global/cfg.php';
         if (!is_file($dataDefaultFile)) {
             throw new \RuntimeException('Default config file not found in /sys/global directory!');
