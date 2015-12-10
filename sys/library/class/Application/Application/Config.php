@@ -1,5 +1,4 @@
-<?php
-namespace Application\Application;
+<?php namespace Application\Application;
 
 final class Config
 {
@@ -20,7 +19,7 @@ final class Config
         return dig($this->data, $key, $valueDefault);
     }
 
-    final public static function merge(array $source, array $target) {
+    final private static function merge(array $source, array $target) {
         foreach ($source as $key => $value) {
             if (is_array($value)) {
                 $target[$key] = array_merge($target[$key], $value);
