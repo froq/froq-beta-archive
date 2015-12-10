@@ -68,6 +68,8 @@ final class Autoload
             $objectName = str_replace('.', self::$namespace, $objectName);
         }
 
+        pre($objectName);
+
         // internal Application object invoked
         if (0 === strpos($objectName, self::$namespace)) {
             $objectFile = self::fixSlashes(sprintf(
@@ -77,21 +79,27 @@ final class Autoload
                         substr_replace($objectName, '', 0, strlen(self::$namespace))
             ));
         } else {
-            // external object invoked with namespace
+            // service files
             $objectFile = self::fixSlashes(sprintf(
-                '%s/app/library/class/%s/%s.php', root,
-                    // here namespace a prefix as subdir
-                    strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
-                        $objectName
+                '%s/app/service/%s/%s.php', root, $objectName, $objectName
             ));
-            // try without namespace
+            // external object invoked with namespace
             if (!is_file($objectFile)) {
                 $objectFile = self::fixSlashes(sprintf(
                     '%s/app/library/class/%s/%s.php', root,
                         // here namespace a prefix as subdir
-                        strtolower($objectName),
+                        strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
                             $objectName
                 ));
+                // try without namespace
+                if (!is_file($objectFile)) {
+                    $objectFile = self::fixSlashes(sprintf(
+                        '%s/app/library/class/%s/%s.php', root,
+                            // here namespace a prefix as subdir
+                            strtolower($objectName),
+                                $objectName
+                    ));
+                }
             }
         }
 
