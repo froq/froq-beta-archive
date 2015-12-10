@@ -19,7 +19,7 @@ define('nil', null, true);
 /**
  * These defs stand here cos of PHP's typehint leak. So, you can use these
  * instead of NULL when defining as defult params like foo(bool $x = NULL).
- * @const bool, bool, string, float
+ * @const bool, bool, string
  */
 define('True', true);
 define('False', false);
@@ -35,7 +35,7 @@ define('root', __dir__ .'/..', true);
  * Used to detect development environment.
  * @const bool
  */
-define('local', ('.local' == substr($_SERVER['SERVER_NAME'], -6)), true);
+define('local', (bool) strstr($_SERVER['SERVER_NAME'], '.local'), true);
 
 /**
  * HTTP/HTTPS constants.
@@ -47,7 +47,7 @@ define('https', 'https://'. $_SERVER['SERVER_NAME'], true);
 /**
  * Error settings.
  */
-if (local /* or admin? */) {
+if (local) {
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
 }
@@ -55,20 +55,14 @@ if (local /* or admin? */) {
 /**
  * Load global base files.
  */
-require(root.'/sys/global/def.php');
-require(root.'/sys/global/cfg.php');
-require(root.'/sys/global/fun.php');
+require(root .'/sys/global/def.php');
+require(root .'/sys/global/cfg.php');
+require(root .'/sys/global/fun.php');
 
 /** !!! START APPLICATION !!! **/
-// autoload
+// register autoload
 $autoload = require(root .'/sys/library/class/Autoload.php');
 $autoload->register();
 
-// // init application
-// $app = Shobbr\Application::init();
-
-// // set system defaults (locale, encoding etc)
-// $app->setDefaults();
-
-// // return application
-// return $app;
+// init application
+return Application\Application::init();
