@@ -68,8 +68,6 @@ final class Autoload
             $objectName = str_replace('.', self::$namespace, $objectName);
         }
 
-        pre($objectName);
-
         // internal Application object invoked
         if (0 === strpos($objectName, self::$namespace)) {
             $objectFile = self::fixSlashes(sprintf(
