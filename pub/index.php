@@ -1,27 +1,24 @@
 <?php
 /**
- * This makes our life easier when dealing with paths. Everything is relative
- * to the application root now.
- * https://github.com/akrabat/zf2-tutorial/blob/master/public/index.php
+ * Set everything as relative to the application root.
  */
-chdir(dirname(__DIR__));
+chdir(dirname(__dir__));
 
-header("content-type:");
-function pre($s, $e=false) {
-    if (is_null($s)) {
-        print 'NULL';
-    } elseif (is_bool($s)) {
-        print $s ? 'TRUE' : 'FALSE';
-    } else {
-        $s = preg_replace('~\[(.+):(.+):(private|protected)\]~', '[\\1:\\3]', print_r($s, 1));
-        print $s;
-    }
-    print PHP_EOL;
-    $e && exit;
-}
+/**
+ * Include bootstrap that returns Application.
+ */
+$app = include('./sys/Boot.php');
 
-require(__DIR__.'/../sys/library/class/Application/Http/Uri/UriPath.php');
+/**
+ * New application config with user config.
+ */
+$cfg = new Application\Config('./app/global/cfg.php');
 
-$uripath = new Application\Http\Uri\UriPath();
-pre($uripath);
-pre($uripath->getSegment(0));
+/**
+ * Set application config.
+ * Set application defaults.
+ * Run application.
+ */
+$app->setConfig($cfg)
+    ->setDefaults()
+    ->run();

@@ -1,10 +1,4 @@
-<?php
-/**
- * Copyright (c) 2015 Hazır Tur
- *    <http://hazirtur.com>
- */
-namespace Application\Util\Traits;
-
+<?php namespace Application\Util\Traits;
 /**
  * @package    Application
  * @subpackage Application\Util\Traits

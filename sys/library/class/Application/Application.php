@@ -1,46 +1,85 @@
-<?php
-namespace Application;
+<?php namespace Application;
 
-use \Application\Application\Config;
+use \Application\Config;
+use \Application\Http\Uri\Uri,
+    \Application\Http\Uri\UriPath;
+use \Application\Service\Service;
+use \Application\Util\Traits\SingleTrait;
 
 final class Application
 {
+    use SingleTrait;
+
     private $config;
 
-    final public function __construct(Config $config) {
-        $this->config = $config;
+    private $service;
+
+    final private function __construct() {
+    }
+
+    final public function run() {
+        if (empty($this->config)) {
+            throw new \RuntimeException('Call setConfig() first to get run application!');
+        }
 
         // check request count
-        $maxRequest = $config->get('security.maxRequest');
+        $maxRequest = $this->config->get('security.maxRequest');
         if ($maxRequest && count($_REQUEST) > $maxRequest) {
-            $this->halt('429 Too Many Requests');
+            self::halt('429 Too Many Requests');
         }
         // check user agent
-        $allowEmptyUserAgent = $config->get('security.allowEmptyUserAgent');
+        $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
         if ($allowEmptyUserAgent === false && (
             !isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
-            $this->halt('400 Bad Request');
+            self::halt('400 Bad Request');
         }
         // check client host
-        $hosts = $config->get('app.hosts');
+        $hosts = $this->config->get('app.hosts');
         if (!empty($hosts) && (
             !isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
-            $this->halt('400 Bad Request');
+            self::halt('400 Bad Request');
         }
         // check file extension
-        $allowFileExtensionSniff = $config->get('security.allowFileExtensionSniff');
+        $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
         if ($allowFileExtensionSniff === false &&
             preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
                 parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-            $this->halt('400 Bad Request');
+            self::halt('400 Bad Request');
         }
         // check service load
-        if (sys_getloadavg()[0] > $config->get('app.loadAvg')) {
-            $this->halt('503 Service Unavailable');
+        if (sys_getloadavg()[0] > $this->config->get('app.loadAvg')) {
+            self::halt('503 Service Unavailable');
         }
+
+        // pre($this);
+
+        $this->service = new Service();
+        pre($this->service);
     }
 
-    final public function halt($header = null) {
+    final public function setConfig(Config $config) {
+        $this->config = $config;
+        return $this;
+    }
+    final public function getConfig() {}
+
+    final public function setDefaults() {
+        // multibyte
+        mb_internal_encoding($this->config->get('app.encoding'));
+        // timezone
+        date_default_timezone_set($this->config->get('app.timezone'));
+        // default charset
+        ini_set('default_charset', $this->config->get('app.encoding'));
+        // locale stuff
+        $locale = sprintf('%s.%s',
+            $this->config->get('app.locale'), $this->config->get('app.encoding'));
+        setlocale(LC_TIME, $locale);
+        setlocale(LC_NUMERIC, $locale);
+        setlocale(LC_MONETARY, $locale);
+        return $this;
+    }
+
+    final private function halt($header = null) {
         if ($header) {
             header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $header));
         }
