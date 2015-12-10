@@ -1,12 +1,7 @@
 <?php
 /**
- * Copyright (c) 2015 Hazır Tur
- *    <http://hazirtur.com>
- */
-
-/**
  * @object  Autoload
- * @author  Kerem <qeremy@gmail>
+ * @author  Kerem! <qeremy@gmail>
  */
 final class Autoload
 {
@@ -84,7 +79,7 @@ final class Autoload
         } else {
             // external object invoked with namespace
             $objectFile = self::fixSlashes(sprintf(
-                '%s/%s/%s.php', __dir__,
+                '%s/app/library/class/%s/%s.php', root,
                     // here namespace a prefix as subdir
                     strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
                         $objectName
@@ -92,7 +87,7 @@ final class Autoload
             // try without namespace
             if (!is_file($objectFile)) {
                 $objectFile = self::fixSlashes(sprintf(
-                    '%s/%s/%s.php', __dir__,
+                    '%s/app/library/class/%s/%s.php', root,
                         // here namespace a prefix as subdir
                         strtolower($objectName),
                             $objectName
