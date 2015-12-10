@@ -11,11 +11,9 @@ final class Application
     use SingleTrait;
 
     private $config;
-
     private $service;
 
-    final private function __construct() {
-    }
+    final private function __construct() {}
 
     final public function run() {
         if (empty($this->config)) {
@@ -64,24 +62,29 @@ final class Application
     final public function getConfig() {}
 
     final public function setDefaults() {
+        $cfg = [
+            'locale'   => $this->config->get('app.locale'),
+            'encoding' => $this->config->get('app.encoding'),
+            'timezone' => $this->config->get('app.timezone'),
+        ];
         // multibyte
-        mb_internal_encoding($this->config->get('app.encoding'));
+        mb_internal_encoding($cfg['encoding']);
         // timezone
-        date_default_timezone_set($this->config->get('app.timezone'));
+        date_default_timezone_set($cfg['timezone']);
         // default charset
-        ini_set('default_charset', $this->config->get('app.encoding'));
+        ini_set('default_charset', $cfg['encoding']);
         // locale stuff
-        $locale = sprintf('%s.%s',
-            $this->config->get('app.locale'), $this->config->get('app.encoding'));
+        $locale = sprintf('%s.%s', $cfg['locale'], $cfg['encoding']);
         setlocale(LC_TIME, $locale);
         setlocale(LC_NUMERIC, $locale);
         setlocale(LC_MONETARY, $locale);
         return $this;
     }
 
-    final private function halt($header = null) {
-        if ($header) {
-            header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $header));
+    final private function halt($status = null) {
+        if ($status) {
+            $status = sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $header);
+            header($status);
         }
         header('Connection: close');
         header('Content-Type: none');
