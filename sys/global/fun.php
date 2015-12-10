@@ -1,4 +1,39 @@
 <?php defined('root') or die('Access denied!');
+/*************************************************
+ * Core functions module, that used all over the *
+ * application. Define all global functions will *
+ * be used anywhere.                             *
+ ************************************************/
+
+/**
+ * Global setter.
+ * @param string $key
+ * @param mixed  $value
+ */
+function set_global($key, $value) {
+    $GLOBALS['@'][$key] = $value;
+}
+
+/**
+ * Global getter.
+ * @param  string $key
+ * @param  mixed  $valueDefault
+ * @return mixed
+ */
+function get_global($key, $valueDefault = null) {
+    return isset($GLOBALS['@'][$key])
+        ? $GLOBALS['@'][$key] : $valueDefault;
+}
+
+/**
+ * Shortcut for app address.
+ * @return \Application\Application
+ */
+function app($prop = null) {
+    $app = get_global('app');
+    return ($prop && isset($app->prop)) ? $app->$prop : $app;
+}
+
 function dig(array $array = null, $key, $valueDefault = null) {
     // direct access
     if (isset($array[$key])) {
