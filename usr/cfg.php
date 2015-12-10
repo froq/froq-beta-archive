@@ -8,10 +8,16 @@ $config = [];
  * Application options.
  */
 // allowed hosts
-$config['app']['hosts'] = ['hazirtur.com', 'hazirtur.com.local'];
+$config['app']['hosts'] = [
+    'hazirtur.com',
+    'hazirtur.com.local',
+];
 
 // defaults
-$config['app']['locales'] = ['en_US' => 'English', 'tr_TR' => 'Türkçe'];
+$config['app']['locales'] = [
+    'tr_TR' => 'Türkçe',
+    'en_US' => 'English',
+];
 
 /**
  * Etc. options.
