@@ -1,7 +1,7 @@
 <?php namespace Application\Service;
 
+use \Application\Exception;
 use \Application\Application;
-use \Application\Http\Uri\UriPath;
 
 final class ServiceAdapter
 {
@@ -11,18 +11,16 @@ final class ServiceAdapter
     private $serviceMethod;
     private $serviceMethodDefault = ServiceInterface::DEFAULT_METHOD_HOME;
     private $serviceFile;
-    private $uriPath;
 
     final public function __construct(Application $app) {
-        // app.request i yazinca;
-        // $uri = $this->app->request->uri;
-        $this->uriPath = new UriPath();
-        if ($this->uriPath->isRoot()) {
+        $this->app = $app;
+        // home?
+        if ($this->app->request->uri->getPath() == '/') {
             $serviceName = $this->serviceNameDefault;
-            $serviceMethod = $this->serviceNameDefault;
+            $serviceMethod = $this->serviceMethodDefault;
         } else {
-            $serviceName = $this->toServiceName($this->uriPath->getSegment(0));
-            $serviceMethod = $this->toServiceMethod($this->uriPath->getSegment(1));
+            $serviceName = $this->toServiceName($this->app->request->uri->segment(0));
+            $serviceMethod = $this->toServiceMethod($this->app->request->uri->segment(1));
         }
         $this->setServiceName($serviceName);
         $this->setServiceMethod($serviceMethod);
@@ -33,7 +31,6 @@ final class ServiceAdapter
         $service = (new $this->serviceName($this->serviceName))
             ->setApp($this->app)
             ->setMethod($this->serviceMethod)
-            ->setUri($this->uriPath)
         ;
         return $service;
     }
