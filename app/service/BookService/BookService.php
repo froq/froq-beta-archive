@@ -8,15 +8,23 @@ class BookService extends Service
     protected $methodAccept = false;
     protected $allowedRequestMethods = [Request::METHOD_GET, Request::METHOD_POST];
 
-    // public function __init__() {}
+    // public function __init__() {
+    //     pre($this->config);
+    // }
 
-    public function __home__() {
+    public function _main() {
         $this->printId();
     }
 
+    public function __before__() {
+        pre(__method__);
+    }
+    public function __after__() {
+        pre(__method__);
+    }
+
     private function printId() {
-        // $id = $this->app->request->uri->segment(1);
-        $id = $this->uri->segment(1);
+        $id = $this->app->request->uri->segment(1);
         print $id;
     }
 }
