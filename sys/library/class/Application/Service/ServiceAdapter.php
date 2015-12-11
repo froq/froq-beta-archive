@@ -5,6 +5,7 @@ use \Application\Http\Uri\UriPath;
 
 final class ServiceAdapter
 {
+    private $app;
     private $serviceName;
     private $serviceNameDefault = ServiceInterface::DEFAULT_NAME;
     private $serviceMethod;
@@ -12,7 +13,9 @@ final class ServiceAdapter
     private $serviceFile;
     private $uriPath;
 
-    final public function __construct() {
+    final public function __construct(Application $app) {
+        // app.request i yazinca;
+        // $uri = $this->app->request->uri;
         $this->uriPath = new UriPath();
         if ($this->uriPath->isRoot()) {
             $serviceName = $this->serviceNameDefault;
@@ -26,11 +29,12 @@ final class ServiceAdapter
         $this->setServiceFile($serviceName);
     }
 
-    final public function createService(Application $app) {
+    final public function createService() {
         $service = (new $this->serviceName($this->serviceName))
-            ->setApp($app)
+            ->setApp($this->app)
             ->setMethod($this->serviceMethod)
-            ->setUriPath($this->uriPath);
+            ->setUri($this->uriPath)
+        ;
         return $service;
     }
 
