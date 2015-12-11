@@ -99,4 +99,15 @@ abstract class Service
         }
         return $this;
     }
+
+    public function __before__(callable $func) {
+        if (is_callable($func)) {
+            return $func($this->app);
+        }
+    }
+    public function __after__(callable $callable) {
+        if (is_callable($func)) {
+            return $func($this->app);
+        }
+    }
 }
