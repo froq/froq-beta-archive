@@ -1,7 +1,7 @@
 <?php namespace Application\Service;
 
 use \Application\Exception;
-use \Application\Http\Uri\UriPath;
+use \Application\Application;
 
 abstract class Service
     implements ServiceInterface
@@ -10,11 +10,12 @@ abstract class Service
     protected $name;
     protected $method;
     protected $methodAccept;
-    protected $uri;
     protected $allowedRequestMethods = [];
 
     public function __construct($name = null) {
         $this->name = $name;
+
+        $this->loadConfig();
     }
 
     final public function isHome() {
@@ -44,7 +45,7 @@ abstract class Service
         return $this->callMethodHome();
     }
 
-    final public function setApp($app) {
+    final public function setApp(Application $app) {
         $this->app = $app;
         return $this;
     }
@@ -66,14 +67,6 @@ abstract class Service
     }
     final public function getMethod() {
         return $this->method;
-    }
-
-    final public function setUri(UriPath $uri) {
-        $this->uri = $uri;
-        return $this;
-    }
-    final public function getUri() {
-        return $this->uri;
     }
 
     final public function setMethodAccept($methodAccept) {
