@@ -37,4 +37,11 @@ final class Config
         }
         return $target;
     }
+
+    final public function setData(array $data) {
+        $this->data = $data;
+    }
+    final public function getData() {
+        return $this->data;
+    }
 }
