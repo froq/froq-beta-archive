@@ -1,9 +1,12 @@
 <?php namespace Application\Http;
 
 use \Application\Http\Uri\Uri;
+use \Application\Util\Traits\SetGetTrait;
 
 final class Request
 {
+    use SetGetTrait;
+
     const METHOD_GET    = 'GET',
           METHOD_POST   = 'POST',
           METHOD_UPDATE = 'UPDATE',
