@@ -2,6 +2,7 @@
 
 use \Application\Exception;
 use \Application\Application;
+use \Application\Config;
 
 abstract class Service
     implements ServiceInterface
@@ -11,10 +12,11 @@ abstract class Service
     protected $method;
     protected $methodAccept;
     protected $allowedRequestMethods = [];
+    protected $config;
 
     public function __construct($name = null) {
         $this->name = $name;
-
+        // autoload config
         $this->loadConfig();
     }
 
@@ -88,5 +90,13 @@ abstract class Service
     }
     final public function getAllowedRequestMethods() {
         return $this->allowedRequestMethods;
+    }
+
+    final public function loadConfig() {
+        $configFile = sprintf('./app/service/%s/config/config.php', $this->name);
+        if (is_file($configFile)) {
+            $this->config = new Config($configFile);
+        }
+        return $this;
     }
 }
