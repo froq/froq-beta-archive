@@ -1,9 +1,9 @@
 <?php namespace Application;
 
-use \Application\Config;
 use \Application\Http\Uri\Uri,
     \Application\Http\Uri\UriPath;
-use \Application\Service\Service;
+use \Application\Service\ServiceAdapter,
+    \Application\Service\ServiceInterface;
 use \Application\Util\Traits\SingleTrait;
 
 final class Application
@@ -13,7 +13,10 @@ final class Application
     private $config;
     private $service;
 
-    final private function __construct() {}
+    final private function __construct() {
+        // set app as global
+        set_global('app', $this);
+    }
 
     final public function run() {
         if (empty($this->config)) {
@@ -49,23 +52,36 @@ final class Application
             self::halt('503 Service Unavailable');
         }
 
-        // pre($this);
+        $serviceAdapter = new ServiceAdapter();
+        if (!$serviceAdapter->isServiceExists()) {
+            throw new Exception(sprintf(
+                'Service not found! name: %s', $serviceAdapter->getServiceName()));
+        }
 
-        $this->service = new Service();
-        pre($this->service);
+        $this->service = $serviceAdapter->createService($this);
+        $this->service->callMethodInit();
+
+        $this->startOutputBuffer();
+        if ($this->service->isHome()) {
+            print $this->service->callMethodHome();
+        } else {
+            print $this->service->callMethodInvoked();
+        }
+        $this->endOutputBuffer();
     }
 
     final public function setConfig(Config $config) {
         $this->config = $config;
         return $this;
     }
-    final public function getConfig() {}
+    final public function getConfig() {
+        return $this->config;
+    }
 
     final public function setDefaults() {
-        $cfg = [
-            'locale'   => $this->config->get('app.locale'),
-            'encoding' => $this->config->get('app.encoding'),
-            'timezone' => $this->config->get('app.timezone'),
+        $cfg = ['locale'   => $this->config->get('app.locale'),
+                'encoding' => $this->config->get('app.encoding'),
+                'timezone' => $this->config->get('app.timezone'),
         ];
         // multibyte
         mb_internal_encoding($cfg['encoding']);
@@ -79,6 +95,20 @@ final class Application
         setlocale(LC_NUMERIC, $locale);
         setlocale(LC_MONETARY, $locale);
         return $this;
+    }
+
+    final public function startOutputBuffer() {
+        ini_set('implicit_flush', 1);
+        ini_set('zlib.output_compression', 0);
+        ob_start();
+    }
+
+    final public function endOutputBuffer(callable $callable = null) {
+        $output = '';
+        while (ob_get_level()) {
+            $output .= ob_get_clean();
+        }
+        print $output;
     }
 
     final private function halt($status = null) {
