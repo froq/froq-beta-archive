@@ -36,7 +36,7 @@ final class UriPath
         return $this->segments;
     }
 
-    final public function segments($i) {
+    final public function segment($i) {
         return $this->getSegment($i);
     }
 
