@@ -5,14 +5,19 @@ use \Application\Service\Service;
 
 class BookService extends Service
 {
-    public function __init__() {
-        $this->setRequestMethods(Request::METHOD_GET, Request::METHOD_POST);
-        pre($this->app);
+    protected $methodAccept = false;
+    protected $allowedRequestMethods = [Request::METHOD_GET, Request::METHOD_POST];
+
+    // public function __init__() {}
+
+    public function __home__() {
+        $this->printId();
     }
 
-    public function __home__() {}
-
-    public function get() {}
-    public function post() {}
+    private function printId() {
+        // $id = $this->app->request->uri->segment(1);
+        $id = $this->uri->segment(1);
+        print $id;
+    }
 }
 
