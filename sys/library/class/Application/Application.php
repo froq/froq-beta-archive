@@ -4,16 +4,25 @@ use \Application\Http\Uri\Uri,
     \Application\Http\Uri\UriPath;
 use \Application\Service\ServiceAdapter,
     \Application\Service\ServiceInterface;
-use \Application\Util\Traits\SingleTrait;
+use \Application\Http\Request,
+    \Application\Http\Response;
+use \Application\Util\Traits\SingleTrait,
+    \Application\Util\Traits\SetGetTrait;
 
 final class Application
 {
     use SingleTrait;
+    use SetGetTrait;
 
     private $config;
     private $service;
 
+    private $request, $response;
+
     final private function __construct() {
+        // init request
+        $this->request = new Request();
+
         // set app as global
         set_global('app', $this);
     }
