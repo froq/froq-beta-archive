@@ -100,6 +100,11 @@ final class Uri
                 $this->setQuery($source['query']);
             isset($source['fragment']) &&
                 $this->setFragment($source['fragment']);
+
+            // segments
+            if (!empty($source['path'])) {
+                $this->segments = UriPath::parse($source['path']);
+            }
         }
     }
 
@@ -354,5 +359,17 @@ final class Uri
             $return .= '#' . $array['fragment'];
 
         return $return;
+    }
+
+    /**
+     * Get segment value.
+     * @param  int $i
+     * @return string|null
+     */
+    final public function segment($i) {
+        if (isset($this->segments[$i])) {
+            return $this->segments[$i];
+        }
+        return null;
     }
 }
