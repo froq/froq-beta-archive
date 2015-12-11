@@ -2,19 +2,19 @@
 /**
  * User configuration file.
  */
-$config = [];
+$cfg = [];
 
 /**
  * Application options.
  */
 // allowed hosts
-$config['app']['hosts'] = [
+$cfg['app']['hosts'] = [
     'hazirtur.com',
     'hazirtur.com.local',
 ];
 
 // defaults
-$config['app']['locales'] = [
+$cfg['app']['locales'] = [
     'tr_TR' => 'Türkçe',
     'en_US' => 'English',
 ];
@@ -23,9 +23,9 @@ $config['app']['locales'] = [
  * Etc. options.
  */
 // currency
-$config['etc']['currency'] = [
+$cfg['etc']['currency'] = [
     'EUR' => 'EUR (€)', 'GBP' => 'GBP (£)',
     'TRY' => 'TRY (₺)', 'USD' => 'USD ($)',
 ];
 
-return $config;
+return $cfg;
