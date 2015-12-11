@@ -37,6 +37,8 @@ final class UriPath
     }
 
     final public static function parse($path) {
-        return preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY);
+        $path = preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY);
+        $path = array_filter(array_map('trim', $path));
+        return $path;
     }
 }
