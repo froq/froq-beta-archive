@@ -39,6 +39,12 @@ abstract class Service
     final public function callMethodHome() {
         return $this->callMethod(ServiceInterface::DEFAULT_METHOD_HOME);
     }
+    final public function callMethodBefore() {
+        return $this->callMethod(ServiceInterface::METHOD_BEFORE, false);
+    }
+    final public function callMethodAfter() {
+        return $this->callMethod(ServiceInterface::METHOD_AFTER, false);
+    }
     final public function callMethodInvoked() {
         if ($this->methodAccept) {
             return $this->callMethod($this->method);
