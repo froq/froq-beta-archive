@@ -52,13 +52,13 @@ final class Application
             self::halt('503 Service Unavailable');
         }
 
-        $serviceAdapter = new ServiceAdapter();
+        $serviceAdapter = new ServiceAdapter($this);
         if (!$serviceAdapter->isServiceExists()) {
             throw new Exception(sprintf(
                 'Service not found! name: %s', $serviceAdapter->getServiceName()));
         }
 
-        $this->service = $serviceAdapter->createService($this);
+        $this->service = $serviceAdapter->createService();
         $this->service->callMethodInit();
 
         $this->startOutputBuffer();
