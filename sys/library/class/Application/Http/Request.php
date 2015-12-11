@@ -1,11 +1,11 @@
 <?php namespace Application\Http;
 
 use \Application\Http\Uri\Uri;
-use \Application\Util\Traits\SetGetTrait;
+use \Application\Util\Traits\GetterTrait;
 
 final class Request
 {
-    use SetGetTrait;
+    use GetterTrait;
 
     const METHOD_GET    = 'GET',
           METHOD_POST   = 'POST',

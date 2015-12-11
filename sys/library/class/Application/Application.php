@@ -8,12 +8,12 @@ use Application\Http\Request,
     Application\Http\Response;
 use Application\Database\Database;
 use Application\Util\Traits\SingleTrait,
-    Application\Util\Traits\SetGetTrait;
+    Application\Util\Traits\GetterTrait;
 
 final class Application
 {
     use SingleTrait;
-    use SetGetTrait;
+    use GetterTrait;
 
     private $config;
     private $service;
