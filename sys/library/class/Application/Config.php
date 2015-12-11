@@ -4,14 +4,18 @@ final class Config
 {
     private $data = [];
 
-    final public function __construct($data) {
+    final public function __construct($data, $merge = false) {
         if (is_string($data)) {
-            $data = include($data);
+            $this->data = include($data);
         }
-        if (!is_array($data)) {
+
+        if (!is_array($this->data)) {
             throw new \RuntimeException('Config data must be array or path to array file!');
         }
-        $this->data = self::merge($data, include('./sys/global/cfg.php'));
+
+        if ($merge) {
+            $this->data = self::merge($this->data, include('./sys/global/cfg.php'));
+        }
     }
 
     final public function set($key, $value) {}
@@ -22,7 +26,11 @@ final class Config
     final private static function merge(array $source, array $target) {
         foreach ($source as $key => $value) {
             if (is_array($value)) {
-                $target[$key] = array_merge($target[$key], $value);
+                if (isset($target[$key])) {
+                    $target[$key] = array_merge($target[$key], $value);
+                } else {
+                    $target[$key] = array_merge($target, $value);
+                }
             } else {
                 $target[$key] = $value;
             }
