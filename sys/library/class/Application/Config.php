@@ -25,12 +25,8 @@ final class Config
 
     final private static function merge(array $source, array $target) {
         foreach ($source as $key => $value) {
-            if (is_array($value)) {
-                if (isset($target[$key])) {
-                    $target[$key] = array_merge($target[$key], $value);
-                } else {
-                    $target[$key] = array_merge($target, $value);
-                }
+            if (isset($target[$key]) && is_array($value)) {
+                $target[$key] = array_merge($target[$key], $value);
             } else {
                 $target[$key] = $value;
             }
