@@ -122,7 +122,7 @@ final class Application
 
     final private function halt($status = null) {
         if ($status) {
-            $status = sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $header);
+            $status = sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status);
             header($status);
         }
         header('Connection: close');
