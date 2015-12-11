@@ -20,6 +20,13 @@ $cfg['app']['locales'] = [
 ];
 
 /**
+ * Database options.
+ */
+$cfg['db'] = [];
+// mysql
+$cfg['db']['mysql'] = [];
+
+/**
  * Etc. options.
  */
 // currency
