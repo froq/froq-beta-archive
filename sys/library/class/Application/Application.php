@@ -6,6 +6,7 @@ use Application\Service\ServiceAdapter,
     Application\Service\ServiceInterface;
 use Application\Http\Request,
     Application\Http\Response;
+use Application\Database\Database;
 use Application\Util\Traits\SingleTrait,
     Application\Util\Traits\SetGetTrait;
 
@@ -16,13 +17,12 @@ final class Application
 
     private $config;
     private $service;
-
     private $request, $response;
+    private $db;
 
     final private function __construct() {
-        // init request
         $this->request = new Request();
-
+        $this->db = new Database($this);
         // set app as global
         set_global('app', $this);
     }
