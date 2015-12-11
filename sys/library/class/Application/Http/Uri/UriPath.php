@@ -36,6 +36,10 @@ final class UriPath
         return $this->segments;
     }
 
+    final public function segments($i) {
+        return $this->getSegment($i);
+    }
+
     final public static function parse($path) {
         $path = preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY);
         $path = array_filter(array_map('trim', $path));
