@@ -3,10 +3,10 @@
 interface ServiceInterface
 {
     const DEFAULT_NAME = 'HomeService';
-    const DEFAULT_METHOD_INIT = '__init__';
-    const DEFAULT_METHOD_HOME = '_main'; // main
-    const METHOD_BEFORE = '__before__';
-    const METHOD_AFTER = '__after__';
+    const METHOD_INIT = '_init';
+    const METHOD_HOME = '_main'; // main
+    const METHOD_BEFORE = '_before';
+    const METHOD_AFTER = '_after';
 
     public function _main();
 }

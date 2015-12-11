@@ -8,7 +8,7 @@ class BookService extends Service
     protected $methodAccept = false;
     protected $allowedRequestMethods = [Request::METHOD_GET, Request::METHOD_POST];
 
-    // public function __init__() {
+    // public function _init() {
     //     pre($this->config);
     // }
 
@@ -16,10 +16,10 @@ class BookService extends Service
         $this->printId();
     }
 
-    public function __before__() {
+    public function _before() {
         pre(__method__);
     }
-    public function __after__() {
+    public function _after() {
         pre(__method__);
     }
 

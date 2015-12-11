@@ -34,10 +34,10 @@ abstract class Service
         }
     }
     final public function callMethodInit() {
-        return $this->callMethod(ServiceInterface::DEFAULT_METHOD_INIT, false);
+        return $this->callMethod(ServiceInterface::METHOD_INIT, false);
     }
     final public function callMethodHome() {
-        return $this->callMethod(ServiceInterface::DEFAULT_METHOD_HOME);
+        return $this->callMethod(ServiceInterface::METHOD_HOME);
     }
     final public function callMethodBefore() {
         return $this->callMethod(ServiceInterface::METHOD_BEFORE, false);
