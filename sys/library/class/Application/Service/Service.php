@@ -13,11 +13,14 @@ abstract class Service
     protected $mainOnly;
     protected $allowedRequestMethods = [];
     protected $config;
+    protected $model;
 
     public function __construct($name = null) {
         $this->name = $name;
-        // autoload config
+        // autoloads
         $this->loadConfig();
+        $this->loadModel();
+        $this->loadView();
     }
 
     final public function isHome() {
@@ -99,10 +102,19 @@ abstract class Service
     }
 
     final public function loadConfig() {
-        $configFile = sprintf('./app/service/%s/config/config.php', $this->name);
-        if (is_file($configFile)) {
-            $this->config = new Config($configFile);
+        $file = sprintf('./app/service/%s/config/config.php', $this->name);
+        if (is_file($file)) {
+            $this->config = new Config($file);
         }
         return $this;
     }
+    final public function loadModel() {
+        $file = sprintf('./app/service/%s/model/%sModel.php',
+            $this->name, substr($this->name, 0, -strlen('Service')));
+        if (is_file($file)) {
+            include($file);
+        }
+        return $this;
+    }
+    final public function loadView() {}
 }
