@@ -21,10 +21,11 @@ final class Application
     private $db;
 
     final private function __construct() {
-        $this->request = new Request();
-        $this->db = new Database($this);
         // set app as global
         set_global('app', $this);
+
+        $this->request = new Request();
+        $this->db = new Database();
     }
 
     final public function run() {
