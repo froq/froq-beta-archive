@@ -3,8 +3,8 @@
 interface ServiceInterface
 {
     const DEFAULT_NAME = 'HomeService';
-    const DEFAULT_METHOD_HOME = 'home';
-    const DEFAULT_METHOD_INIT = 'init';
+    const DEFAULT_METHOD_HOME = '__home__';
+    const DEFAULT_METHOD_INIT = '__init__';
 
     public function home();
 }
