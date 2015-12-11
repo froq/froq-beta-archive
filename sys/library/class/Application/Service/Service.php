@@ -9,18 +9,12 @@ abstract class Service
     protected $app;
     protected $name;
     protected $method;
-    protected $uriPath;
-    protected $requestMethods = [];
+    protected $methodAccept;
+    protected $uri;
+    protected $allowedRequestMethods = [];
 
     public function __construct($name = null) {
         $this->name = $name;
-    }
-
-    final public function isRequestMethodAllowed($requestMethod) {
-        if (empty($this->requestMethods)) {
-            return true;
-        }
-        return in_array($requestMethod, $this->requestMethods);
     }
 
     final public function isHome() {
@@ -43,7 +37,11 @@ abstract class Service
         return $this->callMethod(ServiceInterface::DEFAULT_METHOD_HOME);
     }
     final public function callMethodInvoked() {
-        return $this->callMethod($this->method);
+        if ($this->methodAccept) {
+            return $this->callMethod($this->method);
+        }
+        // always use home method
+        return $this->callMethodHome();
     }
 
     final public function setApp($app) {
@@ -70,19 +68,32 @@ abstract class Service
         return $this->method;
     }
 
-    final public function setUriPath(UriPath $uriPath) {
-        $this->uriPath = $uriPath;
+    final public function setUri(UriPath $uri) {
+        $this->uri = $uri;
         return $this;
     }
-    final public function getUriPath() {
-        return $this->uriPath;
+    final public function getUri() {
+        return $this->uri;
     }
 
-    final public function setRequestMethods(...$requestMethods) {
-        $this->requestMethods = $requestMethods;
+    final public function setMethodAccept($methodAccept) {
+        $this->methodAccept = $methodAccept;
+    }
+    final public function getMethodAccept() {
+        return $this->methodAccept;
+    }
+
+    final public function isRequestMethodAllowed($requestMethod) {
+        if (empty($this->allowedRequestMethods)) {
+            return true;
+        }
+        return in_array($requestMethod, $this->allowedRequestMethods);
+    }
+    final public function setAllowedRequestMethods(...$allowedRequestMethods) {
+        $this->allowedRequestMethods = $allowedRequestMethods;
         return $this;
     }
-    final public function getRequestMethods() {
-        return $this->requestMethods;
+    final public function getAllowedRequestMethods() {
+        return $this->allowedRequestMethods;
     }
 }
