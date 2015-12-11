@@ -6,5 +6,5 @@ interface ServiceInterface
     const DEFAULT_METHOD_HOME = '__home__';
     const DEFAULT_METHOD_INIT = '__init__';
 
-    public function home();
+    public function __home__();
 }
