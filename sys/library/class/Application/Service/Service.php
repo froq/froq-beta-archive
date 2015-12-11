@@ -10,7 +10,7 @@ abstract class Service
     protected $app;
     protected $name;
     protected $method;
-    protected $methodAccept;
+    protected $mainOnly;
     protected $allowedRequestMethods = [];
     protected $config;
 
@@ -46,11 +46,11 @@ abstract class Service
         return $this->callMethod(ServiceInterface::METHOD_AFTER, false);
     }
     final public function callMethodInvoked() {
-        if ($this->methodAccept) {
-            return $this->callMethod($this->method);
+        // always uses main method
+        if ($this->mainOnly) {
+            return $this->callMethodMain();
         }
-        // always use home method
-        return $this->callMethodMain();
+        return $this->callMethod($this->method);
     }
 
     final public function setApp(Application $app) {
@@ -77,11 +77,11 @@ abstract class Service
         return $this->method;
     }
 
-    final public function setMethodAccept($methodAccept) {
-        $this->methodAccept = $methodAccept;
+    final public function setMainOnly($mainOnly) {
+        $this->mainOnly = (bool) $mainOnly;
     }
-    final public function getMethodAccept() {
-        return $this->methodAccept;
+    final public function getMainOnly() {
+        return $this->mainOnly;
     }
 
     final public function isRequestMethodAllowed($requestMethod) {
