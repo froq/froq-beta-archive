@@ -1,13 +1,13 @@
 <?php namespace Application;
 
-use \Application\Http\Uri\Uri,
-    \Application\Http\Uri\UriPath;
-use \Application\Service\ServiceAdapter,
-    \Application\Service\ServiceInterface;
-use \Application\Http\Request,
-    \Application\Http\Response;
-use \Application\Util\Traits\SingleTrait,
-    \Application\Util\Traits\SetGetTrait;
+use Application\Http\Uri\Uri,
+    Application\Http\Uri\UriPath;
+use Application\Service\ServiceAdapter,
+    Application\Service\ServiceInterface;
+use Application\Http\Request,
+    Application\Http\Response;
+use Application\Util\Traits\SingleTrait,
+    Application\Util\Traits\SetGetTrait;
 
 final class Application
 {
