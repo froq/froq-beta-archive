@@ -9,7 +9,7 @@ final class ServiceAdapter
     private $serviceName;
     private $serviceNameDefault = ServiceInterface::DEFAULT_NAME;
     private $serviceMethod;
-    private $serviceMethodDefault = ServiceInterface::DEFAULT_METHOD_HOME;
+    private $serviceMethodDefault = ServiceInterface::METHOD_MAIN;
     private $serviceFile;
 
     final public function __construct(Application $app) {

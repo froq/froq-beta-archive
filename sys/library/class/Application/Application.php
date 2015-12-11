@@ -73,7 +73,7 @@ final class Application
         $this->startOutputBuffer();
         $this->service->callMethodBefore();
         if ($this->service->isHome()) {
-            print $this->service->callMethodHome();
+            print $this->service->callMethodMain();
         } else {
             print $this->service->callMethodInvoked();
         }

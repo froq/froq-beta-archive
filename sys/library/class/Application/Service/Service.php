@@ -36,8 +36,8 @@ abstract class Service
     final public function callMethodInit() {
         return $this->callMethod(ServiceInterface::METHOD_INIT, false);
     }
-    final public function callMethodHome() {
-        return $this->callMethod(ServiceInterface::METHOD_HOME);
+    final public function callMethodMain() {
+        return $this->callMethod(ServiceInterface::METHOD_MAIN);
     }
     final public function callMethodBefore() {
         return $this->callMethod(ServiceInterface::METHOD_BEFORE, false);
@@ -50,7 +50,7 @@ abstract class Service
             return $this->callMethod($this->method);
         }
         // always use home method
-        return $this->callMethodHome();
+        return $this->callMethodMain();
     }
 
     final public function setApp(Application $app) {
