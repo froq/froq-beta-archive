@@ -2,7 +2,7 @@
 
 interface ServiceInterface
 {
-    const DEFAULT_NAME = 'HomeService';
+    const DEFAULT_SERVICE = 'HomeService';
 
     const METHOD_INIT   = '_init',
           METHOD_MAIN   = '_main',

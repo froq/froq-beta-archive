@@ -7,7 +7,7 @@ final class ServiceAdapter
 {
     private $app;
     private $serviceName;
-    private $serviceNameDefault = ServiceInterface::DEFAULT_NAME;
+    private $serviceNameDefault = ServiceInterface::DEFAULT_SERVICE;
     private $serviceMethod;
     private $serviceMethodDefault = ServiceInterface::METHOD_MAIN;
     private $serviceFile;
