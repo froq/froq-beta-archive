@@ -18,12 +18,9 @@ trait SetterTrait
      * @throws \Exception
      */
     public function __set($name, $value) {
-        // get user class
-        $object = get_called_class();
-
-        if (!property_exists($object, $name)) {
+        if (!property_exists($this, $name)) {
             throw new \Exception(sprintf(
-                '`%s` property does not exists on `%s` object!', $name, $object));
+                '`%s` property does not exists on `%s` object!', $name, get_class($this)));
         }
 
         $this->{$name} = $value;
