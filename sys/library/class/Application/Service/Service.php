@@ -17,6 +17,9 @@ abstract class Service
     }
 
     final public function isRequestMethodAllowed($requestMethod) {
+        if (empty($this->requestMethods)) {
+            return true;
+        }
         return in_array($requestMethod, $this->requestMethods);
     }
 
