@@ -49,6 +49,12 @@ function dig(array $array = null, $key, $valueDefault = null) {
     return ($value !== null) ? $value : $valueDefault;
 }
 
+if (!function_exists('boolval')) {
+    function boolval($value) {
+        return (bool) $value;
+    }
+}
+
 // @tmp debug
 function _prp($s) {
     $p = '';
