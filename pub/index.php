@@ -16,7 +16,13 @@ $app = include('./sys/Boot.php');
 $cfg = include('./app/global/cfg.php');
 
 /**
+ * Application env.
+ */
+$env = Application\Application::ENV_DEV;
+
+/**
  * Set application config and run application.
  */
-$app->setConfig($cfg)
+$app->setEnv($env)
+    ->setConfig($cfg)
     ->run();

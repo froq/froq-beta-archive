@@ -15,6 +15,11 @@ final class Application
     use SingleTrait;
     use GetterTrait;
 
+    const ENV_DEV = 'dev',
+          ENV_STAGE = 'stage',
+          ENV_PRODUCTION  = 'production';
+
+    private $env;
     private $config;
     private $service;
     private $request, $response;
@@ -97,6 +102,11 @@ final class Application
         }
         $this->service->callMethodAfter();
         $this->endOutputBuffer();
+    }
+
+    final public function setEnv($env) {
+        $this->env = $env;
+        return $this;
     }
 
     final public function setConfig(array $config) {
