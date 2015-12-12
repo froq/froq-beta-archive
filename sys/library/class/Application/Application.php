@@ -125,6 +125,16 @@ final class Application
         print $output;
     }
 
+    final public function isDev() {
+        return $this->env = self::ENV_DEV;
+    }
+    final public function isStage() {
+        return $this->env = self::ENV_STAGE;
+    }
+    final public function isProduction() {
+        return $this->env = self::ENV_PRODUCTION;
+    }
+
     final private function halt($status = null) {
         if ($status) {
             $status = sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status);
