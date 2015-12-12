@@ -1,4 +1,2 @@
 <?php
-return [
-    'x' => ['y' => 1],
-];
+return [];
