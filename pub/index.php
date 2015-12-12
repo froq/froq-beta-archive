@@ -8,12 +8,12 @@ chdir(dirname(__dir__));
  * Include bootstrap that registers
  * Autoload and returns Application.
  */
-$app = include('./sys/Boot.php');
+$app = require('./sys/Boot.php');
 
 /**
  * User app config.
  */
-$cfg = include('./app/global/cfg.php');
+$cfg = require('./app/global/cfg.php');
 
 /**
  * Application env.
