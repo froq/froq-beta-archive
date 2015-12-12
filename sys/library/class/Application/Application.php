@@ -49,7 +49,7 @@ final class Application
     }
 
     final public function run() {
-        if (empty($this->config)) {
+        if (!$this->config) {
             throw new \RuntimeException('Call setConfig() first to get run application!');
         }
 
@@ -110,7 +110,7 @@ final class Application
     }
 
     final public function setConfig(array $config) {
-        if (empty($this->config)) {
+        if (!$this->config) {
             $this->config = new Config($config);
         } else {
             $this->config->setData(
