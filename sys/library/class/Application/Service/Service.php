@@ -4,10 +4,13 @@ use Application\Application,
     Application\Application\View,
     Application\Application\Config,
     Application\Application\Exception;
+use Application\Util\Traits\GetterTrait;
 
 abstract class Service
     implements ServiceInterface
 {
+    use GetterTrait;
+
     protected $app;
 
     protected $name;
