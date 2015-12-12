@@ -13,7 +13,7 @@ class BookService extends Service
     }
 
     public function _main() {
-        $this->model->id = 1;
-        pre($this->model);
+        $this->view('main');
+        $this->view->display('main');
     }
 }
