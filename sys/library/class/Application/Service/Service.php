@@ -34,6 +34,10 @@ abstract class Service
         $this->loadConfig();
         $this->loadModel();
         $this->view = new View($this);
+
+        if (!empty($this->allowedRequestMethods)) {
+            $this->allowedRequestMethods = array_map('strtoupper', $this->allowedRequestMethods);
+        }
     }
 
     final public function isHome() {
@@ -100,7 +104,7 @@ abstract class Service
         return in_array($requestMethod, $this->allowedRequestMethods);
     }
     final public function setAllowedRequestMethods(...$allowedRequestMethods) {
-        $this->allowedRequestMethods = $allowedRequestMethods;
+        $this->allowedRequestMethods = array_map('strtoupper', $allowedRequestMethods);
         return $this;
     }
     final public function getAllowedRequestMethods() {
