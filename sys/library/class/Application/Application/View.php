@@ -4,8 +4,8 @@ use Application\Service\Service;
 
 final class View
 {
-    const PARTIAL_HEAD = 'head',
-          PARTIAL_FOOT = 'foot';
+    const PARTIAL_HEAD = 'partial/head',
+          PARTIAL_FOOT = 'partial/foot';
 
     private $service;
 
