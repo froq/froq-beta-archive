@@ -24,6 +24,8 @@ final class Application
         // set app as global
         set_global('app', $this);
 
+        $this->setConfig(include('./sys/global/cfg.php'));
+
         // load sys helpers
         foreach (glob('./sys/library/function/*.php') as $file) {
             require_once($file);
@@ -97,8 +99,13 @@ final class Application
         $this->endOutputBuffer();
     }
 
-    final public function setConfig(Config $config) {
-        $this->config = $config;
+    final public function setConfig(array $config) {
+        if (empty($this->config)) {
+            $this->config = new Config($config);
+        } else {
+            $this->config->setData(
+                Config::merge($this->config->getData(), $config));
+        }
         return $this;
     }
 
