@@ -15,9 +15,7 @@ $app = include('./sys/Boot.php');
 $cfg = new Application\Application\Config('./app/global/cfg.php', true);
 
 /**
- * Set application config.
- * Set application defaults.
- * Run application.
+ * Set application config and run application.
  */
 $app->setConfig($cfg)
     ->run();
