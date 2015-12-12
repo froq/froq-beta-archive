@@ -83,7 +83,7 @@ final class Application
     }
 
     final public function setConfig(array $config) {
-        if (!$this->config) {
+        if ($this->config == null) {
             $this->config = new Config($config);
         } else {
             $this->config->setData(
