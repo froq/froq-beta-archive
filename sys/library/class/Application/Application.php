@@ -24,8 +24,10 @@ final class Application
         // set app as global
         set_global('app', $this);
 
-        $this->request = new Request();
-        $this->db = new Database();
+        // load sys helpers
+        foreach (glob('./sys/library/function/*.php') as $file) {
+            require_once($file);
+        }
 
         // load app globals
         if (is_file($file = './app/global/def.php')) {
@@ -34,6 +36,9 @@ final class Application
         if (is_file($file = './app/global/fun.php')) {
             require_once($file);
         }
+
+        $this->request = new Request();
+        $this->db = new Database();
     }
 
     final public function run() {
