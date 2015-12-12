@@ -99,9 +99,6 @@ final class Application
         $this->config = $config;
         return $this;
     }
-    final public function getConfig() {
-        return $this->config;
-    }
 
     final public function setDefaults() {
         $cfg = ['locale'   => $this->config->get('app.locale'),
