@@ -1,7 +1,5 @@
 <?php
-/**
- * Is function module.
- */
+/*** Is function module. ***/
 
 /**
  * Check env is local.
