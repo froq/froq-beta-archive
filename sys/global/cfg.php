@@ -2,36 +2,36 @@
 /**
  * Default configuration file.
  */
-$config = [];
+$cfg = [];
 
 /**
  * Application options.
  */
-$config['app'] = [];
+$cfg['app'] = [];
 
 // load avg
-$config['app']['loadAvg'] = 85.01;
+$cfg['app']['loadAvg'] = 85.01;
 
 // protocols
-$config['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
-$config['app']['https'] = 'https://'. $_SERVER['SERVER_NAME'];
+$cfg['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
+$cfg['app']['https'] = 'https://'. $_SERVER['SERVER_NAME'];
 
 // directories
-$config['app']['dir'] = [
+$cfg['app']['dir'] = [
     'tmp' => root .'/.tmp',
     'class' => root .'/sys/library/class',
     'function' => root .'/sys/library/function',
 ];
 
 // defaults
-$config['app']['language'] = 'en';
-$config['app']['timezone'] = 'UTC';
-$config['app']['encoding'] = 'utf-8';
-$config['app']['locale']   = 'en_US';
-$config['app']['locales']  = ['en_US' => 'English'];
+$cfg['app']['language'] = 'en';
+$cfg['app']['timezone'] = 'UTC';
+$cfg['app']['encoding'] = 'utf-8';
+$cfg['app']['locale']   = 'en_US';
+$cfg['app']['locales']  = ['en_US' => 'English'];
 
 // initial headers
-$config['app']['headers'] = [
+$cfg['app']['headers'] = [
     'Expires' => 'Thu, 19 Nov 1981 08:10:00 GMT',
     'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0',
     'Pragma' => 'no-cache',
@@ -44,35 +44,35 @@ $config['app']['headers'] = [
 ];
 
 // initial cookies
-$config['app']['cookies'] = [];
+$cfg['app']['cookies'] = [];
 
 // session
-$config['app']['session'] = [
+$cfg['app']['session'] = [
     'name'      => 'SID',   'domain'   => null,
     'path'      => '/',     'secure'   => false,
     'httponly'  => false,   'lifetime' => 0,
-    'save_path' => $config['app']['dir']['tmp'] .'/session',
+    'save_path' => $cfg['app']['dir']['tmp'] .'/session',
     'length'    => 128, // 128-bit
 ];
 
 /**
  * Security options.
  */
-$config['security'] = [];
-$config['security']['maxRequest'] = 100;
-$config['security']['allowEmptyUserAgent'] = false;
-$config['security']['allowFileExtensionSniff'] = false;
+$cfg['security'] = [];
+$cfg['security']['maxRequest'] = 100;
+$cfg['security']['allowEmptyUserAgent'] = false;
+$cfg['security']['allowFileExtensionSniff'] = false;
 
 /**
  * Etc. options.
  */
-$config['etc'] = [];
+$cfg['etc'] = [];
 
 // pager
-$config['etc']['pager'] = [
+$cfg['etc']['pager'] = [
     's'     => 's',   // start
     'ss'    => 'ss',  // stop
     'limit' => 10,    // limit
 ];
 
-return $config;
+return $cfg;
