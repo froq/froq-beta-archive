@@ -114,7 +114,7 @@ final class Application
             $this->config = new Config($config);
         } else {
             $this->config->setData(
-                Config::merge($this->config->getData(), $config));
+                Config::merge($config, $this->config->getData()));
         }
         return $this;
     }
