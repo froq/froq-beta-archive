@@ -5,7 +5,7 @@ use Application\Service\Service;
 
 class BookService extends Service
 {
-    protected $mainOnly = true;
+    protected $useMainOnly = true;
     protected $allowedRequestMethods = [Request::METHOD_GET, Request::METHOD_POST];
 
     public function _init() {

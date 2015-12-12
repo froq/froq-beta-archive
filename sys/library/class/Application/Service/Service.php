@@ -20,7 +20,8 @@ abstract class Service
 
     protected $config;
 
-    protected $mainOnly = false;
+    protected $useMainOnly = false;
+
     protected $allowedRequestMethods = [];
 
     public function __construct($name) {
@@ -58,7 +59,7 @@ abstract class Service
     }
     final public function callMethodInvoked() {
         // always uses main method
-        if ($this->mainOnly) {
+        if ($this->useMainOnly) {
             return $this->callMethodMain();
         }
         return $this->callMethod($this->method);
@@ -86,13 +87,6 @@ abstract class Service
     }
     final public function getMethod() {
         return $this->method;
-    }
-
-    final public function setMainOnly($mainOnly) {
-        $this->mainOnly = (bool) $mainOnly;
-    }
-    final public function getMainOnly() {
-        return $this->mainOnly;
     }
 
     final public function isRequestMethodAllowed($requestMethod) {
