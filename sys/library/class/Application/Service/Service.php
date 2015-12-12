@@ -2,8 +2,7 @@
 
 use Application\Application,
     Application\Application\View,
-    Application\Application\Config,
-    Application\Application\Exception;
+    Application\Application\Config;
 use Application\Util\Traits\GetterTrait;
 
 abstract class Service
@@ -41,7 +40,7 @@ abstract class Service
             return $this->{$method}();
         }
         if ($halt) {
-            throw new Exception(sprintf('`%s` method not found on `%s`',
+            throw new \Exception(sprintf('`%s` method not found on `%s`',
                 $method, get_called_class()));
         }
     }

@@ -1,7 +1,6 @@
 <?php namespace Application;
 
-use Application\Application\Config,
-    Application\Application\Exception;
+use Application\Application\Config;
 use Application\Http\Uri\Uri;
 use Application\Http\Request,
     Application\Http\Response;
@@ -59,7 +58,7 @@ final class Application
 
         $serviceAdapter = new ServiceAdapter($this);
         if (!$serviceAdapter->isServiceExists()) {
-            throw new Exception(sprintf(
+            throw new \Exception(sprintf(
                 'Service not found! name: %s', $serviceAdapter->getServiceName()));
         }
 

@@ -1,7 +1,6 @@
 <?php namespace Application\Database\Model;
 
 use Application\Application;
-use Application\Application\Exception;
 use Application\Database\Model\Table\Mysql,
     Application\Database\Model\Table\Couch,
     Application\Database\Model\Table\Mongo;
@@ -20,7 +19,7 @@ abstract class Model
                     $this->tableName, $this->tablePrimary);
                 break;
             default:
-                throw new Exception('Unimplemented vendor given!');
+                throw new \Exception('Unimplemented vendor given!');
         }
         // copy public vars as data
         $vars = array_diff(

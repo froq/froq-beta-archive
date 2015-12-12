@@ -1,7 +1,6 @@
 <?php namespace Application\Database;
 
 use Application\Application;
-use Application\Application\Exception;
 use Application\Database\Vendor\Mysql,
     Application\Database\Vendor\Couch,
     Application\Database\Vendor\Mongo;
@@ -26,12 +25,12 @@ final class Database
         switch ($vendor) {
             case self::VENDOR_MYSQL:
                 if (!isset($dbConfig[self::VENDOR_MYSQL][$app->env])) {
-                    throw new Exception('MySQL options not found in config!');
+                    throw new \Exception('MySQL options not found in config!');
                 }
                 $db = Mysql::init($dbConfig[self::VENDOR_MYSQL][$app->env]);
                 break;
             default:
-                throw new Exception('Unimplemented vendor given!');
+                throw new \Exception('Unimplemented vendor given!');
         }
 
         return (self::$instances[$vendor] = $db);
