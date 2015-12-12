@@ -6,8 +6,6 @@ ob_start();
  * Application constants.
  * @const bool, bool, float
  */
-define('APP_TEST', true);
-define('APP_DEBUG', true);
 define('APP_START_TIME', microtime(true));
 
 /**
