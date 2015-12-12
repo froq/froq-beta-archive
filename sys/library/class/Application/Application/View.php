@@ -11,13 +11,18 @@ final class View
     }
 
     final public function display($file, array $data = null) {
-        $file = sprintf('./app/service/%s/view/%s.php', $this->service->getName(), $file);
-        if (!is_file($file)) {
-            throw new \RuntimeException('View file not found! file: '. $file);
-        }
+        $file = $this->prepareFile($file);
 
         extract((array) $data);
 
         return include($file);
+    }
+
+    final public function prepareFile($file) {
+        $file = sprintf('./app/service/%s/view/%s.php', $this->service->getName(), $file);
+        if (!is_file($file)) {
+            throw new \RuntimeException('View file not found! file: '. $file);
+        }
+        return $file;
     }
 }
