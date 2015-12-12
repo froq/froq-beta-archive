@@ -127,8 +127,7 @@ abstract class Service
     }
 
     final public function view($file, array $data = null) {
-        if ($this->useViewPartialAll || (
-            $this->useViewPartialHead && $this->useViewPartialFoot)) {
+        if ($this->useViewPartialAll || ($this->useViewPartialHead && $this->useViewPartialFoot)) {
             $this->view->displayHead($data);
             $this->view->display($file, $data);
             $this->view->displayFoot($data);
