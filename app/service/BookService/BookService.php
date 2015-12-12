@@ -1,12 +1,12 @@
 <?php defined('root') or die('Access denied!');
 
-use Application\Http\Request;
 use Application\Service\Service;
 
 class BookService extends Service
 {
     protected $useMainOnly = true;
-    protected $allowedRequestMethods = [Request::METHOD_GET, Request::METHOD_POST];
+    protected $useViewPartialAll = true;
+    protected $allowedRequestMethods = ['GET', 'POST'];
 
     public function _init() {
         $this->model = new BookModel();
