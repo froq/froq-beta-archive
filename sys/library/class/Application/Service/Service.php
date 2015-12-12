@@ -119,8 +119,7 @@ abstract class Service
         return $this;
     }
     final public function loadModel() {
-        $file = sprintf('./app/service/%s/model/%sModel.php',
-            $this->name, substr($this->name, 0, -strlen('Service')));
+        $file = sprintf('./app/service/%s/model/model.php', $this->name);
         if (is_file($file)) {
             include($file);
         }
