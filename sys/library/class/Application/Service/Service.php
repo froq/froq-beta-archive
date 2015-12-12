@@ -1,26 +1,32 @@
 <?php namespace Application\Service;
 
-use \Application\Application;
-use \Application\Application\Config;
-use \Application\Application\Exception;
+use Application\Application;
+    Application\Application\Front,
+    Application\Application\Config,
+    Application\Application\Exception;
 
 abstract class Service
     implements ServiceInterface
 {
     protected $app;
+
     protected $name;
     protected $method;
+
+    protected $model;
+    protected $front;
+
+    protected $config;
+
     protected $mainOnly = false;
     protected $allowedRequestMethods = [];
-    protected $config;
-    protected $model;
 
     public function __construct($name = null) {
         $this->name = $name;
+        $this->front = new Front();
         // autoloads
         $this->loadConfig();
         $this->loadModel();
-        $this->loadView();
     }
 
     final public function isHome() {
@@ -116,5 +122,4 @@ abstract class Service
         }
         return $this;
     }
-    final public function loadView() {}
 }
