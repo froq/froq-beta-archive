@@ -10,7 +10,7 @@ abstract class Service
     protected $app;
     protected $name;
     protected $method;
-    protected $mainOnly;
+    protected $mainOnly = false;
     protected $allowedRequestMethods = [];
     protected $config;
     protected $model;
