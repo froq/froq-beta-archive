@@ -33,7 +33,7 @@ define('root', __dir__ .'/..', true);
  * Used to detect development environment.
  * @const bool
  */
-define('local', (bool) strstr($_SERVER['SERVER_NAME'], '.local'), true);
+define('local', ((bool) strstr($_SERVER['SERVER_NAME'], '.local')), true);
 
 /**
  * HTTP/HTTPS constants.
