@@ -20,7 +20,7 @@ $cfg = require('./app/global/cfg.php');
  */
 $env = Application\Application::ENV_PRODUCTION;
 if (is_local()) {
-    $env = Application::ENV_DEV;
+    $env = Application\Application::ENV_DEV;
 }
 
 /**
