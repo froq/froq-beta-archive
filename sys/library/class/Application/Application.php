@@ -46,6 +46,8 @@ final class Application
             throw new \RuntimeException('Call setConfig() first to get run application!');
         }
 
+        $this->setDefaults();
+
         // check request count
         $maxRequest = $this->config->get('security.maxRequest');
         if ($maxRequest && count($_REQUEST) > $maxRequest) {

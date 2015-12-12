@@ -20,5 +20,4 @@ $cfg = new Application\Application\Config('./app/global/cfg.php', true);
  * Run application.
  */
 $app->setConfig($cfg)
-    ->setDefaults()
     ->run();
