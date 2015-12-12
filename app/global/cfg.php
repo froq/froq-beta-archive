@@ -24,7 +24,19 @@ $cfg['app']['locales'] = [
  */
 $cfg['db'] = [];
 // mysql
-$cfg['db']['mysql'] = [];
+$cfg['db']['mysql']['dev'] = [
+    'agent' => 'mysqli',
+    'profiling' => true,
+    'query_log' => true,
+    'query_log_level' => Oppa\Logger::WARN | Oppa\Logger::FAIL,
+    'query_log_directory' => $app->config->get('app.dir.tmp') .'/log/db/',
+    'query_log_filename_format' => 'Y-m-d',
+    'database' => [
+        'host'     => 'localhost',  'name'     => 'shobbr',
+        'username' => 'root',       'password' => '********',
+        'charset'  => 'utf8',       'timezone' => '+00:00',
+    ],
+];
 
 /**
  * Etc. options.
