@@ -5,14 +5,15 @@
 chdir(dirname(__dir__));
 
 /**
- * Include bootstrap that registers Autoload and returns Application.
+ * Include bootstrap that registers
+ * Autoload and returns Application.
  */
 $app = include('./sys/Boot.php');
 
 /**
- * New application config with user config.
+ * User app config.
  */
-$cfg = new Application\Application\Config('./app/global/cfg.php', true);
+$cfg = include('./app/global/cfg.php');
 
 /**
  * Set application config and run application.
