@@ -5,7 +5,7 @@
 chdir(dirname(__dir__));
 
 /**
- * Include bootstrap that returns Application.
+ * Include bootstrap that registers Autoload and returns Application.
  */
 $app = include('./sys/Boot.php');
 
