@@ -28,7 +28,7 @@ final class Database
                 if (!isset($dbConfig[self::VENDOR_MYSQL][$app->env])) {
                     throw new Exception('MySQL options not found in config!');
                 }
-                $db = new Mysql($dbConfig[self::VENDOR_MYSQL][$app->env]);
+                $db = Mysql::init($dbConfig[self::VENDOR_MYSQL][$app->env]);
                 break;
             default:
                 throw new Exception('Unimplemented vendor given!');
