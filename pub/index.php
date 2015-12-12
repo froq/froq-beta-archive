@@ -12,7 +12,7 @@ $app = include('./sys/Boot.php');
 /**
  * New application config with user config.
  */
-$cfg = new Application\Config('./app/global/cfg.php', true);
+$cfg = new Application\Application\Config('./app/global/cfg.php', true);
 
 /**
  * Set application config.

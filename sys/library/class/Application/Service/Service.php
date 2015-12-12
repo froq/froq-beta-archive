@@ -2,7 +2,7 @@
 
 use \Application\Exception;
 use \Application\Application;
-use \Application\Config;
+use \Application\Application\Config;
 
 abstract class Service
     implements ServiceInterface

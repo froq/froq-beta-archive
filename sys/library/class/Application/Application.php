@@ -1,14 +1,14 @@
 <?php namespace Application;
 
-use Application\Http\Uri\Uri,
-    Application\Http\Uri\UriPath;
-use Application\Service\ServiceAdapter,
-    Application\Service\ServiceInterface;
+use Application\Application\Config,
+    Application\Application\Exception;
+use Application\Http\Uri\Uri;
 use Application\Http\Request,
     Application\Http\Response;
-use Application\Database\Database;
+use Application\Service\ServiceAdapter;
 use Application\Util\Traits\SingleTrait,
     Application\Util\Traits\GetterTrait;
+use Application\Database\Database;
 
 final class Application
 {
