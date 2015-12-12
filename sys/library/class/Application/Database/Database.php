@@ -16,10 +16,6 @@ final class Database
 
     final public function __construct() {}
 
-    final public function model($name) {
-        return new $name();
-    }
-
     final public static function init($vendor) {
         if (isset(self::$instances[$vendor])) {
             return self::$instances[$vendor];
