@@ -1,7 +1,7 @@
 <?php namespace Application\Database\Model;
 
 use Application\Application;
-use Application\Exception;
+use Application\Application\Exception;
 use Application\Database\Model\Table\Mysql,
     Application\Database\Model\Table\Couch,
     Application\Database\Model\Table\Mongo;

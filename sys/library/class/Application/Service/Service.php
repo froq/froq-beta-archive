@@ -1,8 +1,8 @@
 <?php namespace Application\Service;
 
-use \Application\Exception;
 use \Application\Application;
 use \Application\Application\Config;
+use \Application\Application\Exception;
 
 abstract class Service
     implements ServiceInterface

@@ -1,7 +1,7 @@
 <?php namespace Application\Service;
 
-use \Application\Exception;
 use \Application\Application;
+use \Application\Application\Exception;
 
 final class ServiceAdapter
 {
