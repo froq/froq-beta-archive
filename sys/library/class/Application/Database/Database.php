@@ -1,6 +1,5 @@
 <?php namespace Application\Database;
 
-use Application\Application;
 use Application\Database\Vendor\Mysql,
     Application\Database\Vendor\Couch,
     Application\Database\Vendor\Mongo;
