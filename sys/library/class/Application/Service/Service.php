@@ -1,7 +1,7 @@
 <?php namespace Application\Service;
 
 use Application\Application,
-    Application\Application\Front,
+    Application\Application\View,
     Application\Application\Config,
     Application\Application\Exception;
 
@@ -14,19 +14,19 @@ abstract class Service
     protected $method;
 
     protected $model;
-    protected $front;
+    protected $view;
 
     protected $config;
 
     protected $mainOnly = false;
     protected $allowedRequestMethods = [];
 
-    public function __construct($name = null) {
+    public function __construct($name) {
         $this->name = $name;
-        $this->front = new Front();
         // autoloads
         $this->loadConfig();
         $this->loadModel();
+        $this->view = new View($this);
     }
 
     final public function isHome() {
@@ -121,5 +121,9 @@ abstract class Service
             include($file);
         }
         return $this;
+    }
+
+    final public function view($file, array $data = null) {
+        return $this->view->display($file, $data);
     }
 }
