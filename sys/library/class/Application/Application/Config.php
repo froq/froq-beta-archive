@@ -15,7 +15,10 @@ final class Config
         $this->setData($data);
     }
 
-    final public function set($key, $value) {}
+    final public function set($key, $value) {
+        $this->data[$key] = $value;
+        return $this;
+    }
     final public function get($key, $valueDefault = null) {
         return dig($this->data, $key, $valueDefault);
     }
