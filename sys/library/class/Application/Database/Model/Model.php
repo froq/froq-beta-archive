@@ -1,10 +1,9 @@
 <?php namespace Application\Database\Model;
 
-use Application\Application;
+use Application\Database\Database;
 use Application\Database\Model\Table\Mysql,
     Application\Database\Model\Table\Couch,
     Application\Database\Model\Table\Mongo;
-use Application\Database\Database;
 
 abstract class Model
 {
