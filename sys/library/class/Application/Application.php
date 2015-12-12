@@ -55,34 +55,7 @@ final class Application
 
         $this->setDefaults();
 
-        // check request count
-        $maxRequest = $this->config->get('security.maxRequest');
-        if ($maxRequest && count($_REQUEST) > $maxRequest) {
-            self::halt('429 Too Many Requests');
-        }
-        // check user agent
-        $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
-        if ($allowEmptyUserAgent === false && (
-            !isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
-            self::halt('400 Bad Request');
-        }
-        // check client host
-        $hosts = $this->config->get('app.hosts');
-        if (!empty($hosts) && (
-            !isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
-            self::halt('400 Bad Request');
-        }
-        // check file extension
-        $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
-        if ($allowFileExtensionSniff === false &&
-            preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
-                parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-            self::halt('400 Bad Request');
-        }
-        // check service load
-        if (sys_getloadavg()[0] > $this->config->get('app.loadAvg')) {
-            self::halt('503 Service Unavailable');
-        }
+        $this->haltCheck();
 
         $serviceAdapter = new ServiceAdapter($this);
         if (!$serviceAdapter->isServiceExists()) {
@@ -162,5 +135,36 @@ final class Application
         header('Content-Length: 0');
         header_remove('X-Powered-By');
         exit(1);
+    }
+
+    final private function haltCheck() {
+        // check request count
+        $maxRequest = $this->config->get('security.maxRequest');
+        if ($maxRequest && count($_REQUEST) > $maxRequest) {
+            $this->halt('429 Too Many Requests');
+        }
+        // check user agent
+        $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
+        if ($allowEmptyUserAgent === false && (
+            !isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
+            $this->halt('400 Bad Request');
+        }
+        // check client host
+        $hosts = $this->config->get('app.hosts');
+        if (!empty($hosts) && (
+            !isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
+            $this->halt('400 Bad Request');
+        }
+        // check file extension
+        $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
+        if ($allowFileExtensionSniff === false &&
+            preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
+                parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
+            $this->halt('400 Bad Request');
+        }
+        // check service load
+        if (sys_getloadavg()[0] > $this->config->get('app.loadAvg')) {
+            $this->halt('503 Service Unavailable');
+        }
     }
 }
