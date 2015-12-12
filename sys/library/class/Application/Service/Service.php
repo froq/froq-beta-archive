@@ -1,6 +1,6 @@
 <?php namespace Application\Service;
 
-use Application\Application;
+use Application\Application,
     Application\Application\Front,
     Application\Application\Config,
     Application\Application\Exception;
