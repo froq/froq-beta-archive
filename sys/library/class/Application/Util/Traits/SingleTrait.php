@@ -27,11 +27,19 @@ trait SingleTrait
      *
      * @return object
      */
-    final public static function init() {
+    final public static function init(...$args) {
         $className = get_called_class();
         if (!isset(self::$__instances[$className])) {
-            // late-static-bound class name (that user subclass)
-            self::$__instances[$className] = new static();
+            // init without constructor
+            $classObject = (new \ReflectionClass($className))
+                ->newInstanceWithoutConstructor();
+
+            // call constructor if exists
+            if (method_exists($classObject, '__construct')) {
+                call_user_func_array([$classObject, '__construct'], $args);
+            }
+
+            self::$__instances[$className] = $classObject;
         }
 
         return self::$__instances[$className];
