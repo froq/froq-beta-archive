@@ -31,7 +31,7 @@ function get_global($key, $valueDefault = null) {
  */
 function app($prop = null) {
     $app = get_global('app');
-    return ($prop && isset($app->prop)) ? $app->$prop : $app;
+    return ($prop) ? $app->{$prop} : $app;
 }
 
 function dig(array $array = null, $key, $valueDefault = null) {
