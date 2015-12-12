@@ -28,11 +28,9 @@ final class ServiceAdapter
     }
 
     final public function createService() {
-        $service = (new $this->serviceName($this->serviceName))
+        return (new $this->serviceName($this->serviceName))
             ->setApp($this->app)
-            ->setMethod($this->serviceMethod)
-        ;
-        return $service;
+            ->setMethod($this->serviceMethod);
     }
 
     final public function isServiceExists() {
