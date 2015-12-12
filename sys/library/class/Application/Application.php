@@ -26,6 +26,14 @@ final class Application
 
         $this->request = new Request();
         $this->db = new Database();
+
+        // load app globals
+        if (is_file($file = './app/global/def.php')) {
+            require_once($file);
+        }
+        if (is_file($file = './app/global/fun.php')) {
+            require_once($file);
+        }
     }
 
     final public function run() {
