@@ -26,6 +26,7 @@ abstract class Service
               $useViewPartialHead = false,
               $useViewPartialFoot = false;
 
+    protected $validations = []; // @todo
     protected $allowedRequestMethods = [];
 
     public function __construct($name) {
