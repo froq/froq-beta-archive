@@ -22,6 +22,10 @@ abstract class Service
 
     protected $useMainOnly = false;
 
+    protected $useViewPartialAll  = false,
+              $useViewPartialHead = false,
+              $useViewPartialFoot = false;
+
     protected $allowedRequestMethods = [];
 
     public function __construct($name) {
@@ -120,6 +124,19 @@ abstract class Service
     }
 
     final public function view($file, array $data = null) {
-        return $this->view->display($file, $data);
+        if ($this->useViewPartialAll || (
+            $this->useViewPartialHead && $this->useViewPartialFoot)) {
+            $this->view->displayHead($data);
+            $this->view->display($file, $data);
+            $this->view->displayFoot($data);
+        } elseif ($this->useViewPartialHead && !$this->useViewPartialFoot) {
+            $this->view->displayHead($data);
+            $this->view->display($file, $data);
+        } elseif (!$this->useViewPartialHead && $this->useViewPartialFoot) {
+            $this->view->display($file, $data);
+            $this->view->displayFoot($data);
+        } else {
+            $this->view->display($file, $data);
+        }
     }
 }
