@@ -5,6 +5,10 @@
  * be used anywhere.                             *
  ************************************************/
 
+if (!isset($GLOBALS['@'])) {
+    $GLOBALS['@'] = [];
+}
+
 /**
  * Global setter.
  * @param string $key
@@ -68,7 +72,7 @@ function _prp($s) {
     return $p;
 }
 function prs($s, $e=false) {
-    print $_prp($s) . PHP_EOL;
+    print _prp($s) . PHP_EOL;
     $e && exit;
 }
 function pre($s, $e=false) {
