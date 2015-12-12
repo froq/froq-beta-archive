@@ -4,13 +4,16 @@ final class Config
 {
     private $data = [];
 
-    final public function __construct($data) {
+    final public function __construct($data, $merge = false) {
         if (is_string($data)) {
             $data = include($data);
         }
         if (!is_array($data)) {
             throw new \RuntimeException(
                 'Config data must be array or path to array file!');
+        }
+        if ($merge) {
+            $data = self::merge($this->data, $data);
         }
         $this->setData($data);
     }
