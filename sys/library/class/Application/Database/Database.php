@@ -25,10 +25,10 @@ final class Database
         $dbConfig = $app->config->get('db');
         switch ($vendor) {
             case self::VENDOR_MYSQL:
-                if (!isset($dbConfig[self::VENDOR_MYSQL])) {
+                if (!isset($dbConfig[self::VENDOR_MYSQL][$app->env])) {
                     throw new Exception('MySQL options not found in config!');
                 }
-                $db = new Mysql($dbConfig);
+                $db = new Mysql($dbConfig[self::VENDOR_MYSQL][$app->env]);
                 break;
             default:
                 throw new Exception('Unimplemented vendor given!');
