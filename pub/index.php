@@ -18,9 +18,9 @@ $cfg = require('./app/global/cfg.php');
 /**
  * Application env.
  */
-$env = Application\Application::ENV_PRODUCTION;
+$env = Application\Application::ENVIRONMENT_PRODUCTION;
 if (is_local()) {
-    $env = Application\Application::ENV_DEV;
+    $env = Application\Application::ENVIRONMENT_DEVELOPMENT;
 }
 
 /**

@@ -14,9 +14,9 @@ final class Application
     use SingleTrait;
     use GetterTrait;
 
-    const ENV_DEV = 'dev',
-          ENV_STAGE = 'stage',
-          ENV_PRODUCTION = 'production';
+    const ENVIRONMENT_DEVELOPMENT = 'development',
+          ENVIRONMENT_STAGE       = 'stage',
+          ENVIRONMENT_PRODUCTION  = 'production';
 
     private $env;
     private $config;

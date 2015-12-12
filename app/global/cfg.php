@@ -24,7 +24,7 @@ $cfg['app']['locales'] = [
  */
 $cfg['db'] = [];
 // mysql
-$cfg['db']['mysql']['dev'] = [
+$cfg['db']['mysql']['development'] = [
     'agent' => 'mysqli',
     'profiling' => true,
     'query_log' => true,
