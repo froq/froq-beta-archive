@@ -33,6 +33,7 @@ final class Config
 
     final public function setData(array $data) {
         $this->data = $data;
+        return $this;
     }
     final public function getData() {
         return $this->data;
