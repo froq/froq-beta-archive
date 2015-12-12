@@ -16,7 +16,7 @@ final class Application
 
     const ENV_DEV = 'dev',
           ENV_STAGE = 'stage',
-          ENV_PRODUCTION  = 'production';
+          ENV_PRODUCTION = 'production';
 
     private $env;
     private $config;
