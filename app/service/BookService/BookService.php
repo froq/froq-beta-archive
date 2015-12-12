@@ -14,6 +14,6 @@ class BookService extends Service
 
     public function _main() {
         $this->view('main');
-        $this->view->display('main');
+        // $this->view->display('main');
     }
 }
