@@ -36,4 +36,14 @@ final class Database
 
         return (self::$instances[$vendor] = $db);
     }
+
+    final public function initMysql() {
+        return self::init(self::VENDOR_MYSQL);
+    }
+    final public function initCouch() {
+        return self::init(self::VENDOR_COUCH);
+    }
+    final public function initMongo() {
+        return self::init(self::VENDOR_MONGO);
+    }
 }
