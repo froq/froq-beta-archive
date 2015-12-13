@@ -43,7 +43,7 @@ abstract class Service
     }
 
     final public function isHome() {
-        return ($this->method == '');
+        return empty($this->method);
     }
 
     final public function callMethod($method, $halt = true) {
