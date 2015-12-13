@@ -67,6 +67,8 @@ final class Application
         $this->startOutputBuffer();
 
         $this->service = $serviceAdapter->createService();
+        $this->service->callMethodInit();
+
         $this->service->callMethodBefore();
         if ($this->service->isHome()) {
             print $this->service->callMethodMain();

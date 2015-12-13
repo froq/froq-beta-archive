@@ -37,8 +37,6 @@ abstract class Service
         $this->loadModel();
         $this->view = new View($this);
 
-        $this->callMethodInit();
-
         if (!empty($this->allowedRequestMethods)) {
             $this->allowedRequestMethods = array_map('strtoupper', $this->allowedRequestMethods);
         }
