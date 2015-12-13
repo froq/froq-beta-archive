@@ -13,6 +13,7 @@ final class Request
           METHOD_DELETE = 'DELETE';
 
     private $method;
+    private $scheme;
     private $uri;
     private $params;
 
@@ -20,9 +21,16 @@ final class Request
         // set method
         $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
 
+        // set scheme
+        if (isset($_SERVER['REQUEST_SCHEME'])) {
+            $this->scheme = strtolower($_SERVER['REQUEST_SCHEME']);
+        } elseif (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443') {
+            $this->scheme = 'https';
+        } else {
+            $this->scheme = 'http';
+        }
+
         // set uri
-        $this->uri = new Uri(
-            'http'. (($_SERVER['SERVER_PORT'] == '443') ? 's' : '')
-                .'://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
+        $this->uri = new Uri($this->scheme .'://'. $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
     }
 }
