@@ -134,11 +134,8 @@ final class Application
         return $this->env = self::ENV_PRODUCTION;
     }
 
-    final private function halt($status = null) {
-        if ($status) {
-            $status = sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status);
-            header($status);
-        }
+    final private function halt($status) {
+        header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status));
         header('Connection: close');
         header('Content-Type: none');
         header('Content-Length: 0');
