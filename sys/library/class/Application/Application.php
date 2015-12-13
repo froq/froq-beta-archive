@@ -62,10 +62,8 @@ final class Application
                 'Service not found! name: %s', $serviceAdapter->getServiceName()));
         }
 
-        $this->service = $serviceAdapter->createService();
-        $this->service->callMethodInit();
-
         $this->startOutputBuffer();
+        $this->service = $serviceAdapter->createService();
         $this->service->callMethodBefore();
         if ($this->service->isHome()) {
             print $this->service->callMethodMain();
