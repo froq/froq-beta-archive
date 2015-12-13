@@ -54,7 +54,9 @@ final class Application
 
         $this->setDefaults();
 
-        $this->haltCheck();
+        if ($halt = $this->haltCheck()) {
+            $this->halt($halt);
+        }
 
         $serviceAdapter = new ServiceAdapter($this);
         if (!$serviceAdapter->isServiceExists()) {
@@ -148,30 +150,30 @@ final class Application
         // check request count
         $maxRequest = $this->config->get('security.maxRequest');
         if ($maxRequest && count($_REQUEST) > $maxRequest) {
-            $this->halt('429 Too Many Requests');
+            return '429 Too Many Requests';
         }
         // check user agent
         $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
         if ($allowEmptyUserAgent === false && (
             !isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
-            $this->halt('400 Bad Request');
+            return '400 Bad Request';
         }
         // check client host
         $hosts = $this->config->get('app.hosts');
         if (!empty($hosts) && (
             !isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
-            $this->halt('400 Bad Request');
+            return '400 Bad Request';
         }
         // check file extension
         $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
         if ($allowFileExtensionSniff === false &&
             preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
                 parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
-            $this->halt('400 Bad Request');
+            return '400 Bad Request';
         }
         // check service load
         if (sys_getloadavg()[0] > $this->config->get('app.loadAvg')) {
-            $this->halt('503 Service Unavailable');
+            return '503 Service Unavailable';
         }
     }
 }
