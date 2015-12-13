@@ -29,7 +29,7 @@ abstract class Service
     protected $validations = []; // @todo
     protected $allowedRequestMethods = [];
 
-    public function __construct($name) {
+    final public function __construct($name) {
         $this->name = $name;
         // autoloads
         $this->loadConfig();
