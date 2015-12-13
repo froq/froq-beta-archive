@@ -31,10 +31,13 @@ abstract class Service
 
     final public function __construct($name) {
         $this->name = $name;
+
         // autoloads
         $this->loadConfig();
         $this->loadModel();
         $this->view = new View($this);
+
+        $this->callMethodInit();
 
         if (!empty($this->allowedRequestMethods)) {
             $this->allowedRequestMethods = array_map('strtoupper', $this->allowedRequestMethods);
