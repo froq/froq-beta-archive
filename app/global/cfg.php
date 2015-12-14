@@ -32,7 +32,7 @@ $cfg['db']['mysql']['development'] = [
     'query_log_directory' => $app->config->get('app.dir.tmp') .'/log/db/',
     'query_log_filename_format' => 'Y-m-d',
     'database' => [
-        'host'     => 'localhost',  'name'     => 'shobbr',
+        'host'     => 'localhost',  'name'     => 'hazirtur',
         'username' => 'root',       'password' => '********',
         'charset'  => 'utf8',       'timezone' => '+00:00',
     ],
