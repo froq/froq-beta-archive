@@ -24,11 +24,12 @@ $cfg['app']['dir'] = [
 ];
 
 // defaults
-$cfg['app']['language'] = 'en';
-$cfg['app']['timezone'] = 'UTC';
-$cfg['app']['encoding'] = 'utf-8';
-$cfg['app']['locale']   = 'en_US';
-$cfg['app']['locales']  = ['en_US' => 'English'];
+$cfg['app']['language']  = 'en';
+$cfg['app']['languages'] = ['en'];
+$cfg['app']['timezone']  = 'UTC';
+$cfg['app']['encoding']  = 'utf-8';
+$cfg['app']['locale']    = 'en_US';
+$cfg['app']['locales']   = ['en_US' => 'English'];
 
 // initial headers
 $cfg['app']['headers'] = [
