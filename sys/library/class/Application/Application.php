@@ -1,13 +1,10 @@
 <?php namespace Application;
 
-use Application\Application\Config;
-use Application\Http\Uri\Uri;
-use Application\Http\Request,
-    Application\Http\Response;
 use Application\Database\Database;
+use Application\Application\Config;
 use Application\Service\ServiceAdapter;
-use Application\Util\Traits\SingleTrait,
-    Application\Util\Traits\GetterTrait;
+use Application\Http\{Request, Response, Uri\Uri};
+use Application\Util\Traits\{SingleTrait, GetterTrait};
 
 final class Application
 {
