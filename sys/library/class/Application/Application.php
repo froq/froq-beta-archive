@@ -4,10 +4,10 @@ use Application\Application\Config;
 use Application\Http\Uri\Uri;
 use Application\Http\Request,
     Application\Http\Response;
+use Application\Database\Database;
 use Application\Service\ServiceAdapter;
 use Application\Util\Traits\SingleTrait,
     Application\Util\Traits\GetterTrait;
-use Application\Database\Database;
 
 final class Application
 {
@@ -19,10 +19,10 @@ final class Application
           ENVIRONMENT_PRODUCTION  = 'production';
 
     private $env;
-    private $config;
     private $service;
     private $request, $response;
     private $db;
+    private $config;
 
     final private function __construct() {
         // set app as global
@@ -43,8 +43,10 @@ final class Application
             require_once($file);
         }
 
-        $this->request = new Request();
         $this->db = new Database();
+
+        $this->request = new Request();
+        $this->response = new Response();
     }
 
     final public function run() {
@@ -80,12 +82,12 @@ final class Application
         $this->endOutputBuffer();
     }
 
-    final public function setEnv($env) {
+    final public function setEnv(string $env): self {
         $this->env = $env;
         return $this;
     }
 
-    final public function setConfig(array $config) {
+    final public function setConfig(array $config): self {
         if ($this->config == null) {
             $this->config = new Config($config);
         } else {
@@ -128,13 +130,13 @@ final class Application
         print $output;
     }
 
-    final public function isDev() {
+    final public function isDev(): bool {
         return $this->env = self::ENV_DEV;
     }
-    final public function isStage() {
+    final public function isStage(): bool {
         return $this->env = self::ENV_STAGE;
     }
-    final public function isProduction() {
+    final public function isProduction(): bool {
         return $this->env = self::ENV_PRODUCTION;
     }
 
