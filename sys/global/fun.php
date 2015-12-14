@@ -80,7 +80,7 @@ function get_env($key, $valueDefault = null) {
     if (false !== ($value = getenv($key))) {
         return $value;
     }
-    if (function_exists('apache_getenv') && false !== ($return = apache_getenv($x, true))) {
+    if (function_exists('apache_getenv') && false !== ($return = apache_getenv($key, true))) {
         return $return;
     }
     return $valueDefault;
