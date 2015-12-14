@@ -45,7 +45,7 @@ function app($prop = null) {
  * @param  mixed  $valueDefault
  * @return mixed
  */
-function digg(array $array = null, $key, $valueDefault = null) {
+function dig(array $array = null, $key, $valueDefault = null) {
     // direct access
     if (isset($array[$key])) {
         $value =& $array[$key];
