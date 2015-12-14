@@ -38,7 +38,14 @@ function app($prop = null) {
     return ($prop) ? $app->{$prop} : $app;
 }
 
-function dig(array $array = null, $key, $valueDefault = null) {
+/**
+ * Array getter with dot notation support for sub-array paths.
+ * @param  array  $array
+ * @param  string $key (aka path)
+ * @param  mixed  $valueDefault
+ * @return mixed
+ */
+function digg(array $array = null, $key, $valueDefault = null) {
     // direct access
     if (isset($array[$key])) {
         $value =& $array[$key];
@@ -50,14 +57,40 @@ function dig(array $array = null, $key, $valueDefault = null) {
             $value =& $value[$key];
         }
     }
+
     return ($value !== null) ? $value : $valueDefault;
 }
 
-if (!function_exists('boolval')) {
-    function boolval($value) {
-        return (bool) $value;
+// @wait
+function set_env($key, $value) {}
+
+/**
+ * Real env getter.
+ * @param  string $key
+ * @param  mixed  $valueDefault
+ * @return mixed
+ */
+function get_env($key, $valueDefault = null) {
+    if (isset($_SERVER[$key])) {
+        return $_SERVER[$key];
     }
+    if (isset($_ENV[$key])) {
+        return $_ENV[$key];
+    }
+    if (false !== ($value = getenv($key))) {
+        return $value;
+    }
+    if (function_exists('apache_getenv') && false !== ($return = apache_getenv($x, true))) {
+        return $return;
+    }
+    return $valueDefault;
 }
+
+// if (!function_exists('boolval')) {
+//     function boolval($value) {
+//         return (bool) $value;
+//     }
+// }
 
 // @tmp debug
 function _prp($s) {
