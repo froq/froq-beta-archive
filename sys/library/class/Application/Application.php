@@ -118,8 +118,8 @@ final class Application
     }
 
     final public function startOutputBuffer() {
-        ini_set('implicit_flush', 1);
-        ini_set('zlib.output_compression', 0);
+        ini_set('implicit_flush', '1');
+        ini_set('zlib.output_compression', '0');
         ob_start();
     }
 
