@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 /*** IP functions. ****/
 
 /**
  * Get real IP.
  * @return string|null
  */
-function ip() {
+function ip(): string {
     if (($ip = get_env('HTTP_X_FORWARDED_FOR')) != '') {
         if (strpos($ip, ',') !== false) {
             $ips = explode(',', $ip);
@@ -22,6 +22,7 @@ function ip() {
     if (($ip = get_env('REMOTE_ADDR')) != '')    {
         return $ip;
     }
+    return '';
 }
 
 /**
@@ -29,7 +30,7 @@ function ip() {
  * @param  string $ip
  * @return int
  */
-function ip_toLong($ip) {
+function ip_toLong(string $ip): int {
     return (int) sprintf('%u', ip2long($ip));
 }
 
@@ -38,6 +39,6 @@ function ip_toLong($ip) {
  * @param  int $ip
  * @return string
  */
-function ip_fromLong($ip) {
+function ip_fromLong(int $ip): string {
     return (string) long2ip($ip);
 }
