@@ -5,7 +5,7 @@ use \Application\Service\Service;
 
 class HomeService extends Service
 {
-    public function _home() {
+    public function _main(): string {
         return 'Hello, world!';
     }
 }
