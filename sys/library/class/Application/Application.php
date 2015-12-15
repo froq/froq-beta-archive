@@ -2,9 +2,9 @@
 namespace Application;
 
 use Application\Database\Database;
-use Application\Application\Config;
 use Application\Service\ServiceAdapter;
 use Application\Http\{Request, Response, Uri\Uri};
+use Application\Util\Config;
 use Application\Util\Traits\{SingleTrait, GetterTrait};
 
 final class Application
