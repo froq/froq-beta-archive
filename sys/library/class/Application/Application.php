@@ -71,7 +71,6 @@ final class Application
 
         $this->service->callMethodBefore();
 
-        $output = null;
         if ($this->service->isHome()) {
             $output = $this->service->callMethodMain();
         } else {
