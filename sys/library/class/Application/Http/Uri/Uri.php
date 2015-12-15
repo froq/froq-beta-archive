@@ -1,4 +1,5 @@
-<?php namespace Application\Http\Uri;
+<?php declare(strict_types=1);
+namespace Application\Http\Uri;
 
 /**
  * @package    Application
@@ -113,7 +114,7 @@ final class Uri
      *
      * @return string
      */
-    final public function __toString() {
+    final public function __toString(): string {
         return $this->toString();
     }
 
@@ -123,7 +124,7 @@ final class Uri
      * @param  string $scheme
      * @return self
      */
-    final public function setScheme($scheme) {
+    final public function setScheme($scheme): self {
         if ($scheme = trim($scheme)) {
             $this->scheme = $scheme;
         }
@@ -137,7 +138,7 @@ final class Uri
      * @param  string $host
      * @return self
      */
-    final public function setHost($host) {
+    final public function setHost($host): self {
         if ($host = trim($host)) {
             $this->host = $host;
         }
@@ -151,7 +152,7 @@ final class Uri
      * @param  int port
      * @return self
      */
-    final public function setPort($port) {
+    final public function setPort($port): self {
         if ($port = intval($port)) {
             $this->port = $port;
         }
@@ -165,7 +166,7 @@ final class Uri
      * @param  string $user
      * @return self
      */
-    final public function setUser($user) {
+    final public function setUser($user): self {
         if ($user = trim($user)) {
             $this->user = $user;
         }
@@ -179,7 +180,7 @@ final class Uri
      * @param  string $pass
      * @return self
      */
-    final public function setPass($pass) {
+    final public function setPass($pass): self {
         if ($pass = trim($pass)) {
             $this->pass = $pass;
         }
@@ -193,7 +194,7 @@ final class Uri
      * @param  string $path
      * @return self
      */
-    final public function setPath($path) {
+    final public function setPath($path): self {
         if ($path = trim($path)) {
             $this->path = $path;
         }
@@ -207,7 +208,7 @@ final class Uri
      * @param  string $query
      * @return self
      */
-    final public function setQuery($query) {
+    final public function setQuery($query): self {
         if ($query = trim($query)) {
             $this->query = $query;
         }
@@ -221,7 +222,7 @@ final class Uri
      * @param  string $fragment
      * @return self
      */
-    final public function setFragment($fragment) {
+    final public function setFragment($fragment): self {
         if ($fragment = trim($fragment)) {
             $this->fragment = $fragment;
         }
@@ -241,7 +242,7 @@ final class Uri
     /**
      * Get scheme.
      *
-     * @return string
+     * @return string|null
      */
     final public function getScheme() {
         return $this->scheme;
@@ -250,7 +251,7 @@ final class Uri
     /**
      * Get host.
      *
-     * @return string
+     * @return string|null
      */
     final public function getHost() {
         return $this->host;
@@ -259,7 +260,7 @@ final class Uri
     /**
      * Get port.
      *
-     * @return int
+     * @return int|null
      */
     final public function getPort() {
         return $this->port;
@@ -268,7 +269,7 @@ final class Uri
     /**
      * Get user.
      *
-     * @return string
+     * @return string|null
      */
     final public function getUser() {
         return $this->user;
@@ -277,7 +278,7 @@ final class Uri
     /**
      * Get pass.
      *
-     * @return string
+     * @return string|null
      */
     final public function getPass() {
         return $this->pass;
@@ -286,7 +287,7 @@ final class Uri
     /**
      * Get path.
      *
-     * @return string
+     * @return string|null
      */
     final public function getPath() {
         return $this->path;
@@ -295,7 +296,7 @@ final class Uri
     /**
      * Get query.
      *
-     * @return string
+     * @return string|null
      */
     final public function getQuery() {
         return $this->query;
@@ -304,7 +305,7 @@ final class Uri
     /**
      * Get fragment.
      *
-     * @return string
+     * @return string|null
      */
     final public function getFragment() {
         return $this->fragment;
@@ -316,12 +317,12 @@ final class Uri
      * @param  array $exclude
      * @return array
      */
-    final public function toArray(array $exclude = []) {
+    final public function toArray(array $exclude = []): array {
         $return = [];
         foreach (['scheme', 'host', 'port', 'user',
                   'pass', 'path', 'query', 'fragment'] as $key) {
             if (!in_array($key, $exclude)) {
-                $return[$key] = $this->$key;
+                $return[$key] = $this->{$key};
             }
         }
 
@@ -334,7 +335,7 @@ final class Uri
      * @param  array $exclude
      * @return string
      */
-    final public function toString(array $exclude = null) {
+    final public function toString(array $exclude = null): string {
         $array  = $this->toArray($exclude);
         $return = '';
 
@@ -363,6 +364,7 @@ final class Uri
 
     /**
      * Get segment value.
+     *
      * @param  int $i
      * @return string|null
      */
