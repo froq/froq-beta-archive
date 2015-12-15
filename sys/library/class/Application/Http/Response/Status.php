@@ -35,13 +35,13 @@ final class Status
      * Status code.
      * @var int
      */
-    private $code;
+    private $code = 0;
 
     /**
      * Status text.
      * @var string
      */
-    private $text;
+    private $text = '';
 
     /**
      * Status codes/texts.
@@ -107,7 +107,7 @@ final class Status
      * @param int    $code
      * @param string $text
      */
-    final public function __construct(int $code = null, string $text = null) {
+    final public function __construct(int $code = 0, string $text = '') {
         $this->code = $code;
         $this->text = $text;
     }
