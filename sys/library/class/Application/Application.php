@@ -26,6 +26,7 @@ final class Application
         // set app as global
         set_global('app', $this);
 
+        // set default config first
         $this->setConfig(include('./sys/global/cfg.php'));
 
         // load sys helpers
