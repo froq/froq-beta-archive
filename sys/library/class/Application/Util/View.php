@@ -1,4 +1,4 @@
-<?php namespace Application\Application;
+<?php namespace Application\Util;
 
 use Application\Service\Service;
 

@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 namespace Application\Service;
 
-use Application\Application,
-    Application\Application\View,
-    Application\Application\Config;
+use Application\Application;
+use Application\Util\{View, Config};
 use Application\Util\Traits\GetterTrait;
 
 abstract class Service
