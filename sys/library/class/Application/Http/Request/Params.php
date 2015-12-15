@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Application\Http\Request;
 
 /**
@@ -21,7 +21,7 @@ final class Params
      * @param  mixed  $valueDefault
      * @return mixed
      */
-    final public function get($key, $valueDefault = null) {
+    final public function get(string $key, $valueDefault = null) {
         return dig($_GET, $key, $valueDefault);
     }
 
@@ -32,7 +32,7 @@ final class Params
      * @param  mixed  $valueDefault
      * @return mixed
      */
-    final public function post($key, $valueDefault = null) {
+    final public function post(string $key, $valueDefault = null) {
         return dig($_POST, $key, $valueDefault);
     }
 
@@ -43,7 +43,7 @@ final class Params
      * @param  mixed  $valueDefault
      * @return mixed
      */
-    final public function cookie($key, $valueDefault = null) {
+    final public function cookie(string $key, $valueDefault = null) {
         return dig($_COOKIE, $key, $valueDefault);
     }
 }
