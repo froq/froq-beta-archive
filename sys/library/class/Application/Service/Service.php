@@ -29,7 +29,7 @@ abstract class Service
     protected $validations = []; // @todo from <service>/config/config.php
     protected $allowedRequestMethods = [];
 
-    final public function __construct($name) {
+    final public function __construct(string $name) {
         $this->name = $name;
 
         // autoloads
@@ -83,7 +83,7 @@ abstract class Service
         return $this->app;
     }
 
-    final public function setName($name): self {
+    final public function setName(string $name): self {
         $this->name = $name;
         return $this;
     }
@@ -128,7 +128,7 @@ abstract class Service
         return $this;
     }
 
-    final public function view($file, array $data = null) {
+    final public function view(string $file, array $data = null) {
         if ($this->useViewPartialAll || ($this->useViewPartialHead && $this->useViewPartialFoot)) {
             $this->view->displayHead($data);
             $this->view->display($file, $data);
