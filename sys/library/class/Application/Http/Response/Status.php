@@ -118,8 +118,9 @@ final class Status
      * @param  int $code
      * @return void
      */
-    final public function setCode(int $code) {
+    final public function setCode(int $code): self {
         $this->code = $code;
+        return $this;
     }
 
     /**
@@ -137,8 +138,9 @@ final class Status
      * @param  string $text
      * @return void
      */
-    final public function setText(string $text) {
+    final public function setText(string $text): self {
         $this->text = $text;
+        return $this;
     }
 
     /**
