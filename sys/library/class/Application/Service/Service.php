@@ -1,4 +1,5 @@
-<?php namespace Application\Service;
+<?php declare(strict_types=1);
+namespace Application\Service;
 
 use Application\Application,
     Application\Application\View,
@@ -26,7 +27,7 @@ abstract class Service
               $useViewPartialHead = false,
               $useViewPartialFoot = false;
 
-    protected $validations = []; // @todo
+    protected $validations = []; // @todo from <service>/config/config.php
     protected $allowedRequestMethods = [];
 
     final public function __construct($name) {
@@ -42,11 +43,11 @@ abstract class Service
         }
     }
 
-    final public function isHome() {
+    final public function isHome(): bool {
         return empty($this->method);
     }
 
-    final public function callMethod($method, $halt = true) {
+    final public function callMethod(string $method, bool $halt = true) {
         if (method_exists($this, $method)) {
             return $this->{$method}();
         }
@@ -75,52 +76,52 @@ abstract class Service
         return $this->callMethod($this->method);
     }
 
-    final public function setApp(Application $app) {
+    final public function setApp(Application $app): self {
         $this->app = $app;
         return $this;
     }
-    final public function getApp() {
+    final public function getApp(): Application {
         return $this->app;
     }
 
-    final public function setName($name) {
+    final public function setName($name): self {
         $this->name = $name;
         return $this;
     }
-    final public function getName() {
+    final public function getName(): string {
         return $this->name;
     }
 
-    final public function setMethod($method) {
+    final public function setMethod($method): self {
         $this->method = $method;
         return $this;
     }
-    final public function getMethod() {
+    final public function getMethod(): string {
         return $this->method;
     }
 
-    final public function isRequestMethodAllowed($requestMethod) {
+    final public function isRequestMethodAllowed(string $requestMethod): bool {
         if (empty($this->allowedRequestMethods)) {
             return true;
         }
         return in_array($requestMethod, $this->allowedRequestMethods);
     }
-    final public function setAllowedRequestMethods(...$allowedRequestMethods) {
+    final public function setAllowedRequestMethods(array ...$allowedRequestMethods): self {
         $this->allowedRequestMethods = array_map('strtoupper', $allowedRequestMethods);
         return $this;
     }
-    final public function getAllowedRequestMethods() {
+    final public function getAllowedRequestMethods(): array {
         return $this->allowedRequestMethods;
     }
 
-    final public function loadConfig() {
+    final public function loadConfig(): self {
         $file = sprintf('./app/service/%s/config/config.php', $this->name);
         if (is_file($file)) {
             $this->config = new Config($file);
         }
         return $this;
     }
-    final public function loadModel() {
+    final public function loadModel(): self {
         $file = sprintf('./app/service/%s/model/model.php', $this->name);
         if (is_file($file)) {
             include($file);
