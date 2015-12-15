@@ -97,7 +97,7 @@ final class Application
         return $this;
     }
 
-    final public function setDefaults() {
+    final public function setDefaults(): self {
         $cfg = ['locale'   => $this->config->get('app.locale'),
                 'encoding' => $this->config->get('app.encoding'),
                 'timezone' => $this->config->get('app.timezone'),
@@ -146,7 +146,7 @@ final class Application
         return $this->env = self::ENV_PRODUCTION;
     }
 
-    final private function halt($status) {
+    final private function halt(string $status) {
         header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status));
         header('Connection: close');
         header('Content-Type: none');
