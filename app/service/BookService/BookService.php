@@ -1,4 +1,5 @@
-<?php
+<?php defined('root') or die('Access denied!');
+
 use Application\Service\Service;
 
 class BookService extends Service
