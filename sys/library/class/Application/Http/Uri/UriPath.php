@@ -1,4 +1,5 @@
-<?php namespace Application\Http\Uri;
+<?php declare(strict_types=1);
+namespace Application\Http\Uri;
 
 final class UriPath
 {
@@ -13,11 +14,11 @@ final class UriPath
         }
     }
 
-    final public function isRoot() {
+    final public function isRoot(): bool {
         return ($this->path == '/');
     }
 
-    final public function getPath() {
+    final public function getPath(): string {
         return $this->path;
     }
     final public function getSegment($i) {
@@ -26,7 +27,7 @@ final class UriPath
         }
         return null;
     }
-    final public function getSegmentAll() {
+    final public function getSegmentAll(): array {
         return $this->segments;
     }
 
@@ -34,7 +35,7 @@ final class UriPath
         return $this->getSegment($i);
     }
 
-    final public static function parse($path) {
+    final public static function parse($path): array {
         $path = preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY);
         $path = array_filter(array_map('trim', $path));
         return $path;
