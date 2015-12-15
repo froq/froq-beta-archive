@@ -1,4 +1,5 @@
-<?php namespace Application;
+<?php declare(strict_types=1);
+namespace Application;
 
 use Application\Database\Database;
 use Application\Application\Config;
@@ -155,7 +156,7 @@ final class Application
         exit(1);
     }
 
-    final private function haltCheck() {
+    final private function haltCheck(): string {
         // check request count
         $maxRequest = $this->config->get('security.maxRequest');
         if ($maxRequest && count($_REQUEST) > $maxRequest) {
@@ -184,5 +185,7 @@ final class Application
         if (sys_getloadavg()[0] > $this->config->get('app.loadAvg')) {
             return '503 Service Unavailable';
         }
+
+        return '';
     }
 }
