@@ -60,7 +60,7 @@ final class Application
 
         $serviceAdapter = new ServiceAdapter($this);
         if (!$serviceAdapter->isServiceExists()) {
-            throw new \Exception(sprintf(
+            throw new \RuntimeException(sprintf(
                 'Service not found! name: %s', $serviceAdapter->getServiceName()));
         }
 
