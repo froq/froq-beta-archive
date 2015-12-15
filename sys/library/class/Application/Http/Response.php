@@ -194,10 +194,11 @@ final class Response
      * Set gzip encoding true/false.
      *
      * @param  bool $gzip
-     * @return void
+     * @return self
      */
-    final public function setGzip(bool $gzip) {
+    final public function setGzip(bool $gzip): self {
         $this->gzip = $gzip;
+        return $this;
     }
 
     /**
@@ -205,63 +206,71 @@ final class Response
      *
      * @param  int    $code
      * @param  string $text
-     * @return void
+     * @return self
      */
-    final public function setStatus(int $code, string $text = '') {
+    final public function setStatus(int $code, string $text = ''): self {
         if ($text == '') {
             $text = Status::getStatusText($code);
         }
 
         $this->status->code = $code;
         $this->status->text = $text;
+        return $this;
     }
 
     /**
      * Set status code.
      *
      * @param  int $code
-     * @return void
+     * @return self
      */
-    final public function setStatusCode(int $code) {
+    final public function setStatusCode(int $code): self {
         $this->status->code = $code;
+        return $this;
     }
 
     /**
      * Set status text.
      *
      * @param  string $text
-     * @return void
+     * @return self
      */
-    final public function setStatusText(string $text) {
+    final public function setStatusText(string $text): self {
         $this->status->text = $text;
+        return $this;
     }
 
     /**
      * Set content type.
      *
      * @param  string $contentType
-     * @return void
+     * @return self
      */
-    final public function setContentType(string $contentType) {
+    final public function setContentType(string $contentType): self {
         $this->contentType = trim($contentType);
+        return $this;
     }
 
     /**
      * Set content charset.
      *
      * @param  string $contentCharset
-     * @return void
+     * @return self
      */
-    final public function setContentCharset(string $contentCharset) {
+    final public function setContentCharset(string $contentCharset): self {
         $this->contentCharset = trim($contentCharset);
+        return $this;
     }
 
     /**
      * Set content length.
-     * @param int $contentLength
+     *
+     * @param  int $contentLength
+     * @return self
      */
-    final public function setContentLength(int $contentLength) {
+    final public function setContentLength(int $contentLength): self {
         $this->contentLength = $contentLength;
+        return $this;
     }
 
     /**
@@ -273,10 +282,11 @@ final class Response
      *
      * @param  string $name
      * @param  mixed  $value
-     * @return void
+     * @return self
      */
-    final public function setHeader(string $name, $value) {
+    final public function setHeader(string $name, $value): self {
         $this->headers->set($name, $value);
+        return $this;
     }
 
     /**
@@ -354,8 +364,8 @@ final class Response
      * @param  string $domain
      * @param  bool   $secure
      * @param  bool   $httponly
-     * @return void
      * @throws \InvalidArgumentException
+     * @return void
      */
     final public function setCookie(string $name, $value, int $expire = 0,
             string $path = '/', string $domain = null, bool $secure = false, bool $httponly = false) {
@@ -383,8 +393,8 @@ final class Response
      * @param  string $domain
      * @param  bool   $secure
      * @param  bool   $httponly
-     * @return bool
      * @throws \InvalidArgumentException
+     * @return bool
      */
     final public function sendCookie(string $name, $value, int $expire = 0,
             string $path = '/', string $domain = null, bool $secure = false, bool $httponly = false) {
@@ -444,9 +454,9 @@ final class Response
      * Set body.
      *
      * @param  mixed $body
-     * @return void
+     * @return self
      */
-    final public function setBody($body) {
+    final public function setBody($body): self {
         // check content type
         if ($this->contentType == self::CONTENT_TYPE_HTML) {
             // check for page title
@@ -509,7 +519,7 @@ final class Response
         // real load time
         $this->sendHeader('X-Load-Time', app()->loadTime());
 
-        // flush it beybe!
+        // print it beybe!
         print $this->body;
     }
 }
