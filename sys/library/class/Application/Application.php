@@ -69,14 +69,17 @@ final class Application
         $this->service->callMethodInit();
 
         $this->service->callMethodBefore();
+
+        $output = null;
         if ($this->service->isHome()) {
-            print $this->service->callMethodMain();
+            $output = $this->service->callMethodMain();
         } else {
-            print $this->service->callMethodInvoked();
+            $output = $this->service->callMethodInvoked();
         }
+
         $this->service->callMethodAfter();
 
-        $this->endOutputBuffer();
+        $this->endOutputBuffer($output);
     }
 
     final public function setEnv(string $env): self {
@@ -119,10 +122,16 @@ final class Application
         ob_start();
     }
 
-    final public function endOutputBuffer(callable $callable = null) {
-        $output = '';
-        while (ob_get_level()) {
-            $output .= ob_get_clean();
+    final public function endOutputBuffer(string $output = null, callable $callable = null) {
+        // print'ed service methods return null
+        if ($output === null) {
+            $output = '';
+            while (ob_get_level()) {
+                $output .= ob_get_clean();
+            }
+        }
+        if (is_callable($callable)) {
+            $callable($this, $output);
         }
         print $output;
     }
