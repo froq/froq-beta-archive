@@ -86,6 +86,26 @@ function get_env($key, $valueDefault = null) {
     return $valueDefault;
 }
 
+/**
+ * Default value getter for null variables.
+ * @param  any $a
+ * @param  any $b
+ * @return any
+ */
+function if_null($a, $b) {
+    return (null !== $a) ? $a : $b;
+}
+
+/**
+ * Default value getter for none variables.
+ * @param  any $a
+ * @param  any $b
+ * @return any
+ */
+function if_none($a, $b) {
+    return (none !== trim($a)) ? $a : $b;
+}
+
 // if (!function_exists('boolval')) {
 //     function boolval($value) {
 //         return (bool) $value;
