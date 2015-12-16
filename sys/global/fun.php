@@ -106,11 +106,28 @@ function if_none($a, $b) {
     return (none !== trim($a)) ? $a : $b;
 }
 
-// if (!function_exists('boolval')) {
-//     function boolval($value) {
-//         return (bool) $value;
-//     }
-// }
+/**
+ * Some tricky functions.
+ */
+// nö!
+function _isset($var) { return isset($var); }
+function _empty($var) { return empty($var); }
+// boolval
+if (!function_exists('boolval')) {
+    function boolval($value) {
+        return (bool) $value;
+    }
+}
+// get_callee
+if (!function_exists('get_callee')) {
+    function get_callee() {
+        $trace = debug_backtrace();
+        if (isset($trace[2])) {
+            $trace[2]['object'] = get_class($trace[2]['object']);
+            return $trace,
+        }
+    }
+}
 
 // @tmp debug
 function _prp($s) {
