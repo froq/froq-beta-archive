@@ -61,11 +61,11 @@ abstract class Service
     final public function callMethodMain() {
         return $this->callMethod(ServiceInterface::METHOD_MAIN);
     }
-    final public function callMethodBefore() {
-        return $this->callMethod(ServiceInterface::METHOD_BEFORE, false);
+    final public function callMethodOnBefore() {
+        return $this->callMethod(ServiceInterface::METHOD_ONBEFORE, false);
     }
-    final public function callMethodAfter() {
-        return $this->callMethod(ServiceInterface::METHOD_AFTER, false);
+    final public function callMethodOnAfter() {
+        return $this->callMethod(ServiceInterface::METHOD_ONAFTER, false);
     }
     final public function callMethodInvoked() {
         // always uses main method

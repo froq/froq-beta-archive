@@ -70,7 +70,7 @@ final class Application
         $this->service = $serviceAdapter->createService();
         $this->service->callMethodInit();
 
-        $this->service->callMethodBefore();
+        $this->service->callMethodOnBefore();
 
         if ($this->service->isHome()) {
             $output = $this->service->callMethodMain();
@@ -78,7 +78,7 @@ final class Application
             $output = $this->service->callMethodInvoked();
         }
 
-        $this->service->callMethodAfter();
+        $this->service->callMethodOnAfter();
 
         $this->endOutputBuffer($output);
     }
