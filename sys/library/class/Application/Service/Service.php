@@ -113,14 +113,14 @@ abstract class Service
         return $this->allowedRequestMethods;
     }
 
-    final public function loadConfig(): self {
+    final private function loadConfig(): self {
         $file = sprintf('./app/service/%s/config/config.php', $this->name);
         if (is_file($file)) {
             $this->config = new Config($file);
         }
         return $this;
     }
-    final public function loadModel(): self {
+    final private function loadModel(): self {
         $file = sprintf('./app/service/%s/model/model.php', $this->name);
         if (is_file($file)) {
             include($file);
