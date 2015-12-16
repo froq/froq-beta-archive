@@ -124,7 +124,7 @@ if (!function_exists('get_callee')) {
         $trace = debug_backtrace();
         if (isset($trace[2])) {
             $trace[2]['object'] = get_class($trace[2]['object']);
-            return $trace;
+            return $trace[2];
         }
     }
 }
