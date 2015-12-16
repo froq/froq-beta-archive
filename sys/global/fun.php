@@ -120,11 +120,11 @@ if (!function_exists('boolval')) {
 }
 // get_callee
 if (!function_exists('get_callee')) {
-    function get_callee() {
+    function get_callee($i = 1) {
         $trace = debug_backtrace();
-        if (isset($trace[2])) {
-            $trace[2]['object'] = get_class($trace[2]['object']);
-            return $trace[2];
+        if (isset($trace[$i])) {
+            $trace[$i]['object'] = get_class($trace[$i]['object']);
+            return $trace[$i];
         }
     }
 }
