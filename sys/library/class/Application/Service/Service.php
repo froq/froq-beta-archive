@@ -46,7 +46,7 @@ abstract class Service
         return empty($this->method);
     }
 
-    final public function callMethod(string $method, bool $halt = true) {
+    final private function callMethod(string $method, bool $halt = true) {
         if (method_exists($this, $method)) {
             return $this->{$method}();
         }
