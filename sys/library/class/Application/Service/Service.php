@@ -32,8 +32,12 @@ abstract class Service
     protected $validations = []; // @todo from <service>/config/config.php
     protected $allowedRequestMethods = [];
 
-    final public function __construct(string $name) {
+    final public function __construct(Application $app, string $name, string $method,
+            $viewData = null) {
+        $this->app = $app;
         $this->name = $name;
+        $this->method = $method;
+        $this->viewData = $viewData;
 
         // autoloads
         $this->loadConfig();
@@ -62,7 +66,7 @@ abstract class Service
         if ($this->isMain() || $this->useMainOnly) {
             $output = $this->{self::METHOD_MAIN}();
         } elseif (method_exists($this, $this->method)) {
-            $output = $this->{self::METHOD_PREFIX . $this->method}();
+            $output = $this->{$this->method}();
         } else {
             // fail!
             $viewData['fail']['code'] = Status::NOT_FOUND;
@@ -75,38 +79,6 @@ abstract class Service
         }
 
         return $output;
-    }
-
-    final public function setApp(Application $app): self {
-        $this->app = $app;
-        return $this;
-    }
-    final public function getApp(): Application {
-        return $this->app;
-    }
-
-    final public function setName(string $name): self {
-        $this->name = $name;
-        return $this;
-    }
-    final public function getName(): string {
-        return $this->name;
-    }
-
-    final public function setMethod($method): self {
-        $this->method = $method;
-        return $this;
-    }
-    final public function getMethod(): string {
-        return $this->method;
-    }
-
-    final public function setViewData($viewData): self {
-        $this->viewData = $viewData;
-        return $this;
-    }
-    final public function getViewData() {
-        return $this->viewData;
     }
 
     final public function isRequestMethodAllowed(string $requestMethod): bool {
