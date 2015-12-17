@@ -14,7 +14,7 @@ if (!isset($GLOBALS['@'])) {
  * @param string $key
  * @param mixed  $value
  */
-function set_global($key, $value) {
+function set_global(string $key, $value) {
     $GLOBALS['@'][$key] = $value;
 }
 
@@ -24,16 +24,16 @@ function set_global($key, $value) {
  * @param  mixed  $valueDefault
  * @return mixed
  */
-function get_global($key, $valueDefault = null) {
+function get_global(string $key, $valueDefault = null) {
     return isset($GLOBALS['@'][$key])
         ? $GLOBALS['@'][$key] : $valueDefault;
 }
 
 /**
  * Shortcut for app address.
- * @return \Application\Application
+ * @return \Application\Application|mixed
  */
-function app($prop = null) {
+function app(string $prop = null) {
     $app = get_global('app');
     return ($prop) ? $app->{$prop} : $app;
 }
@@ -45,7 +45,7 @@ function app($prop = null) {
  * @param  mixed  $valueDefault
  * @return mixed
  */
-function dig(array $array = null, $key, $valueDefault = null) {
+function dig(array $array = null, string $key, $valueDefault = null) {
     // direct access
     if (isset($array[$key])) {
         $value =& $array[$key];
@@ -62,7 +62,7 @@ function dig(array $array = null, $key, $valueDefault = null) {
 }
 
 // @wait
-function set_env($key, $value) {}
+function set_env(string $key, $value) {}
 
 /**
  * Real env getter.
@@ -70,7 +70,7 @@ function set_env($key, $value) {}
  * @param  mixed  $valueDefault
  * @return mixed
  */
-function get_env($key, $valueDefault = null) {
+function get_env(string $key, $valueDefault = null) {
     if (isset($_SERVER[$key])) {
         return $_SERVER[$key];
     }
@@ -79,9 +79,6 @@ function get_env($key, $valueDefault = null) {
     }
     if (false !== ($value = getenv($key))) {
         return $value;
-    }
-    if (function_exists('apache_getenv') && false !== ($return = apache_getenv($key, true))) {
-        return $return;
     }
     return $valueDefault;
 }
@@ -110,17 +107,17 @@ function if_none($a, $b) {
  * Some tricky functions.
  */
 // nö!
-function _isset($var) { return isset($var); }
-function _empty($var) { return empty($var); }
+function _isset($var): bool { return isset($var); }
+function _empty($var): bool { return empty($var); }
 // boolval
 if (!function_exists('boolval')) {
-    function boolval($value) {
+    function boolval($value): bool {
         return (bool) $value;
     }
 }
 // get_callee
 if (!function_exists('get_callee')) {
-    function get_callee($i = 1) {
+    function get_callee($i = 1): array {
         $trace = debug_backtrace();
         if (isset($trace[$i])) {
             $trace[$i]['object'] = get_class($trace[$i]['object']);
