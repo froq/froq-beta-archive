@@ -71,7 +71,7 @@ final class ServiceAdapter
     final private function toServiceMethod(string $method): string {
         $method = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
-        }, lcfirst($method));
+        }, ucfirst($method));
         return $method;
     }
 }
