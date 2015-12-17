@@ -7,9 +7,11 @@ final class View
     const PARTIAL_HEAD = 'partial/head',
           PARTIAL_FOOT = 'partial/foot';
 
+    private $app;
     private $service;
 
     final public function __construct(Service $service) {
+        $this->app = $service->app;
         $this->service = $service;
     }
 
@@ -45,7 +47,7 @@ final class View
         if ($file[0] == '.') {
             $file = sprintf('%s.php', $file);
         } else {
-            $file = sprintf('./app/service/%s/view/%s.php', $this->service->getName(), $file);
+            $file = sprintf('./app/service/%s/view/%s.php', $this->service->name, $file);
         }
         if ($fileCheck && !is_file($file)) {
             throw new \RuntimeException('View file not found! file: '. $file);
