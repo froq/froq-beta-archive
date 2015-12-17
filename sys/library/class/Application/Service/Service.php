@@ -46,7 +46,7 @@ abstract class Service
         return empty($this->method);
     }
 
-    final private function callMethod(string $method, bool $halt = true) {
+    final private function call(string $method, bool $halt = true) {
         if (method_exists($this, $method)) {
             return $this->{$method}();
         }
@@ -55,24 +55,24 @@ abstract class Service
                 $method, get_called_class()));
         }
     }
-    final public function callMethodInit() {
-        return $this->callMethod(ServiceInterface::METHOD_INIT, false);
+    final public function callInit() {
+        return $this->call(ServiceInterface::METHOD_INIT, false);
     }
-    final public function callMethodMain() {
-        return $this->callMethod(ServiceInterface::METHOD_MAIN);
+    final public function callMain() {
+        return $this->call(ServiceInterface::METHOD_MAIN);
     }
-    final public function callMethodOnBefore() {
-        return $this->callMethod(ServiceInterface::METHOD_ONBEFORE, false);
+    final public function callOnBefore() {
+        return $this->call(ServiceInterface::METHOD_ONBEFORE, false);
     }
-    final public function callMethodOnAfter() {
-        return $this->callMethod(ServiceInterface::METHOD_ONAFTER, false);
+    final public function callOnAfter() {
+        return $this->call(ServiceInterface::METHOD_ONAFTER, false);
     }
-    final public function callMethodInvoked() {
+    final public function callInvoked() {
         // always uses main method
         if ($this->useMainOnly) {
-            return $this->callMethodMain();
+            return $this->callMain();
         }
-        return $this->callMethod($this->method);
+        return $this->call($this->method);
     }
 
     final public function setApp(Application $app): self {

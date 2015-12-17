@@ -68,17 +68,17 @@ final class Application
         $this->startOutputBuffer();
 
         $this->service = $serviceAdapter->createService();
-        $this->service->callMethodInit();
+        $this->service->callInit();
 
-        $this->service->callMethodOnBefore();
+        $this->service->callOnBefore();
 
         if ($this->service->isHome()) {
-            $output = $this->service->callMethodMain();
+            $output = $this->service->callMain();
         } else {
-            $output = $this->service->callMethodInvoked();
+            $output = $this->service->callInvoked();
         }
 
-        $this->service->callMethodOnAfter();
+        $this->service->callOnAfter();
 
         $this->endOutputBuffer($output);
     }
