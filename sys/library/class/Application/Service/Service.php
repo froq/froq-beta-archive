@@ -4,6 +4,7 @@ namespace Application\Service;
 use Application\Application;
 use Application\Util\{View, Config};
 use Application\Util\Traits\GetterTrait;
+use Application\Http\Response\Status;
 
 abstract class Service
     implements ServiceInterface
@@ -16,7 +17,9 @@ abstract class Service
     protected $method;
 
     protected $model;
+
     protected $view;
+    protected $viewData = null; // mixed
 
     protected $config;
 
@@ -43,36 +46,35 @@ abstract class Service
     }
 
     final public function isMain(): bool {
-        return empty($this->method);
+        return (empty($this->method) || $this->method == self::METHOD_MAIN);
     }
 
-    final private function call(string $method, bool $halt = true) {
-        if (method_exists($this, $method)) {
-            return $this->{$method}();
+    final public function run() {
+        if (method_exists($this, self::METHOD_INIT)) {
+            $this->{self::METHOD_INIT}();
         }
-        if ($halt) {
-            throw new \RuntimeException(sprintf('`%s` method not found on `%s`',
-                $method, get_called_class()));
+        if (method_exists($this, self::METHOD_ONBEFORE)) {
+            $this->{self::METHOD_ONBEFORE}();
         }
-    }
-    final public function callInit() {
-        return $this->call(ServiceInterface::METHOD_INIT, false);
-    }
-    final public function callMain() {
-        return $this->call(ServiceInterface::METHOD_MAIN);
-    }
-    final public function callOnBefore() {
-        return $this->call(ServiceInterface::METHOD_ONBEFORE, false);
-    }
-    final public function callOnAfter() {
-        return $this->call(ServiceInterface::METHOD_ONAFTER, false);
-    }
-    final public function callDoMethod() {
+
+        $output = null;
         // always uses main method
         if ($this->isMain() || $this->useMainOnly) {
-            return $this->callMain();
+            $output = $this->{self::METHOD_MAIN}();
+        } elseif (method_exists($this, $this->method)) {
+            $output = $this->{self::METHOD_PREFIX . $this->method}();
+        } else {
+            // fail!
+            $viewData['fail']['code'] = Status::NOT_FOUND;
+            $viewData['fail']['text'] = sprintf('Service not found! name: %s', $this->name);
+            $this->setViewData($viewData);
         }
-        return $this->call(ServiceInterface::METHOD_PREFIX . $this->method);
+
+        if (method_exists($this, self::METHOD_ONAFTER)) {
+            $this->{self::METHOD_ONAFTER}();
+        }
+
+        return $output;
     }
 
     final public function setApp(Application $app): self {
@@ -97,6 +99,14 @@ abstract class Service
     }
     final public function getMethod(): string {
         return $this->method;
+    }
+
+    final public function setViewData($viewData): self {
+        $this->viewData = $viewData;
+        return $this;
+    }
+    final public function getViewData() {
+        return $this->viewData;
     }
 
     final public function isRequestMethodAllowed(string $requestMethod): bool {

@@ -2,7 +2,8 @@
 
 interface ServiceInterface
 {
-    const DEFAULT_SERVICE = 'HomeService';
+    const SERVICE_MAIN    = '__MainService',
+          SERVICE_FAIL    = '__FailService';
 
     const METHOD_PREFIX   = 'do',
           METHOD_INIT     = 'init',

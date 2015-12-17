@@ -2,36 +2,45 @@
 namespace Application\Service;
 
 use \Application\Application;
-use \Application\Service\ServiceInterface;
+use \Application\Http\Response\Status;
+use \Application\Service\Service;
 
 final class ServiceAdapter
 {
     private $app;
     private $serviceName;
-    private $serviceNameDefault = ServiceInterface::DEFAULT_SERVICE;
+    private $serviceNameDefault = Service::SERVICE_MAIN;
     private $serviceMethod;
-    private $serviceMethodDefault = ServiceInterface::METHOD_MAIN;
+    private $serviceMethodDefault = Service::METHOD_MAIN;
     private $serviceFile;
+    private $serviceViewData;
 
     final public function __construct(Application $app) {
         $this->app = $app;
-        // home?
-        if ($this->app->request->uri->getPath() == '/') {
+        $serviceName = (string) $this->app->request->uri->segment(0);
+        $serviceMethod = (string) $this->app->request->uri->segment(1);
+        // main?
+        if ($serviceName == '/') {
             $serviceName = $this->serviceNameDefault;
-            $serviceMethod = $this->serviceMethodDefault;
-        } else {
-            $serviceName = $this->toServiceName((string) $this->app->request->uri->segment(0));
-            $serviceMethod = $this->toServiceMethod((string) $this->app->request->uri->segment(1));
         }
-        $this->setServiceName($serviceName);
-        $this->setServiceMethod($serviceMethod);
-        $this->setServiceFile($serviceName);
+        if ($serviceMethod == '') {
+            $serviceMethod = $this->serviceMethodDefault;
+        }
+        $this->setServiceName($serviceName)
+             ->setServiceMethod($serviceMethod)
+             ->setServiceFile($serviceName);
+        if (!$this->isServiceExists()) {
+            $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
+            $this->serviceViewData['fail']['text'] = sprintf('Service not found! name: %s', $serviceName);
+            $this->setServiceName(Service::SERVICE_FAIL);
+        }
     }
 
-    final public function createService(): ServiceInterface {
+    final public function createService(): Service {
         return (new $this->serviceName($this->serviceName))
             ->setApp($this->app)
-            ->setMethod($this->serviceMethod);
+            ->setMethod($this->serviceMethod)
+            ->setViewData($this->serviceViewData);
     }
 
     final public function isServiceExists(): bool {

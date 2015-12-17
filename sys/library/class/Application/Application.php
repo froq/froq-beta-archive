@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 namespace Application;
 
-use Application\Database\Database;
-use Application\Service\ServiceAdapter;
-use Application\Http\{Request, Response, Uri\Uri};
 use Application\Util\Config;
 use Application\Util\Traits\{SingleTrait, GetterTrait};
+use Application\Http\{Request, Response};
+use Application\Service\{Service, ServiceAdapter};
+use Application\Database\Database;
 
 final class Application
 {
@@ -59,22 +59,12 @@ final class Application
             $this->halt($halt);
         }
 
-        $serviceAdapter = new ServiceAdapter($this);
-        if (!$serviceAdapter->isServiceExists()) {
-            throw new \RuntimeException(sprintf(
-                'Service not found! name: %s', $serviceAdapter->getServiceName()));
-        }
-
         $this->startOutputBuffer();
 
-        $this->service = $serviceAdapter->createService();
-        $this->service->callInit();
+        $this->service = (new ServiceAdapter($this))
+            ->createService();
 
-        $this->service->callOnBefore();
-
-        $output = $this->service->callDoMethod();
-
-        $this->service->callOnAfter();
+        $output = $this->service->run();
 
         $this->endOutputBuffer($output);
     }
@@ -115,7 +105,9 @@ final class Application
 
     final public function startOutputBuffer() {
         ini_set('implicit_flush', '1');
-        ini_set('zlib.output_compression', '0');
+        if (!headers_sent()) {
+            ini_set('zlib.output_compression', '0');
+        }
         ob_start();
     }
 
