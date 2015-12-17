@@ -15,4 +15,8 @@ class HomeService extends Service
     public function _main(): string {
         return 'Hello, world!';
     }
+
+    public function doFoo() {
+        pre(__method__);
+    }
 }
