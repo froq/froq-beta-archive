@@ -4,7 +4,7 @@ use Application\Service\Service;
 
 class HomeService extends Service
 {
-    public function _init() {
+    public function init() {
         // if (user logged in) {
         //     redirect /home
         // } else {
@@ -12,7 +12,7 @@ class HomeService extends Service
         // }
     }
 
-    public function _main(): string {
+    public function main(): string {
         return 'Hello, world!';
     }
 

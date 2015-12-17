@@ -6,7 +6,7 @@ class BookDetailService extends Service
 {
     protected $useMainOnly = true;
 
-    public function _main() {
+    public function main() {
         printf("Book ID: %d\n", $this->app->request->uri->segment(1));
     }
 }

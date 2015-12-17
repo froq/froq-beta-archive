@@ -8,11 +8,11 @@ class BookService extends Service
     protected $useViewPartialAll = true;
     protected $allowedRequestMethods = ['GET', 'POST'];
 
-    public function _init() {
+    public function init() {
         $this->model = new BookModel();
     }
 
-    public function _main() {
+    public function main() {
         $this->view('main');
         // $this->view->display('main');
     }

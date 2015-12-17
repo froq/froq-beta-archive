@@ -5,10 +5,10 @@ interface ServiceInterface
     const DEFAULT_SERVICE = 'HomeService';
 
     const METHOD_PREFIX   = 'do',
-          METHOD_INIT     = '_init',
-          METHOD_MAIN     = '_main',
-          METHOD_ONBEFORE = '_onbefore',
-          METHOD_ONAFTER  = '_onafter';
+          METHOD_INIT     = 'init',
+          METHOD_MAIN     = 'main',
+          METHOD_ONBEFORE = 'onbefore',
+          METHOD_ONAFTER  = 'onafter';
 
-    public function _main();
+    public function main();
 }
