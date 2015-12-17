@@ -72,7 +72,7 @@ final class Application
 
         $this->service->callOnBefore();
 
-        $output = $this->service->callDo();
+        $output = $this->service->callDoMethod();
 
         $this->service->callOnAfter();
 

@@ -67,7 +67,7 @@ abstract class Service
     final public function callOnAfter() {
         return $this->call(ServiceInterface::METHOD_ONAFTER, false);
     }
-    final public function callDo() {
+    final public function callDoMethod() {
         // always uses main method
         if ($this->isMain() || $this->useMainOnly) {
             return $this->callMain();
