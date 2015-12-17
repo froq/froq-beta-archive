@@ -146,3 +146,7 @@ function pre($s, $e=false) {
     print '<pre>'. _prp($s) .'</pre>'. PHP_EOL;
     $e && exit;
 }
+function prd($s, $e=false) {
+    print '<pre>'; var_dump($s); print '</pre>'. PHP_EOL;
+    $e && exit;
+}
