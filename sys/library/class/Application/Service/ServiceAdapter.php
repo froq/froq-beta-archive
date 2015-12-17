@@ -3,84 +3,86 @@ namespace Application\Service;
 
 use \Application\Application;
 use \Application\Http\Response\Status;
-use \Application\Service\Service;
 
 final class ServiceAdapter
 {
     private $app;
+    private $service;
     private $serviceName;
     private $serviceNameDefault = Service::SERVICE_MAIN;
     private $serviceMethod;
     private $serviceMethodDefault = Service::METHOD_MAIN;
     private $serviceFile;
-    private $serviceViewData;
+    private $serviceViewData = null;
 
     final public function __construct(Application $app) {
         $this->app = $app;
-        $serviceName = (string) $this->app->request->uri->segment(0);
-        $serviceMethod = (string) $this->app->request->uri->segment(1);
-        // main?
-        if ($serviceName == '/') {
-            $serviceName = $this->serviceNameDefault;
-        }
-        if ($serviceMethod == '') {
-            $serviceMethod = $this->serviceMethodDefault;
-        }
-        $this->setServiceName($serviceName)
-             ->setServiceMethod($serviceMethod)
-             ->setServiceFile($serviceName);
+
+        $this->serviceName = ('/' == ($serviceName = $this->app->request->uri->segment(0, '/')))
+            ? $this->serviceNameDefault : $this->toServiceName($serviceName);
+        $this->serviceMethod = ('' == ($serviceMethod = $this->app->request->uri->segment(1, '')))
+            ? $this->serviceMethodDefault : $this->toServiceMethod($serviceMethod);
+
+        $this->serviceFile = sprintf('./app/service/%s/%s.php',
+            $this->serviceName, $this->serviceName);
+
         if (!$this->isServiceExists()) {
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
-            $this->serviceViewData['fail']['text'] = sprintf('Service not found! name: %s', $serviceName);
-            $this->setServiceName(Service::SERVICE_FAIL);
+            $this->serviceViewData['fail']['text'] = sprintf(
+                'Service not found! name: %s()', $this->serviceName);
+            $this->serviceName = Service::SERVICE_FAIL;
         }
-    }
 
-    final public function createService(): Service {
-        return (new $this->serviceName($this->serviceName))
-            ->setApp($this->app)
-            ->setMethod($this->serviceMethod)
-            ->setViewData($this->serviceViewData);
+        $this->service = $this->createService();
+        if (!$this->isServiceMethodExists()) {
+            $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
+            $this->serviceViewData['fail']['text'] = sprintf(
+                'Service method not found! name: %s::%s()', $this->serviceName, $this->serviceMethod);
+            $this->serviceName = Service::SERVICE_FAIL;
+            $this->service = $this->createService();
+        }
+
     }
 
     final public function isServiceExists(): bool {
-        return file_exists($this->serviceFile) && class_exists($this->serviceName);
+        return (is_file($this->serviceFile) && class_exists($this->serviceName));
     }
 
-    final public function setServiceName(string $serviceName): self {
-        $this->serviceName = trim($serviceName);
-        return $this;
+    final public function isServiceMethodExists(): bool {
+        return ($this->service && method_exists($this->service, $this->serviceMethod));
     }
+
+    final public function getService(): Service {
+        return $this->service;
+    }
+
     final public function getServiceName(): string {
         return $this->serviceName;
     }
 
-    final public function setServiceMethod(string $serviceMethod): self {
-        $this->serviceMethod = trim($serviceMethod);
-        return $this;
-    }
     final public function getServiceMethod(): string {
         return $this->serviceMethod;
     }
 
-    final public function setServiceFile(string $serviceName): self {
-        $this->serviceFile = sprintf('./app/service/%s/%s.php', $serviceName, $serviceName);
-        return $this;
-    }
     final public function getServiceFile(): string {
         return $this->serviceFile;
+    }
+
+    final private function createService(): Service {
+        return new $this->serviceName($this->app,
+            $this->serviceName, $this->serviceMethod, $this->serviceViewData);
     }
 
     final private function toServiceName(string $name): string {
         $name = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($name));
-        return sprintf('%sService', $name);
+        return sprintf('%s%s', $name, Service::NAME_SUFFIX);
     }
     final private function toServiceMethod(string $method): string {
         $method = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($method));
-        return $method;
+        return sprintf('%s%s', Service::METHOD_PREFIX, $method);
     }
 }
