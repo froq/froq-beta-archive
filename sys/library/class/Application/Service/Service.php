@@ -72,7 +72,7 @@ abstract class Service
         if ($this->useMainOnly) {
             return $this->callMain();
         }
-        return $this->call($this->method);
+        return $this->call(ServiceInterface::METHOD_PREFIX . $this->method);
     }
 
     final public function setApp(Application $app): self {
