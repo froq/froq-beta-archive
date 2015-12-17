@@ -37,7 +37,7 @@ final class Autoload
      *
      * @return self
      */
-    final public static function init() {
+    final public static function init(): self {
         if (self::$instance == null) {
             self::$instance = new self();
         }
@@ -151,7 +151,7 @@ final class Autoload
      *
      * @return string
      */
-    final public static function fixSlashes($path) {
+    final public static function fixSlashes($path): string {
         return preg_replace(['~\\\\~', '~/+~'], '/', $path);
     }
 }
