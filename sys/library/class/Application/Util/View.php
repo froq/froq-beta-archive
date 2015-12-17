@@ -41,7 +41,12 @@ final class View
         include($file);
     }
     final public function prepareFile($file, $fileCheck = true) {
-        $file = sprintf('./app/service/%s/view/%s.php', $this->service->getName(), $file);
+        // default file given
+        if ($file[0] == '.') {
+            $file = sprintf('%s.php', $file);
+        } else {
+            $file = sprintf('./app/service/%s/view/%s.php', $this->service->getName(), $file);
+        }
         if ($fileCheck && !is_file($file)) {
             throw new \RuntimeException('View file not found! file: '. $file);
         }
