@@ -21,18 +21,18 @@ final class UriPath
     final public function getPath(): string {
         return $this->path;
     }
-    final public function getSegment($i) {
+    final public function getSegment($i, $def = null) {
         if (isset($this->segments[$i])) {
             return $this->segments[$i];
         }
-        return null;
+        return $def;
     }
     final public function getSegmentAll(): array {
         return $this->segments;
     }
 
-    final public function segment($i) {
-        return $this->getSegment($i);
+    final public function segment($i, $def = null) {
+        return $this->getSegment($i, $def);
     }
 
     final public static function parse($path): array {

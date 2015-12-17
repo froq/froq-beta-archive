@@ -366,12 +366,12 @@ final class Uri
      * Get segment value.
      *
      * @param  int $i
-     * @return string|null
+     * @return mixed|null
      */
-    final public function segment($i) {
+    final public function segment($i, $def = null) {
         if (isset($this->segments[$i])) {
             return $this->segments[$i];
         }
-        return null;
+        return $def;
     }
 }
