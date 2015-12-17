@@ -75,7 +75,7 @@ final class Application
         if ($this->service->isHome()) {
             $output = $this->service->callMain();
         } else {
-            $output = $this->service->callInvoked();
+            $output = $this->service->callDo();
         }
 
         $this->service->callOnAfter();
