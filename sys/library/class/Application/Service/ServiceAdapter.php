@@ -77,12 +77,12 @@ final class ServiceAdapter
         $name = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($name));
-        return sprintf('%s%s', $name, Service::NAME_SUFFIX);
+        return sprintf('%s%s', $name, Service::SERVICE_NAME_SUFFIX);
     }
     final private function toServiceMethod(string $method): string {
         $method = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($method));
-        return sprintf('%s%s', Service::METHOD_PREFIX, $method);
+        return sprintf('%s%s', Service::METHOD_NAME_PREFIX, $method);
     }
 }
