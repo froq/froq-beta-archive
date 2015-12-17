@@ -72,7 +72,7 @@ final class Application
 
         $this->service->callOnBefore();
 
-        if ($this->service->isHome()) {
+        if ($this->service->isMain()) {
             $output = $this->service->callMain();
         } else {
             $output = $this->service->callDo();

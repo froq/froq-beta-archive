@@ -42,7 +42,7 @@ abstract class Service
         }
     }
 
-    final public function isHome(): bool {
+    final public function isMain(): bool {
         return empty($this->method);
     }
 
