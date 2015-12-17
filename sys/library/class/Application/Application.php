@@ -62,7 +62,7 @@ final class Application
         $this->startOutputBuffer();
 
         $this->service = (new ServiceAdapter($this))
-            ->createService();
+            ->getService();
 
         $output = $this->service->run();
 
