@@ -103,11 +103,6 @@ final class Autoload
 
         // check file exists
         if (!is_file($objectFile)) {
-            // for external libs
-            // @todo open in the future!!!
-            // if (get_global('throw_autoload_exception') === false) {
-            //     return;
-            // }
             // throw regular exception
             throw new \RuntimeException("Object file not found! file: `{$objectFile}`.");
         }
