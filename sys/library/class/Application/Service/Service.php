@@ -69,7 +69,7 @@ abstract class Service
     }
     final public function callDo() {
         // always uses main method
-        if ($this->useMainOnly) {
+        if ($this->isMain() || $this->useMainOnly) {
             return $this->callMain();
         }
         return $this->call(ServiceInterface::METHOD_PREFIX . $this->method);

@@ -72,11 +72,7 @@ final class Application
 
         $this->service->callOnBefore();
 
-        if ($this->service->isMain()) {
-            $output = $this->service->callMain();
-        } else {
-            $output = $this->service->callDo();
-        }
+        $output = $this->service->callDo();
 
         $this->service->callOnAfter();
 
