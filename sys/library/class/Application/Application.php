@@ -4,7 +4,7 @@ namespace Application;
 use Application\Util\Config;
 use Application\Util\Traits\{SingleTrait, GetterTrait};
 use Application\Http\{Request, Response};
-use Application\Service\{Service, ServiceAdapter};
+use Application\Service\ServiceAdapter;
 use Application\Database\Database;
 
 final class Application

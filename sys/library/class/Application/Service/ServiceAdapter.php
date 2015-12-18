@@ -30,7 +30,7 @@ final class ServiceAdapter
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
             $this->serviceViewData['fail']['text'] = sprintf(
                 'Service not found! name: %s()', $this->serviceName);
-            $this->serviceName = Service::SERVICE_FAIL;
+            $this->serviceName = ServiceInterface::SERVICE_FAIL;
         }
 
         $this->service = $this->createService();
@@ -38,7 +38,7 @@ final class ServiceAdapter
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
             $this->serviceViewData['fail']['text'] = sprintf(
                 'Service method not found! name: %s::%s()', $this->serviceName, $this->serviceMethod);
-            $this->serviceName = Service::SERVICE_FAIL;
+            $this->serviceName = ServiceInterface::SERVICE_FAIL;
             $this->service = $this->createService();
         }
 
@@ -52,7 +52,7 @@ final class ServiceAdapter
         return ($this->service && method_exists($this->service, $this->serviceMethod));
     }
 
-    final public function getService(): Service {
+    final public function getService(): ServiceInterface {
         return $this->service;
     }
 
@@ -68,7 +68,7 @@ final class ServiceAdapter
         return $this->serviceFile;
     }
 
-    final private function createService(): Service {
+    final private function createService(): ServiceInterface {
         return new $this->serviceName($this->app,
             $this->serviceName, $this->serviceMethod, $this->serviceViewData);
     }
@@ -77,12 +77,12 @@ final class ServiceAdapter
         $name = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($name));
-        return sprintf('%s%s', $name, Service::SERVICE_NAME_SUFFIX);
+        return sprintf('%s%s', $name, ServiceInterface::SERVICE_NAME_SUFFIX);
     }
     final private function toServiceMethod(string $method): string {
         $method = preg_replace_callback('~-([a-z])~i', function($match) {
             return ucfirst($match[1]);
         }, ucfirst($method));
-        return sprintf('%s%s', Service::METHOD_NAME_PREFIX, $method);
+        return sprintf('%s%s', ServiceInterface::METHOD_NAME_PREFIX, $method);
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace Application\Util;
 
-use Application\Service\Service;
+use Application\Service\ServiceInterface;
 
 final class View
 {
@@ -10,7 +10,7 @@ final class View
     private $app;
     private $service;
 
-    final public function __construct(Service $service) {
+    final public function __construct(ServiceInterface $service) {
         $this->app = $service->app;
         $this->service = $service;
     }

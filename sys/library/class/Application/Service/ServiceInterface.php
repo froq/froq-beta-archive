@@ -12,6 +12,4 @@ interface ServiceInterface
           METHOD_MAIN         = 'main',
           METHOD_ONBEFORE     = 'onbefore',
           METHOD_ONAFTER      = 'onafter';
-
-    public function main();
 }
