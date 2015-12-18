@@ -51,7 +51,7 @@ $cfg['app']['cookies'] = [];
 $cfg['app']['session'] = [];
 // session cookie
 $cfg['app']['session']['cookie'] = [
-    'name'      => 'SID',   'domain'   => null,
+    'name'      => 'SID',   'domain'   => '',
     'path'      => '/',     'secure'   => false,
     'httponly'  => false,   'lifetime' => 0,
     'save_path' => $cfg['app']['dir']['tmp'] .'/session',
