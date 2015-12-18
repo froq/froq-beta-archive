@@ -4,7 +4,6 @@ namespace Application\Service;
 use Application\Application;
 use Application\Util\{View, Config};
 use Application\Util\Traits\GetterTrait;
-use Application\Http\Response\Status;
 
 abstract class Service
     implements ServiceInterface
@@ -50,32 +49,31 @@ abstract class Service
     }
 
     final public function isMain(): bool {
-        return (empty($this->method) || $this->method == self::METHOD_MAIN);
+        return (empty($this->method) || $this->method == ServiceInterface::METHOD_MAIN);
     }
 
     final public function run() {
-        if (method_exists($this, self::METHOD_INIT)) {
-            $this->{self::METHOD_INIT}();
+        if (method_exists($this, ServiceInterface::METHOD_INIT)) {
+            $this->{ServiceInterface::METHOD_INIT}();
         }
-        if (method_exists($this, self::METHOD_ONBEFORE)) {
-            $this->{self::METHOD_ONBEFORE}();
+        if (method_exists($this, ServiceInterface::METHOD_ONBEFORE)) {
+            $this->{ServiceInterface::METHOD_ONBEFORE}();
         }
 
         $output = null;
         // always uses main method
         if ($this->isMain() || $this->useMainOnly) {
-            $output = $this->{self::METHOD_MAIN}();
+            $output = $this->{ServiceInterface::METHOD_MAIN}();
         } elseif (method_exists($this, $this->method)) {
             $output = $this->{$this->method}();
         } else {
             // fail!
-            $viewData['fail']['code'] = Status::NOT_FOUND;
-            $viewData['fail']['text'] = sprintf('Service not found! name: %s', $this->name);
-            $this->viewData = $viewData;
+            prs($this->viewData);
+            // throw new \RuntimeException($this->viewData['fail']['text'], $this->viewData['fail']['code']);
         }
 
-        if (method_exists($this, self::METHOD_ONAFTER)) {
-            $this->{self::METHOD_ONAFTER}();
+        if (method_exists($this, ServiceInterface::METHOD_ONAFTER)) {
+            $this->{ServiceInterface::METHOD_ONAFTER}();
         }
 
         return $output;
