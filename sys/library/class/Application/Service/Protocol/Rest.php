@@ -6,7 +6,7 @@ use Application\Service\{Service, ServiceInterface};
 // https://spring.io/understanding/REST
 abstract class Rest extends Service
 {
-    protected static $protocol = ServiceInterface::PROTOCOL_REST;
+    protected $protocol = ServiceInterface::PROTOCOL_REST;
 
     abstract public function get();
     abstract public function post();
