@@ -28,3 +28,14 @@ function is_callee_allowed($filePath, array &$callee = null, string &$error = nu
     }
     return true;
 }
+
+/**
+ * Check var is iterable.
+ * @param  mixed $input
+ * @return bool
+ */
+function is_iter($input) {
+    return is_array($input)
+        || ($input instanceof \stdClass)
+        || ($input instanceof \Traversable);
+}
