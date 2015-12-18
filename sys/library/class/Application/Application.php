@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 namespace Application;
 
-use Application\Util\Config;
+use Application\Util\{Config, Session};
 use Application\Util\Traits\{SingleTrait, GetterTrait};
 use Application\Http\{Request, Response};
-use Application\Service\ServiceAdapter;
+use Application\Service\{ServiceAdapter, ServiceInterface};
 use Application\Database\Database;
 
 final class Application
@@ -18,6 +18,7 @@ final class Application
 
     private $env;
     private $service;
+    private $session;
     private $request, $response;
     private $db;
     private $config;
@@ -63,6 +64,10 @@ final class Application
 
         $this->service = (new ServiceAdapter($this))
             ->getService();
+
+        if ($this->service->protocol == ServiceInterface::PROTOCOL_SITE) {
+            $this->session = Session::init();
+        }
 
         $output = $this->service->run();
 
