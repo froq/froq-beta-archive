@@ -19,7 +19,7 @@ function is_local(): bool {
  * @param  string|null &$error
  * @return bool
  */
-function is_callee_allowed($filePath, array &$callee = null, string &$error = null): bool {
+function is_callee_allowed(string $filePath, array &$callee = null, string &$error = null): bool {
     $callee = get_callee(4);
     if (strpos($callee['file'], $filePath)) {
         $error = sprintf('Call from bad scope! class: %s::%s() file: %s:%d',
@@ -34,7 +34,7 @@ function is_callee_allowed($filePath, array &$callee = null, string &$error = nu
  * @param  mixed $input
  * @return bool
  */
-function is_iter($input) {
+function is_iter($input): bool {
     return is_array($input)
         || ($input instanceof \stdClass)
         || ($input instanceof \Traversable);
