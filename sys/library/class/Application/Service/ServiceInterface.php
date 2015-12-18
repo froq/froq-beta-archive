@@ -2,6 +2,9 @@
 
 interface ServiceInterface
 {
+    const PROTOCOL_SITE = 'site',
+          PROTOCOL_REST = 'rest';
+
     const SERVICE_NAME_SUFFIX = 'Service',
           METHOD_NAME_PREFIX  = 'do';
 
