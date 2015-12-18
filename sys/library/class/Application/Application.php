@@ -66,7 +66,7 @@ final class Application
             ->getService();
 
         if ($this->service->protocol == ServiceInterface::PROTOCOL_SITE) {
-            $this->session = Session::init();
+            $this->session = Session::init($this->config->get('app.session.cookie'));
         }
 
         $output = $this->service->run();
