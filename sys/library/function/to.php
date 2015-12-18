@@ -1,8 +1,5 @@
 <?php declare(strict_types=1);
-
-/**
- * To function module.
- */
+/*** To function module. ***/
 
 /**
  * Convert an iterable to array.
