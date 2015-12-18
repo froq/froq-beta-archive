@@ -6,7 +6,7 @@
  * @author     Kerem! <qeremy@gmail>
  *
  * Notice: Do not define `__construct` or `__clone`
- * methods as public if you wanna single user object.
+ * methods as public if you want a single user object.
  */
 trait SingleTrait
 {
@@ -25,19 +25,19 @@ trait SingleTrait
     /**
      * Constructor.
      *
+     * @param  array $args
      * @return object
      */
-    final public static function init(...$args) {
+    final public static function init(array ...$args)
+    {
         $className = get_called_class();
         if (!isset(self::$__instances[$className])) {
             // init without constructor
             $classObject = (new \ReflectionClass($className))
                 ->newInstanceWithoutConstructor();
 
-            // call constructor if exists
-            if (method_exists($classObject, '__construct')) {
-                call_user_func_array([$classObject, '__construct'], $args);
-            }
+            // call constructor
+            call_user_func_array([$classObject, '__construct'], $args);
 
             self::$__instances[$className] = $classObject;
         }
