@@ -10,7 +10,7 @@ $cfg = [];
 $cfg['app'] = [];
 
 // load avg
-$cfg['app']['loadAvg'] = 85.01;
+$cfg['app']['loadAvg'] = 85.00;
 
 // protocols
 $cfg['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
@@ -48,7 +48,9 @@ $cfg['app']['headers'] = [
 $cfg['app']['cookies'] = [];
 
 // session
-$cfg['app']['session'] = [
+$cfg['app']['session'] = [];
+// session cookie
+$cfg['app']['session']['cookie'] = [
     'name'      => 'SID',   'domain'   => null,
     'path'      => '/',     'secure'   => false,
     'httponly'  => false,   'lifetime' => 0,
