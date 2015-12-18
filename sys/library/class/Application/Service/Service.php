@@ -32,8 +32,8 @@ abstract class Service
     protected $validations = []; // @todo from <service>/config/config.php
     protected $allowedRequestMethods = [];
 
-    final public function __construct(Application $app, string $name, string $method,
-            $viewData = null) {
+    final public function __construct(Application $app, string $name, string $method, $viewData = null)
+    {
         $this->app = $app;
         $this->name = $name;
         $this->method = $method;
@@ -71,7 +71,7 @@ abstract class Service
             // fail!
             $viewData['fail']['code'] = Status::NOT_FOUND;
             $viewData['fail']['text'] = sprintf('Service not found! name: %s', $this->name);
-            $this->setViewData($viewData);
+            $this->viewData = $viewData;
         }
 
         if (method_exists($this, self::METHOD_ONAFTER)) {
