@@ -2,8 +2,8 @@
 
 interface ServiceInterface
 {
-    const PROTOCOL_SITE = 'site',
-          PROTOCOL_REST = 'rest';
+    const PROTOCOL_SITE       = 'site',
+          PROTOCOL_REST       = 'rest';
 
     const SERVICE_NAME_SUFFIX = 'Service',
           METHOD_NAME_PREFIX  = 'do';
@@ -15,4 +15,6 @@ interface ServiceInterface
           METHOD_MAIN         = 'main',
           METHOD_ONBEFORE     = 'onbefore',
           METHOD_ONAFTER      = 'onafter';
+
+    public function init();
 }
