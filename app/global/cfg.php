@@ -9,8 +9,7 @@ $cfg = [];
  */
 // allowed hosts
 $cfg['app']['hosts'] = [
-    'hazirtur.com',
-    'hazirtur.com.local',
+    'froq.local',
 ];
 
 // defaults
@@ -28,11 +27,11 @@ $cfg['db']['mysql']['development'] = [
     'agent' => 'mysqli',
     'profiling' => true,
     'query_log' => true,
-    'query_log_level' => Oppa\Logger::WARN | Oppa\Logger::FAIL,
+    'query_log_level' => Oppa\Logger::WARN | Oppa\Logger::FAIL, // @todo make your own logger
     'query_log_directory' => $app->config->get('app.dir.tmp') .'/log/db/',
     'query_log_filename_format' => 'Y-m-d',
     'database' => [
-        'host'     => 'localhost',  'name'     => 'hazirtur.com',
+        'host'     => 'localhost',  'name'     => 'froq',
         'username' => 'root',       'password' => '********',
         'charset'  => 'utf8',       'timezone' => '+00:00',
     ],
