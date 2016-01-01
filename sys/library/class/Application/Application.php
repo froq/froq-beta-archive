@@ -149,7 +149,8 @@ final class Application
         exit(1);
     }
 
-    final private function haltCheck(): string {
+    final private function haltCheck(): string
+    {
         // check request count
         $maxRequest = $this->config->get('security.maxRequest');
         if ($maxRequest && count($_REQUEST) > $maxRequest) {
@@ -157,8 +158,8 @@ final class Application
         }
         // check user agent
         $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
-        if ($allowEmptyUserAgent === false && (
-            !isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
+        if ($allowEmptyUserAgent === false
+            && (!isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
             return '400 Bad Request';
         }
         // check client host
