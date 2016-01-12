@@ -28,7 +28,8 @@ final class Autoload
      *
      * @return void
      */
-    final public function __destruct() {
+    final public function __destruct()
+    {
         spl_autoload_unregister([$this, 'load']);
     }
 
@@ -37,7 +38,8 @@ final class Autoload
      *
      * @return self
      */
-    final public static function init(): self {
+    final public static function init(): self
+    {
         if (self::$instance == null) {
             self::$instance = new self();
         }
@@ -50,7 +52,8 @@ final class Autoload
      *
      * @return bool
      */
-    final public function register() {
+    final public function register()
+    {
         return spl_autoload_register([$this, 'load']);
     }
 
@@ -61,7 +64,8 @@ final class Autoload
      * @return mixed
      * @throws \RuntimeException
      */
-    final public static function load($objectName) {
+    final public static function load($objectName)
+    {
         // Autoload::load('./Single')
         // Autoload::load('router/Router/Route')
         if (0 === strpos($objectName, './')) {
@@ -146,7 +150,8 @@ final class Autoload
      *
      * @return string
      */
-    final public static function fixSlashes($path): string {
+    final public static function fixSlashes($path): string
+    {
         return preg_replace(['~\\\\~', '~/+~'], '/', $path);
     }
 }
