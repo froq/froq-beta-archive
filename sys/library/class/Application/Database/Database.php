@@ -14,7 +14,8 @@ final class Database
 
     final public function __construct() {}
 
-    final public static function init($vendor) {
+    final public static function init($vendor)
+    {
         if (isset(self::$instances[$vendor])) {
             return self::$instances[$vendor];
         }
@@ -35,13 +36,16 @@ final class Database
         return (self::$instances[$vendor] = $db);
     }
 
-    final public function initMysql() {
+    final public function initMysql()
+    {
         return self::init(self::VENDOR_MYSQL);
     }
-    final public function initCouch() {
+    final public function initCouch()
+    {
         return self::init(self::VENDOR_COUCH);
     }
-    final public function initMongo() {
+    final public function initMongo()
+    {
         return self::init(self::VENDOR_MONGO);
     }
 }

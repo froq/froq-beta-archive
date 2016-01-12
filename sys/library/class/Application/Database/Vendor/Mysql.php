@@ -11,7 +11,8 @@ final class Mysql
 
     private $db;
 
-    final private function __construct(array $config) {
+    final private function __construct(array $config)
+    {
         $this->db = Factory::build(new Configuration($config));
         $this->db->connect();
     }
