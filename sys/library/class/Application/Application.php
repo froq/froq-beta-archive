@@ -23,7 +23,8 @@ final class Application
     private $db;
     private $config;
 
-    final private function __construct() {
+    final private function __construct()
+    {
         // set app as global
         set_global('app', $this);
 
@@ -49,7 +50,8 @@ final class Application
         $this->response = new Response();
     }
 
-    final public function run() {
+    final public function run()
+    {
         if (!$this->config) {
             throw new \RuntimeException('Call setConfig() first to get run application!');
         }
@@ -74,12 +76,14 @@ final class Application
         $this->endOutputBuffer($output);
     }
 
-    final public function setEnv(string $env): self {
+    final public function setEnv(string $env): self
+    {
         $this->env = $env;
         return $this;
     }
 
-    final public function setConfig(array $config): self {
+    final public function setConfig(array $config): self
+    {
         if ($this->config == null) {
             $this->config = new Config($config);
         } else {
@@ -89,7 +93,8 @@ final class Application
         return $this;
     }
 
-    final public function setDefaults(): self {
+    final public function setDefaults(): self
+    {
         $cfg = ['locale'   => $this->config->get('app.locale'),
                 'encoding' => $this->config->get('app.encoding'),
                 'timezone' => $this->config->get('app.timezone'),
@@ -100,15 +105,18 @@ final class Application
         date_default_timezone_set($cfg['timezone']);
         // default charset
         ini_set('default_charset', $cfg['encoding']);
+
         // locale stuff
         $locale = sprintf('%s.%s', $cfg['locale'], $cfg['encoding']);
         setlocale(LC_TIME, $locale);
         setlocale(LC_NUMERIC, $locale);
         setlocale(LC_MONETARY, $locale);
+
         return $this;
     }
 
-    final public function startOutputBuffer() {
+    final public function startOutputBuffer()
+    {
         ini_set('implicit_flush', '1');
         if (!headers_sent()) {
             ini_set('zlib.output_compression', '0');
@@ -116,7 +124,8 @@ final class Application
         ob_start();
     }
 
-    final public function endOutputBuffer(string $output = null, callable $callable = null) {
+    final public function endOutputBuffer(string $output = null, callable $callable = null)
+    {
         // print'ed service methods return null
         if ($output === null) {
             $output = '';
@@ -130,17 +139,21 @@ final class Application
         print $output;
     }
 
-    final public function isDev(): bool {
+    final public function isDev(): bool
+    {
         return ($this->env == self::ENVIRONMENT_DEVELOPMENT);
     }
-    final public function isStage(): bool {
+    final public function isStage(): bool
+    {
         return ($this->env == self::ENVIRONMENT_STAGE);
     }
-    final public function isProduction(): bool {
+    final public function isProduction(): bool
+    {
         return ($this->env == self::ENVIRONMENT_PRODUCTION);
     }
 
-    final private function halt(string $status) {
+    final private function halt(string $status)
+    {
         header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status));
         header('Connection: close');
         header('Content-Type: none');
