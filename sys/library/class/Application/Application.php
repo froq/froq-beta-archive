@@ -6,6 +6,7 @@ use Application\Util\Traits\{SingleTrait, GetterTrait};
 use Application\Http\{Request, Response};
 use Application\Service\{ServiceAdapter, ServiceInterface};
 use Application\Database\Database;
+use Application\Handler\{Error as ErrorHandler, Exception as ExceptionHandler, Shutdown as ShutdownHandler};
 
 final class Application
 {
@@ -44,6 +45,11 @@ final class Application
             require_once($file);
         }
 
+        // set handlers
+        $this->setErrorHandler();
+        $this->setExceptionHandler();
+        $this->setShutdownHandler();
+
         $this->db = new Database();
 
         $this->request = new Request();
@@ -60,6 +66,36 @@ final class Application
         restore_include_path();
         restore_error_handler();
         restore_exception_handler();
+    }
+
+    /**
+     * Set error handler.
+     *
+     * @return mixed
+     */
+    final public function setErrorHandler()
+    {
+        return set_error_handler(ErrorHandler::handler());
+    }
+
+    /**
+     * Set exception handler.
+     *
+     * @return mixed
+     */
+    final public function setExceptionHandler()
+    {
+        return set_exception_handler(ExceptionHandler::handler());
+    }
+
+    /**
+     * Set shutdown handler.
+     *
+     * @return void
+     */
+    final public function setShutdownHandler()
+    {
+        register_shutdown_function(ShutdownHandler::handler());
     }
 
     final public function run()
