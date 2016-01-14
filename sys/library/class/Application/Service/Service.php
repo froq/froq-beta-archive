@@ -48,11 +48,13 @@ abstract class Service
         }
     }
 
-    final public function isMain(): bool {
-        return (empty($this->method) || $this->method == ServiceInterface::METHOD_MAIN);
+    final public function isMain(): bool
+    {
+        return empty($this->method) || ($this->method == ServiceInterface::METHOD_MAIN);
     }
 
-    final public function run() {
+    final public function run()
+    {
         if (method_exists($this, ServiceInterface::METHOD_INIT)) {
             $this->{ServiceInterface::METHOD_INIT}();
         }
@@ -79,28 +81,33 @@ abstract class Service
         return $output;
     }
 
-    final public function isRequestMethodAllowed(string $requestMethod): bool {
+    final public function isRequestMethodAllowed(string $requestMethod): bool
+    {
         if (empty($this->allowedRequestMethods)) {
             return true;
         }
         return in_array($requestMethod, $this->allowedRequestMethods);
     }
-    final public function setAllowedRequestMethods(array ...$allowedRequestMethods): self {
+    final public function setAllowedRequestMethods(array ...$allowedRequestMethods): self
+    {
         $this->allowedRequestMethods = array_map('strtoupper', $allowedRequestMethods);
         return $this;
     }
-    final public function getAllowedRequestMethods(): array {
+    final public function getAllowedRequestMethods(): array
+    {
         return $this->allowedRequestMethods;
     }
 
-    final private function loadConfig(): self {
+    final private function loadConfig(): self
+    {
         $file = sprintf('./app/service/%s/config/config.php', $this->name);
         if (is_file($file)) {
             $this->config = new Config($file);
         }
         return $this;
     }
-    final private function loadModel(): self {
+    final private function loadModel(): self
+    {
         $file = sprintf('./app/service/%s/model/model.php', $this->name);
         if (is_file($file)) {
             include($file);
@@ -108,7 +115,8 @@ abstract class Service
         return $this;
     }
 
-    final public function view(string $file, array $data = null) {
+    final public function view(string $file, array $data = null)
+    {
         if ($this->useViewPartialAll || ($this->useViewPartialHead && $this->useViewPartialFoot)) {
             $this->view->displayHead($data);
             $this->view->display($file, $data);
