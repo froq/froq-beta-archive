@@ -29,7 +29,7 @@ final class ServiceAdapter
         if (!$this->isServiceExists()) {
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
             $this->serviceViewData['fail']['text'] = sprintf(
-                'Service not found! name: %s()', $this->serviceName);
+                'Service not found! [%s]', $this->serviceName);
             $this->serviceName = ServiceInterface::SERVICE_FAIL;
             $this->serviceFile = $this->toServiceFile($this->serviceName);
         }
@@ -39,7 +39,7 @@ final class ServiceAdapter
         if (!$this->isServiceMethodExists()) {
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
             $this->serviceViewData['fail']['text'] = sprintf(
-                'Service method not found! name: %s::%s()', $this->serviceName, $this->serviceMethod);
+                'Service method not found! [%s::%s()]', $this->serviceName, $this->serviceMethod);
             $this->serviceName = ServiceInterface::SERVICE_FAIL;
             $this->serviceFile = $this->toServiceFile($this->serviceName);
 
@@ -109,7 +109,7 @@ final class ServiceAdapter
            ($serviceName == ServiceInterface::SERVICE_MAIN || $serviceName == ServiceInterface::SERVICE_FAIL)) {
             $serviceFile = sprintf('./app/service/default/%s/%s.php', $serviceName, $serviceName);
             // no need to autoload
-            require($serviceFile);
+            require_once($serviceFile);
         }
         return $serviceFile;
     }
