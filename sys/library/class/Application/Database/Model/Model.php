@@ -61,7 +61,7 @@ abstract class Model
         return $this->data;
     }
 
-    final public function getTable(): string
+    final public function getTable()
     {
         return $this->table;
     }
