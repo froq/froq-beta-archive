@@ -16,4 +16,9 @@ final class Mysql
         $this->db = Factory::build(new Configuration($config));
         $this->db->connect();
     }
+
+    final public function __call($method, array $arguments)
+    {
+        return call_user_func_array([$this->db, $method], $arguments);
+    }
 }
