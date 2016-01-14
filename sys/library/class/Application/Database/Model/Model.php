@@ -2,22 +2,23 @@
 namespace Application\Database\Model;
 
 use Application\Database\Database;
-use Application\Database\Model\Table\Mysql,
-    Application\Database\Model\Table\Couch,
-    Application\Database\Model\Table\Mongo;
+use Application\Database\Model\Model\Mysql;
+// @todo
+// use Application\Database\Model\Model\Couch;
+// use Application\Database\Model\Model\Mongo;
 
 abstract class Model
 {
     protected $vendor;
-    protected $table, $tableName, $tablePrimary;
+    protected $model, $modelName, $modelPrimary;
     protected $data = [];
 
     final public function __construct()
     {
         switch ($this->vendor) {
             case Database::VENDOR_MYSQL:
-                $this->table = new Mysql(Database::init(Database::VENDOR_MYSQL),
-                    $this->tableName, $this->tablePrimary);
+                $this->model = new Mysql(Database::init(Database::VENDOR_MYSQL),
+                    $this->modelName, $this->modelPrimary);
                 break;
             default:
                 throw new \Exception('Unimplemented vendor given!');
@@ -31,6 +32,14 @@ abstract class Model
             $this->data[$var] = $this->{$var};
             unset($this->{$var});
         }
+    }
+
+    final public function __call($method, array $arguments)
+    {
+        if (method_exists($this->model, $method)) {
+            return call_user_func_array([$this->model, $method], $arguments);
+        }
+        throw new \BadMethodCallException("Call to undefined method `{$method}`!");
     }
 
     final public function __set(string $key, $value)
@@ -61,21 +70,22 @@ abstract class Model
         return $this->data;
     }
 
-    final public function getTable()
-    {
-        return $this->table;
-    }
-    final public function getTableName(): string
-    {
-        return $this->tableName;
-    }
-    final public function getTablePrimary(): string
-    {
-        return $this->tablePrimary;
-    }
     final public function getVendor(): string
     {
         return $this->vendor;
+    }
+
+    final public function getModel()
+    {
+        return $this->model;
+    }
+    final public function getModelName(): string
+    {
+        return $this->modelName;
+    }
+    final public function getModelPrimary(): string
+    {
+        return $this->modelPrimary;
     }
 
     final public function reset()

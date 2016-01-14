@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
-namespace Application\Database\Model\Table;
+namespace Application\Database\Model\Model;
 
-abstract class Table
+use Application\Database\Model\ModelInterface;
+
+abstract class Model implements ModelInterface
 {
     protected $db;
     protected $name;
@@ -36,9 +38,4 @@ abstract class Table
     {
         return $this->primary;
     }
-
-    abstract public function find();
-    abstract public function findAll();
-    abstract public function save();
-    abstract public function remove();
 }
