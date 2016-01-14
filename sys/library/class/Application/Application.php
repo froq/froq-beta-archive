@@ -135,8 +135,7 @@ final class Application
         if ($this->config == null) {
             $this->config = new Config($config);
         } else {
-            $this->config->setData(
-                Config::merge($config, $this->config->getData()));
+            $this->config->setData(Config::merge($config, $this->config->getData()));
         }
         return $this;
     }
