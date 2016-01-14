@@ -50,6 +50,18 @@ final class Application
         $this->response = new Response();
     }
 
+    /**
+     * Restore defaults.
+     *
+     * @return void
+     */
+    final public function __destruct()
+    {
+        restore_include_path();
+        restore_error_handler();
+        restore_exception_handler();
+    }
+
     final public function run()
     {
         if (!$this->config) {
