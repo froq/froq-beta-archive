@@ -1,4 +1,5 @@
-<?php namespace Application\Database;
+<?php declare(strict_types=1);
+namespace Application\Database;
 
 use Application\Database\Vendor\Mysql,
     Application\Database\Vendor\Couch,
@@ -14,7 +15,7 @@ final class Database
 
     final public function __construct() {}
 
-    final public static function init($vendor)
+    final public static function init(string $vendor)
     {
         if (isset(self::$instances[$vendor])) {
             return self::$instances[$vendor];
