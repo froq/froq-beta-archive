@@ -6,7 +6,7 @@ final class Config
 
     final public function __construct($data, $merge = false) {
         if (is_string($data)) {
-            $data = include($data);
+            $data = require($data);
         }
         if (!is_array($data)) {
             throw new \RuntimeException(
