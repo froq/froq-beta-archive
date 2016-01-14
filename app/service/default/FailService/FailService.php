@@ -7,7 +7,6 @@ class FailService extends Service
     public function init() {}
 
     public function main() {
-        pre(11);
         if ($this->viewData['fail']['code'] == 404) {
             $data['error'] = '404 Not Found';
             $data['error_detail'] = $this->viewData['fail']['text'];
