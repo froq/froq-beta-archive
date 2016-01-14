@@ -1,9 +1,9 @@
-<?php namespace Application\Database\Vendor;
+<?php declare(strict_types=1);
+namespace Application\Database\Vendor;
 
 use Application\Util\Traits\SingleTrait;
-use Oppa\Configuration,
-    Oppa\Database\Query,
-    Oppa\Database\Factory;
+use Oppa\Configuration;
+use Oppa\Database\{Query, Factory};
 
 final class Mysql
 {
