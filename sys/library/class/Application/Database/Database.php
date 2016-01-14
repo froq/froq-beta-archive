@@ -37,15 +37,15 @@ final class Database
         return (self::$instances[$vendor] = $db);
     }
 
-    final public function initMysql()
+    final public function initMysql(): Mysql
     {
         return self::init(self::VENDOR_MYSQL);
     }
-    final public function initCouch()
+    final public function initCouch(): Couch
     {
         return self::init(self::VENDOR_COUCH);
     }
-    final public function initMongo()
+    final public function initMongo(): Mongo
     {
         return self::init(self::VENDOR_MONGO);
     }
