@@ -69,11 +69,8 @@ abstract class Service
         } elseif (method_exists($this, $this->method)) {
             $output = $this->{$this->method}();
         } else {
-            // fail!
-            throw new \RuntimeException(
-                $this->viewData['fail']['text'],
-                $this->viewData['fail']['code']
-            );
+            // call fail::main
+            $output = $this->main();
         }
 
         if (method_exists($this, ServiceInterface::METHOD_ONAFTER)) {
