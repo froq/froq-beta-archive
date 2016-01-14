@@ -6,6 +6,6 @@ class MainService extends Service
 {
     public function main(): string
     {
-        return 'Hello, world!';
+        return 'Hello, Froq!';
     }
 }
