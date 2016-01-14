@@ -1,4 +1,5 @@
-<?php namespace Application\Database\Model\Table;
+<?php declare(strict_types=1);
+namespace Application\Database\Model\Table;
 
 abstract class Table
 {
@@ -6,27 +7,33 @@ abstract class Table
     protected $name;
     protected $primary;
 
-    final public function setDb($db) {
+    final public function setDb($db): self
+    {
         $this->db = $db;
         return $this;
     }
-    final public function getDb() {
+    final public function getDb()
+    {
         return $this->db;
     }
 
-    final public function setName($name) {
+    final public function setName($name): self
+    {
         $this->name = $name;
         return $this;
     }
-    final public function getName() {
+    final public function getName(): string
+    {
         return $this->name;
     }
 
-    final public function setPrimary($primary) {
+    final public function setPrimary($primary): self
+    {
         $this->primary = $primary;
         return $this;
     }
-    final public function getPrimary() {
+    final public function getPrimary(): string
+    {
         return $this->primary;
     }
 
