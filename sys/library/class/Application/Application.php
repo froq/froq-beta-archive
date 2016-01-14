@@ -18,6 +18,7 @@ final class Application
           ENVIRONMENT_PRODUCTION  = 'production';
 
     private $env;
+    private $root = '/';
     private $service;
     private $session;
     private $request, $response;
