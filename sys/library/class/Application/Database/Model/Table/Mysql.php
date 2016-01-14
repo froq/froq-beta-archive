@@ -1,4 +1,5 @@
-<?php namespace Application\Database\Model\Table;
+<?php declare(strict_types=1);
+namespace Application\Database\Model\Table;
 
 use Application\Database\Vendor\Mysql as Database;
 
