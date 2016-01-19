@@ -1,5 +1,8 @@
 .etc/
 .tmp/
+
+# composer
 vendor/
+composer.lock
 
 *.sublime-*
