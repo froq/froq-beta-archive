@@ -47,6 +47,13 @@ final class Application
             require_once($file);
         }
 
+        // composer
+        $autoload = './vendor/autoload.php';
+        if (is_file($autoload)) {
+            $autoload = require($autoload);
+            $autoload->register();
+        }
+
         // set handlers
         $this->setErrorHandler();
         $this->setExceptionHandler();

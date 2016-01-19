@@ -1,0 +1,7 @@
+{
+    "name": "froq/froq",
+    "type": "framework",
+    "require": {
+        "php": ">=7.0.0"
+    }
+}
