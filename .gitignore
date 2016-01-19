@@ -1,3 +1,4 @@
+# local
 .etc/
 .tmp/
 
@@ -5,4 +6,5 @@
 vendor/
 composer.lock
 
+# sublime
 *.sublime-*
