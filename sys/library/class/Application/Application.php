@@ -34,7 +34,8 @@ final class Application
         $this->setConfig(include('./sys/global/cfg.php'));
 
         // load sys helpers
-        foreach (glob('./sys/library/function/*.php') as $file) {
+        $files = glob('./sys/library/function/*.php');
+        foreach ($files as $file) {
             require_once($file);
         }
 
