@@ -9,6 +9,9 @@ $cfg = [];
  */
 $cfg['app'] = [];
 
+// gzip
+$cfg['app']['gzip'] = true;
+
 // load avg
 $cfg['app']['loadAvg'] = 85.00;
 
