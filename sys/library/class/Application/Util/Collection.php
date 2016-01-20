@@ -162,7 +162,7 @@ class Collection
     *
     * @return \ArrayIterator
     */
-   final public function getIterator(): \ArrayAccess
+   final public function getIterator(): \ArrayIterator
    {
       return new \ArrayIterator($this->data);
    }
