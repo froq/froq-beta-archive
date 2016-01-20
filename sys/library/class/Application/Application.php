@@ -2,7 +2,7 @@
 namespace Application;
 
 use Application\Util\{Config, Session};
-use Application\Util\Traits\{SingleTrait, GetterTrait};
+use Application\Util\Traits\{SingleTrait as Single, GetterTrait as Getter};
 use Application\Http\{Request, Response};
 use Application\Service\{ServiceAdapter, ServiceInterface};
 use Application\Database\Database;
@@ -10,8 +10,8 @@ use Application\Handler\{Error as ErrorHandler, Exception as ExceptionHandler, S
 
 final class Application
 {
-    use SingleTrait;
-    use GetterTrait;
+    use Single;
+    use Getter;
 
     const ENVIRONMENT_DEVELOPMENT = 'development',
           ENVIRONMENT_STAGE       = 'stage',
