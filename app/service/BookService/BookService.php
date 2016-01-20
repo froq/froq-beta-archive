@@ -1,5 +1,4 @@
-<?php defined('root') or die('Access denied!');
-
+<?php
 use Application\Service\Protocol\Site as Service;
 
 class BookService extends Service
