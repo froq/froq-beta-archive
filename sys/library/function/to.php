@@ -8,14 +8,14 @@
  * @return array
  */
 function to_array($input, bool $deep = true): array {
-    $input = (array) $input;
-    if ($deep) {
-        foreach ($input as $key => $value) {
-            $input[$key] = is_iter($value)
-                ? __function__($value, $deep) : $value;
-        }
-    }
-    return $input;
+   $input = (array) $input;
+   if ($deep) {
+      foreach ($input as $key => $value) {
+         $input[$key] = is_iter($value)
+            ? __function__($value, $deep) : $value;
+      }
+   }
+   return $input;
 }
 
 /**
@@ -25,12 +25,12 @@ function to_array($input, bool $deep = true): array {
  * @return array
  */
 function to_object($input, bool $deep = true): \stdClass {
-    $input = (object) $input;
-    if ($deep) {
-        foreach ($input as $key => $value) {
-            $input->{$key} = is_iter($value)
-                ? __function__($value, $deep) : $value;
-        }
-    }
-    return $input;
+   $input = (object) $input;
+   if ($deep) {
+      foreach ($input as $key => $value) {
+         $input->{$key} = is_iter($value)
+            ? __function__($value, $deep) : $value;
+      }
+   }
+   return $input;
 }
