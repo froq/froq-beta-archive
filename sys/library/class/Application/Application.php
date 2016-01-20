@@ -244,16 +244,16 @@ final class Application
 
       // check client host
       $hosts = $this->config->get('app.hosts');
-      if (!empty($hosts) && (
-      !isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
+      if (!empty($hosts)
+         && (!isset($_SERVER['HTTP_HOST']) || !in_array($_SERVER['HTTP_HOST'], $hosts))) {
          return '400 Bad Request';
       }
 
       // check file extension
       $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
-      if ($allowFileExtensionSniff === false &&
-         preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
-            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
+      if ($allowFileExtensionSniff === false
+         && preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
+               parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
          return '400 Bad Request';
       }
 
