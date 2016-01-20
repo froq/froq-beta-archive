@@ -9,13 +9,6 @@ $cfg = [];
  */
 $cfg['app'] = [];
 
-// gzip
-$cfg['app']['gzip'] = [
-    'use'   => true,
-    'level' => -1,
-    'mode'  => FORCE_GZIP,
-];
-
 // load avg
 $cfg['app']['loadAvg'] = 85.00;
 
@@ -63,6 +56,13 @@ $cfg['app']['session']['cookie'] = [
     'httponly'  => false,   'lifetime' => 0,
     'save_path' => $cfg['app']['dir']['tmp'] .'/session',
     'length'    => 128, // 128-bit
+];
+
+// gzip
+$cfg['app']['gzip'] = [
+    'use'   => true,
+    'level' => -1,
+    'mode'  => FORCE_GZIP,
 ];
 
 /**
