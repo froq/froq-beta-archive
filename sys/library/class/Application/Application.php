@@ -174,8 +174,13 @@ final class Application
     final public function startOutputBuffer()
     {
         ini_set('implicit_flush', '1');
-        if (!headers_sent()) {
-            ini_set('zlib.output_compression', '0');
+
+        $gzipOptions = $this->config->get('app.gzip');
+        if (!empty($gzipOptions)) {
+            if (!headers_sent()) {
+                ini_set('zlib.output_compression', '0');
+            }
+            $this->response->setGzipOptions($gzipOptions);
         }
         ob_start();
     }
@@ -192,7 +197,7 @@ final class Application
         if (is_callable($callable)) {
             $callable($this, $output);
         }
-        print $output;
+        print $output . PHP_EOL;
     }
 
     final public function isDev(): bool
