@@ -4,7 +4,7 @@ namespace Application\Util;
 final class Config
    extends Collection
 {
-   final public function __construct($data, $merge = false)
+   final public function __construct($data, bool $merge = false)
    {
       if (is_string($data)) {
          $data = require($data);
@@ -56,6 +56,6 @@ final class Config
 
    final public function getData(): array
    {
-     return $this->data;
+      return $this->data;
    }
 }
