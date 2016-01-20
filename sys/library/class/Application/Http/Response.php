@@ -1,14 +1,22 @@
 <?php declare(strict_types=1);
 namespace Application\Http;
 
-use Application\Http\Response\Status;
-use Application\Util\Traits\GetterTrait;
+use Application\{
+    Encoding\Gzip,
+    // @todo Encoding\Xml
+    // @todo Encoding\Json
+    Http\Response\Status,
+    Util\Traits\GetterTrait as Getter
+};
 
 /**
  * @package    Application
  * @subpackage Application\Http
  * @object     Application\Http\Response
- * @uses       Application\Http\Response\Status,
+ * @uses       Application\Encoding\Gzip,
+ *             @todo Application\Encoding\Xml,
+ *             @todo Application\Encoding\Json,
+ *             Application\Http\Response\Status,
  *             Application\Util\Traits\SetGetTrait
  * @author     Kerem! <qeremy@gmail>
  */
@@ -18,15 +26,15 @@ final class Response
      * Getter.
      * @object Application\Util\Traits\GetterTrait
      */
-    use GetterTrait;
+    use Getter;
 
     /**
      * Content types.
      * @const string
      */
     const CONTENT_TYPE_NA   = 'n/a',
-          CONTENT_TYPE_XML  = 'text/xml',
           CONTENT_TYPE_HTML = 'text/html',
+          CONTENT_TYPE_XML  = 'application/xml',
           CONTENT_TYPE_JSON = 'application/json';
 
     /**
@@ -50,10 +58,16 @@ final class Response
             $contentLength  = 0;
 
     /**
-     * Encode content as gzip?
-     * @var bool
+     * Gzip.
+     * @var Application\Encoding\Gzip
      */
-    private $gzip = false;
+    private $gzip;
+
+    /**
+     * Gzip options.
+     * @var array
+     */
+    private $gzipOptions = [];
 
     /**
      * Status object.
@@ -107,6 +121,9 @@ final class Response
         if ($body) {
             $this->setBody($body);
         }
+
+        // gzip
+        $this->gzip = new Gzip();
 
         // set headers/cookies as an object that iterable/traversable
         $this->headers = new Headers($headers);
@@ -191,13 +208,25 @@ final class Response
     }
 
     /**
-     * Set gzip encoding true/false.
+     * Set Gzip config.
      *
-     * @param  bool $gzip
+     * @param  array $gzipOptions
      * @return self
      */
-    final public function setGzip(bool $gzip): self {
-        $this->gzip = $gzip;
+    final public function setGzipOptions(array $gzipOptions): self
+    {
+        if (isset($gzipOptions['level'])) {
+            $this->gzip->setLevel($gzipOptions['level']);
+        }
+        if (isset($gzipOptions['mode'])) {
+            $this->gzip->setMode($gzipOptions['mode']);
+        }
+        if (isset($gzipOptions['minlen'])) {
+            $this->gzip->setDataMinLength($gzipOptions['minlen']);
+        }
+
+        $this->gzipOptions = $gzipOptions;
+
         return $this;
     }
 
@@ -476,13 +505,13 @@ final class Response
         }
 
         // can gzip?
-        if ($this->gzip && strlen($body) > 1024) {
-            $body = gzencode($body);
+        if (!empty($this->gzipOptions)) {
+            $body = $this->gzip->encode($body);
             $this->setHeader('Vary', 'Accept-Encoding');
             $this->setHeader('Content-Encoding', 'gzip');
         }
 
-        // content length / type & charset
+        // content length
         $this->setContentLength(strlen($body));
 
         $this->body = $body;
