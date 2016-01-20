@@ -10,7 +10,11 @@ $cfg = [];
 $cfg['app'] = [];
 
 // gzip
-$cfg['app']['gzip'] = true;
+$cfg['app']['gzip'] = [
+    'use'   => true,
+    'level' => -1,
+    'mode'  => FORCE_GZIP,
+];
 
 // load avg
 $cfg['app']['loadAvg'] = 85.00;
