@@ -347,7 +347,7 @@ final class Session
 
         // init subpart
         if (!isset($_SESSION[$this->name])) {
-            $_SESSION[$this->name] = [];
+            $_SESSION[$this->name] = array();
         }
 
         return $this->isStarted;
@@ -468,7 +468,7 @@ final class Session
      */
     final private function reset()
     {
-        $_SESSION[$this->name] = [];
+        $_SESSION[$this->name] = array();
     }
 
     /**
