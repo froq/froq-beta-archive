@@ -15,15 +15,6 @@ define('APP_START_TIME', microtime(true));
 define('nil', null, true);
 
 /**
- * These defs stand here cos of PHP's typehint leak. So, you can use these
- * instead of NULL when defining as defult params like foo(bool $x = NULL).
- * @const bool, bool, string
- */
-define('True', true);
-define('False', false);
-define('None', '', true);
-
-/**
  * Application root path.
  * @const string
  */
