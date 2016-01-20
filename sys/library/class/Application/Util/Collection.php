@@ -90,16 +90,16 @@ class Collection
     * Get an item.
     *
     * @param  int|string $key
-    * @param  any        $value
+    * @param  any        $valueDefault
     * @return any
     */
-   public function get($key, $value = null)
+   public function get($key, $valueDefault = null)
    {
       if ($this->offsetExists($key)) {
          return $this->data[$key];
       }
 
-      return $value;
+      return $valueDefault;
    }
 
    /**
