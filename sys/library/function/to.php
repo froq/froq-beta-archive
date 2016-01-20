@@ -7,12 +7,13 @@
  * @param  bool $deep
  * @return array
  */
-function to_array($input, bool $deep = true): array {
+function to_array($input, bool $deep = true): array
+{
    $input = (array) $input;
    if ($deep) {
       foreach ($input as $key => $value) {
          $input[$key] = is_iter($value)
-            ? __function__($value, $deep) : $value;
+            ? to_array($value, $deep) : $value;
       }
    }
    return $input;
@@ -24,12 +25,13 @@ function to_array($input, bool $deep = true): array {
  * @param  bool $deep
  * @return array
  */
-function to_object($input, bool $deep = true): \stdClass {
+function to_object($input, bool $deep = true): \stdClass
+{
    $input = (object) $input;
    if ($deep) {
       foreach ($input as $key => $value) {
          $input->{$key} = is_iter($value)
-            ? __function__($value, $deep) : $value;
+            ? to_object($value, $deep) : $value;
       }
    }
    return $input;
