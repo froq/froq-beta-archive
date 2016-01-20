@@ -20,8 +20,12 @@ $cfg = require('./app/global/cfg.php');
  */
 $env = Application\Application::ENVIRONMENT_PRODUCTION;
 if (is_local()) {
-    $env = Application\Application::ENVIRONMENT_DEVELOPMENT;
+   $env = Application\Application::ENVIRONMENT_DEVELOPMENT;
 }
+
+/**
+ * Set handlers (error, shutdown etc).
+ */
 
 /**
  * Set application config and run application.
