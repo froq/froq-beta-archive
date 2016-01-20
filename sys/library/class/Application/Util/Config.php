@@ -1,9 +1,11 @@
-<?php namespace Application\Util;
+<?php declare(strict_types=1);
+namespace Application\Util;
 
 final class Config
    extends Collection
 {
-   final public function __construct($data, $merge = false) {
+   final public function __construct($data, $merge = false)
+   {
       if (is_string($data)) {
          $data = require($data);
       }
@@ -20,7 +22,7 @@ final class Config
       $this->setData($data);
    }
 
-   final public function set($key, $value)
+   final public function set($key, $value): self
    {
       $this->data[$key] = $value;
 
@@ -32,7 +34,7 @@ final class Config
       return dig($this->data, $key, $valueDefault);
    }
 
-   final public static function merge(array $source, array $target)
+   final public static function merge(array $source, array $target): array
    {
       foreach ($source as $key => $value) {
          if (isset($target[$key]) && is_array($value)) {
@@ -45,14 +47,14 @@ final class Config
       return $target;
    }
 
-   final public function setData(array $data)
+   final public function setData(array $data): self
    {
       $this->data = $data;
 
       return $this;
    }
 
-   final public function getData()
+   final public function getData(): array
    {
      return $this->data;
    }
