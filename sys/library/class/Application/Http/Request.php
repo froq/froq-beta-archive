@@ -159,49 +159,6 @@ final class Request
     }
 
     /**
-     * String magic.
-     *
-     * @return string
-     */
-    final public function __toString(): string {
-        return $this->toString();
-    }
-
-    /**
-     * Get raw request.
-     *
-     * @return string
-     */
-    final public function toString(): string {
-        // add first line
-        $return = $this->method;
-        if (empty($this->uri->query)) {
-            $return .= sprintf(" %s %s\r\n", $this->uri->path, $this->httpVersion);
-        } else {
-            $return .= sprintf(" %s?%s %s\r\n", $this->uri->path,
-                $this->uri->query, $this->httpVersion);
-        }
-
-        // add headers
-        foreach ($this->headers as $key => $value) {
-            $key = str_replace('_', ' ', $key);
-            $key = mb_convert_case($key, MB_CASE_TITLE);
-            $key = str_replace(' ', '-', $key);
-            $return .= sprintf("%s: %s\r\n", $key, $value);
-        }
-
-        // add seperation line
-        $return .= "\r\n\r\n";
-
-        // add body
-        if (!empty($this->body)) {
-            $return .= http_build_query($this->body);
-        }
-
-        return $return;
-    }
-
-    /**
      * Detect GET method.
      *
      * @return bool
