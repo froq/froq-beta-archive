@@ -478,7 +478,11 @@ final class Session
      */
     final public function toArray(): array
     {
-        return isset($_SESSION[$this->name])
-            ? to_array($_SESSION[$this->name], true) : [];
+        $array = array();
+        if (isset($_SESSION[$this->name])) {
+            $array = to_array($_SESSION[$this->name], true);
+        }
+
+        return $array;
     }
 }
