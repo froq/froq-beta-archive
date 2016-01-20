@@ -5,15 +5,10 @@
 chdir(dirname(__dir__));
 
 /**
- * Include bootstrap that registers
- * Autoload and returns Application.
+ * Include bootstrap that registers Autoload
+ * and returns Application with $cfg vars.
  */
 $app = require('./sys/Boot.php');
-
-/**
- * User app config.
- */
-$cfg = require('./app/global/cfg.php');
 
 /**
  * Application env.
@@ -24,11 +19,15 @@ if (is_local()) {
 }
 
 /**
- * Set handlers (error, shutdown etc).
+ * Set output handler as you wish.
+ * @todo error, exception, shutdown
  */
+// set_global('app.handler.output', function($output) {
+//    return trim($output);
+// });
 
 /**
- * Set application config and run application.
+ * Set application env/root/config and run application.
  */
 $app->setEnv($env)
     // ->setRoot('/') @todo

@@ -185,7 +185,7 @@ final class Application
         ob_start();
     }
 
-    final public function endOutputBuffer(string $output = null, callable $callable = null)
+    final public function endOutputBuffer(string $output = null)
     {
         // print'ed service methods return null
         if ($output === null) {
@@ -194,10 +194,14 @@ final class Application
                 $output .= ob_get_clean();
             }
         }
-        if (is_callable($callable)) {
-            $callable($this, $output);
+
+        $outputFilter = get_global('app.handler.output');
+        if (is_callable($outputFilter)) {
+            $output = $outputFilter($output);
         }
-        print $output . PHP_EOL;
+
+        print $output;
+        print PHP_EOL;
     }
 
     final public function isDev(): bool
