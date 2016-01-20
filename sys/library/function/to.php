@@ -12,7 +12,7 @@ function to_array($input, bool $deep = true): array {
     if ($deep) {
         foreach ($input as $key => $value) {
             $input[$key] = is_iter($value)
-                ? to_array($value, $deep) : $value;
+                ? __function__($value, $deep) : $value;
         }
     }
     return $input;
@@ -29,7 +29,7 @@ function to_object($input, bool $deep = true): \stdClass {
     if ($deep) {
         foreach ($input as $key => $value) {
             $input->{$key} = is_iter($value)
-                ? to_object($value, $deep) : $value;
+                ? __function__($value, $deep) : $value;
         }
     }
     return $input;
