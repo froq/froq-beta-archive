@@ -1,9 +1,7 @@
 <?php namespace Application\Util;
 
-final class Config
+final class Config extends Collection
 {
-    private $data = [];
-
     final public function __construct($data, $merge = false) {
         if (is_string($data)) {
             $data = require($data);
