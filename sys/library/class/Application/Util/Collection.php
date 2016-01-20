@@ -176,17 +176,4 @@ class Collection
    {
       return $this->data;
    }
-
-   /**
-    * Set data from an array.
-    *
-    * @param  bool $all
-    * @return void
-    */
-   public function fromArray(array $data)
-   {
-      foreach ($data as $key => $value) {
-         $this->data[$key] = $value;
-      }
-   }
 }
