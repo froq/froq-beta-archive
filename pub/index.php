@@ -6,9 +6,14 @@ chdir(dirname(__dir__));
 
 /**
  * Include bootstrap that registers Autoload
- * and returns Application with $cfg vars.
+ * and returns Application.
  */
 $app = require('./sys/Boot.php');
+
+/**
+ * User app config.
+ */
+$appConfig = require('./app/global/cfg.php');
 
 /**
  * Application env.
@@ -31,5 +36,5 @@ if (is_local()) {
  */
 $app->setEnv($env)
     // ->setRoot('/') @todo
-    ->setConfig($cfg)
+    ->setConfig($appConfig)
     ->run();
