@@ -60,9 +60,10 @@ $cfg['app']['session']['cookie'] = [
 
 // gzip
 $cfg['app']['gzip'] = [
-    'use'   => true,
-    'level' => -1,
-    'mode'  => FORCE_GZIP,
+    'use'    => true,
+    'level'  => -1,
+    'mode'   => FORCE_GZIP,
+    'minlen' => 1024,
 ];
 
 /**
