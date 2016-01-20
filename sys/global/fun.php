@@ -100,7 +100,7 @@ function if_null($a, $b) {
  * @return any
  */
 function if_none($a, $b) {
-    return (none !== trim($a)) ? $a : $b;
+    return ('' !== trim($a)) ? $a : $b;
 }
 
 /**
