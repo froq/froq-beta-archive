@@ -60,4 +60,17 @@ abstract class Model
    {
       return $this->stack->unset($key);
    }
+
+   final public function getDb()
+   {
+      return $this->stack->db;
+   }
+   final public function getName()
+   {
+      return $this->stack->name;
+   }
+   final public function getPrimary()
+   {
+      return $this->stack->primary;
+   }
 }
