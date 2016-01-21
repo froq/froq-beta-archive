@@ -2,6 +2,8 @@
 namespace Application\Database\Model;
 
 use Application\Database\Database;
+use Application\Database\Vendor\Vendor;
+use Application\Database\Model\Stack\Stack;
 use Application\Database\Model\Stack\Agent\Mysql;
 // @todo
 // use Application\Database\Model\Stack\Agent\Couch;
@@ -10,8 +12,7 @@ use Application\Database\Model\Stack\Agent\Mysql;
 abstract class Model
 {
    protected $vendor;
-   protected $stack;
-   protected $stackName, $stackPrimary;
+   protected $stack, $stackName, $stackPrimary;
 
    final public function __construct()
    {
@@ -61,15 +62,23 @@ abstract class Model
       return $this->stack->unset($key);
    }
 
-   final public function getDb()
+   final public function getVendor(): string
+   {
+      return $this->vendor;
+   }
+   final public function getStack(): Stack
+   {
+      return $this->stack;
+   }
+   final public function getStackDb(): Vendor
    {
       return $this->stack->db;
    }
-   final public function getName()
+   final public function getStackName(): string
    {
       return $this->stack->name;
    }
-   final public function getPrimary()
+   final public function getStackPrimary(): string
    {
       return $this->stack->primary;
    }
