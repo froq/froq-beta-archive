@@ -6,6 +6,11 @@ use Application\Util\Traits\GetterTrait as Getter;
 abstract class Stack implements StackInterface
 {
    use Getter;
+
+   const SELECT_LIMIT = 10,
+         UPDATE_LIMIT = 1,
+         DELETE_LIMIT = 1;
+
    protected $db;
    protected $name;
    protected $primary;
