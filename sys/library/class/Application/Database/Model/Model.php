@@ -26,8 +26,8 @@ abstract class Model
 
       // copy public vars as stack data
       foreach (array_diff(
-            array_keys(get_object_vars($this)),
-            array_keys(get_class_vars(__class__))) as $var) {
+         array_keys(get_object_vars($this)),
+         array_keys(get_class_vars(__class__))) as $var) {
          $this->stack->set($var, $this->{$var});
          unset($this->{$var});
       }
