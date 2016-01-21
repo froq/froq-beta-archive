@@ -24,7 +24,7 @@ final class Mysql extends Stack
          "SELECT * FROM `{$this->name}` WHERE `{$primaryName}` = ?", [$primaryValue]);
    }
 
-   final public function findAll(string $where = null, array $params = null, $limit = null) {
+   final public function findAll(string $where = null, array $params = null, $limit = null, int $order = -1) {
       $agent = $this->db->getConnection()->getAgent();
 
       if (empty($where)) {
@@ -32,6 +32,13 @@ final class Mysql extends Stack
       } else {
          $query = "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
       }
+
+      if ($order == -1) {
+         $query .= "ORDER BY `{$this->primary}` DESC ";
+      } else {
+         $query .= "ORDER BY `{$this->primary}` ASC ";
+      }
+
       $query .= $agent->limit($limit ?: self::SELECT_LIMIT);
 
       return $agent->getAll($query, $params);
