@@ -22,7 +22,6 @@ final class Application
    private $service;
    private $session;
    private $request, $response;
-   private $db;
    private $config;
 
    final private function __construct()
@@ -58,8 +57,6 @@ final class Application
       $this->setErrorHandler();
       $this->setExceptionHandler();
       $this->setShutdownHandler();
-
-      $this->db = new Database();
 
       $this->request = new Request();
       $this->response = new Response();
