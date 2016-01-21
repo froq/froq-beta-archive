@@ -24,7 +24,18 @@ final class Mysql extends Stack
          "SELECT * FROM `{$this->name}` WHERE `{$primaryName}` = ?", [$primaryValue]);
    }
 
-   final public function findAll(array $params = null) {}
+   final public function findAll(string $where = null, array $params = null, $limit = null) {
+      $agent = $this->db->getConnection()->getAgent();
+
+      if (empty($where)) {
+         $query = "SELECT * FROM `{$this->name}` ";
+      } else {
+         $query = "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
+      }
+      $query .= $agent->limit($limit ?: self::SELECT_LIMIT);
+
+      return $agent->getAll($query, $params);
+   }
 
    final public function save() {}
 
