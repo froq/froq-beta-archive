@@ -12,7 +12,7 @@ final class Mysql extends Stack
       $this->primary = trim($primary);
    }
 
-   final public function find() {
+   public function find() {
       $primaryName = $this->primary;
       $primaryValue = $this->data[$primaryName];
 
@@ -24,7 +24,7 @@ final class Mysql extends Stack
          "SELECT * FROM `{$this->name}` WHERE `{$primaryName}` = ?", [$primaryValue]);
    }
 
-   final public function findAll(string $where = null, array $params = null, $limit = null, int $order = -1) {
+   public function findAll(string $where = null, array $params = null, $limit = null, int $order = -1) {
       $agent = $this->db->getConnection()->getAgent();
 
       if (empty($where)) {
@@ -44,7 +44,7 @@ final class Mysql extends Stack
       return $agent->getAll($query, $params);
    }
 
-   final public function save() {}
+   public function save() {}
 
-   final public function remove() {}
+   public function remove() {}
 }
