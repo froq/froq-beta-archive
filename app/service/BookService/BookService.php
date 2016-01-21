@@ -7,11 +7,13 @@ class BookService extends Service
    protected $useViewPartialAll = true;
    protected $allowedRequestMethods = ['GET', 'POST'];
 
-   public function init() {
+   public function init()
+   {
       $this->model = new BookModel();
    }
 
-   public function main() {
+   public function main()
+   {
       $this->model->id = 1; // get from request
       $book = $this->model->find();
       pre($book);
