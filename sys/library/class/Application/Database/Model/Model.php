@@ -2,94 +2,62 @@
 namespace Application\Database\Model;
 
 use Application\Database\Database;
-use Application\Database\Model\Model\Mysql;
+use Application\Database\Model\Stack\Agent\Mysql;
 // @todo
-// use Application\Database\Model\Model\Couch;
-// use Application\Database\Model\Model\Mongo;
+// use Application\Database\Model\Stack\Agent\Couch;
+// use Application\Database\Model\Stack\Agent\Mongo;
 
 abstract class Model
 {
    protected $vendor;
-   protected $model, $modelName, $modelPrimary;
-   protected $data = array();
+   protected $stack;
+   protected $stackName, $stackPrimary;
 
    final public function __construct()
    {
       switch ($this->vendor) {
          case Database::VENDOR_MYSQL:
-            $this->model = new Mysql(Database::init(Database::VENDOR_MYSQL),
-            $this->modelName, $this->modelPrimary);
+            $this->stack = new Mysql(
+               Database::init(Database::VENDOR_MYSQL), $this->stackName, $this->stackPrimary);
             break;
          default:
             throw new \Exception('Unimplemented vendor given!');
       }
-      // copy public vars as data
-      $vars = array_diff(
-         array_keys(get_object_vars($this)),
-         array_keys(get_class_vars(__class__))
-      );
-      foreach ($vars as $var) {
-         $this->data[$var] = $this->{$var};
+
+      // copy public vars as stack data
+      foreach (array_diff(
+            array_keys(get_object_vars($this)),
+            array_keys(get_class_vars(__class__))) as $var) {
+         $this->stack->set($var, $this->{$var});
          unset($this->{$var});
       }
    }
 
    final public function __call($method, array $arguments)
    {
-      if (method_exists($this->model, $method)) {
-         return call_user_func_array([$this->model, $method], $arguments);
+      if (method_exists($this->stack, $method)) {
+         return call_user_func_array([$this->stack, $method], $arguments);
       }
       throw new \BadMethodCallException("Call to undefined method `{$method}`!");
    }
 
    final public function __set(string $key, $value)
    {
-      $this->data[$key] = $value;
+      return $this->stack->set($key, $value);
    }
+
    final public function __get(string $key)
    {
-      if (array_key_exists($key, $this->data)) {
-         return $this->data[$key];
-      }
+      return $this->stack->get($key);
    }
+
    final public function __isset(string $key)
    {
-      return array_key_exists($key, $this->data);
+      return $this->stack->isset($key);
    }
+
    final public function __unset(string $key)
    {
-      unset($this->data[$key]);
-   }
-
-   final public function setData(array $data)
-   {
-      $this->data = $data;
-   }
-   final public function getData(): array
-   {
-      return $this->data;
-   }
-
-   final public function getVendor(): string
-   {
-      return $this->vendor;
-   }
-
-   final public function getModel()
-   {
-      return $this->model;
-   }
-   final public function getModelName(): string
-   {
-      return $this->modelName;
-   }
-   final public function getModelPrimary(): string
-   {
-      return $this->modelPrimary;
-   }
-
-   final public function reset()
-   {
-      $this->data = array();
+      return $this->stack->unset($key);
    }
 }

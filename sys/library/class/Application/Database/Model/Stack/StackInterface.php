@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace Application\Database\Model;
+namespace Application\Database\Model\Stack;
 
-interface ModelInterface
+interface StackInterface
 {
    public function find();
    public function findAll();

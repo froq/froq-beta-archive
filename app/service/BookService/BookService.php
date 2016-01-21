@@ -12,8 +12,11 @@ class BookService extends Service
    }
 
    public function main() {
+      $this->model->id = 1; // get from request
+
       $book = $this->model->find();
       pre($book);
+
       // $this->view('main');
       // $this->view->display('main');
    }
