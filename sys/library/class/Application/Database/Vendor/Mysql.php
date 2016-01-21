@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 namespace Application\Database\Vendor;
 
-use Application\Util\Traits\SingleTrait;
 use Oppa\Configuration;
 use Oppa\Database\{Query, Factory};
+use Application\Util\Traits\SingleTrait as Single;
 
 final class Mysql
 {
-    use SingleTrait;
+    use Single;
 
     private $db;
 
