@@ -44,9 +44,12 @@ final class Config
 
    final public static function merge(array $source, array $target): array
    {
+      if (empty($source)) {
+         return $source;
+      }
       foreach ($source as $key => $value) {
          if (isset($target[$key]) && is_array($value)) {
-            $target[$key] = array_merge($target[$key], $value);
+            $target[$key] = self::merge($target[$key], $value);
          } else {
             $target[$key] = $value;
          }
