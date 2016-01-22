@@ -35,7 +35,8 @@ final class ServiceAdapter
       }
 
       $this->service = $this->createService();
-      if (!$this->service->useMainOnly) {
+
+      if (!$this->isServiceFail() && !$this->service->useMainOnly) {
          if (!$this->isServiceMethodExists()) {
             $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
             $this->serviceViewData['fail']['text'] = sprintf(
@@ -46,6 +47,11 @@ final class ServiceAdapter
             $this->service = $this->createService();
          }
       }
+   }
+
+   final public function isServiceFail(): bool
+   {
+      return ($this->serviceName == ServiceInterface::SERVICE_FAIL);
    }
 
    final public function isServiceExists(): bool

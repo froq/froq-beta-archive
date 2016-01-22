@@ -1,11 +1,8 @@
-<?php defined('root') or die('Access denied!');
-
+<?php
 use Application\Service\Protocol\Site as Service;
 
 class FailService extends Service
 {
-    public function init() {}
-
     public function main() {
         if ($this->viewData['fail']['code'] == 404) {
             $data['error'] = '404 Not Found';
