@@ -142,11 +142,10 @@ final class Application
 
    final public function setConfig(array $config): self
    {
-      if ($this->config == null) {
-        $this->config = new Config($config);
-      } else {
-         $this->config->setData(Config::merge($config, $this->config->getData()));
+      if ($this->config) {
+         $config = Config::merge($config, $this->config->getData());
       }
+      $this->config = new Config($config);
       return $this;
    }
 
