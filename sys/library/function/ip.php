@@ -5,24 +5,22 @@
  * Get real IP.
  * @return string|null
  */
-function ip(): string {
-    if (($ip = get_env('HTTP_X_FORWARDED_FOR')) != '') {
-        if (strpos($ip, ',') !== false) {
-            $ips = explode(',', $ip);
-            return trim(end($ips));
-        }
-        return $ip;
-    }
-    if (($ip = get_env('HTTP_CLIENT_IP')) != '') {
-        return $ip;
-    }
-    if (($ip = get_env('HTTP_X_REAL_IP')) != '') {
-        return $ip;
-    }
-    if (($ip = get_env('REMOTE_ADDR')) != '')    {
-        return $ip;
-    }
-    return '';
+function ip(): string
+{
+	$ip = '';
+   if (null != ($ip = get_env('HTTP_X_FORWARDED_FOR'))) {
+      if (strpos($ip, ',') !== false) {
+         $ip = trim(end(explode(',', $ip)));
+      }
+   } elseif (null != ($ip = get_env('HTTP_CLIENT_IP'))) {
+   	// break..
+   } elseif (null != ($ip = get_env('HTTP_X_REAL_IP'))) {
+   	// break..
+   } elseif (null != ($ip = get_env('REMOTE_ADDR'))) {
+   	// break..
+   }
+
+   return $ip;
 }
 
 /**
@@ -30,8 +28,9 @@ function ip(): string {
  * @param  string $ip
  * @return int
  */
-function ip_toLong(string $ip): int {
-    return (int) sprintf('%u', ip2long($ip));
+function ip_toLong(string $ip): int
+{
+   return (int) sprintf('%u', ip2long($ip));
 }
 
 /**
@@ -39,6 +38,7 @@ function ip_toLong(string $ip): int {
  * @param  int $ip
  * @return string
  */
-function ip_fromLong(int $ip): string {
-    return (string) long2ip($ip);
+function ip_fromLong(int $ip): string
+{
+   return (string) long2ip($ip);
 }

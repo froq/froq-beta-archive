@@ -3,8 +3,8 @@ namespace Application\Handler;
 
 final class Error
 {
-    final public static function handler()
-    {
-        return function() {};
-    }
+   final public static function handler()
+   {
+      return function() {};
+   }
 }

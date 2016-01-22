@@ -10,30 +10,30 @@ namespace Application\Encryption\Oneway;
 final class Password
 {
    /**
-   * Crypt input.
-   * @var string
-   */
+    * Crypt input.
+    * @var string
+    */
    private $input;
 
    /**
-   * Hashing algorithm.
-   * @var int
-   */
+    * Hashing algorithm.
+    * @var int
+    */
    private $algo = PASSWORD_DEFAULT;
 
    /**
-   * Hashing options.
-   * @var array
-   */
+    * Hashing options.
+    * @var array
+    */
    private $options = ['cost' => 10];
 
    /**
-   * Object constructor.
-   *
-   * @param string $input
-   * @param int    $algo
-   * @param array  $options
-   */
+    * Constructor.
+    *
+    * @param string $input
+    * @param int    $algo
+    * @param array  $options
+    */
    final public function __construct(string $input, int $algo = null, array $options = [])
    {
       $this->input = $input;
@@ -46,11 +46,11 @@ final class Password
    }
 
    /**
-   * Generate a hash.
-   *
-   * @param  string $salt
-   * @return string
-   */
+    * Generate a hash.
+    *
+    * @param  string $salt
+    * @return string
+    */
    final public function hash(string $salt = null): string
    {
       if (trim($salt)) {
@@ -61,11 +61,11 @@ final class Password
    }
 
    /**
-   * Verify a hash.
-   *
-   * @param  string $hash
-   * @return bool
-   */
+    * Verify a hash.
+    *
+    * @param  string $hash
+    * @return bool
+    */
    final public function verify(string $hash): bool
    {
       return password_verify($this->input, $hash);

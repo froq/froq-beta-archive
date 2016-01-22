@@ -4,61 +4,61 @@ use Application\Service\ServiceInterface;
 
 final class View
 {
-    const PARTIAL_HEAD = 'partial/head',
-          PARTIAL_FOOT = 'partial/foot';
+   const PARTIAL_HEAD = 'partial/head',
+        	PARTIAL_FOOT = 'partial/foot';
 
-    private $app;
-    private $service;
+   private $app;
+   private $service;
 
-    final public function __construct(ServiceInterface $service) {
-        $this->app = $service->app;
-        $this->service = $service;
-    }
+   final public function __construct(ServiceInterface $service) {
+      $this->app = $service->app;
+      $this->service = $service;
+   }
 
-    final public function display($file, array $data = null) {
-        $this->includeFile($this->prepareFile($file), $data);
-    }
+   final public function display($file, array $data = null) {
+      $this->includeFile($this->prepareFile($file), $data);
+   }
 
-    final public function displayHead(array $data = null) {
-        // check local service file
-        $file = $this->prepareFile(self::PARTIAL_HEAD, false);
-        if (!is_file($file)) {
-            // look up for global service file
-            $file = $this->prepareFileGlobal(self::PARTIAL_HEAD);
-        }
-        $this->includeFile($file, $data);
-    }
-    final public function displayFoot(array $data = null) {
-        // check local service file
-        $file = $this->prepareFile(self::PARTIAL_FOOT, false);
-        if (!is_file($file)) {
-            // look up for global service file
-            $file = $this->prepareFileGlobal(self::PARTIAL_FOOT);
-        }
-        $this->includeFile($file, $data);
-    }
+   final public function displayHead(array $data = null) {
+      // check local service file
+      $file = $this->prepareFile(self::PARTIAL_HEAD, false);
+      if (!is_file($file)) {
+         // look up for global service file
+         $file = $this->prepareFileGlobal(self::PARTIAL_HEAD);
+      }
+      $this->includeFile($file, $data);
+   }
+   final public function displayFoot(array $data = null) {
+      // check local service file
+      $file = $this->prepareFile(self::PARTIAL_FOOT, false);
+      if (!is_file($file)) {
+         // look up for global service file
+         $file = $this->prepareFileGlobal(self::PARTIAL_FOOT);
+      }
+      $this->includeFile($file, $data);
+   }
 
-    final public function includeFile($file, array $data = null) {
-        extract((array) $data);
-        include($file);
-    }
-    final public function prepareFile($file, $fileCheck = true) {
-        // default file given
-        if ($file[0] == '.') {
-            $file = sprintf('%s.php', $file);
-        } else {
-            $file = sprintf('./app/service/%s/view/%s.php', $this->service->name, $file);
-        }
-        if ($fileCheck && !is_file($file)) {
-            throw new \RuntimeException('View file not found! file: '. $file);
-        }
-        return $file;
-    }
-    final public function prepareFileGlobal($file, $fileCheck = true) {
-        $file = sprintf('./app/service/view/%s.php', $file);
-        if ($fileCheck && !is_file($file)) {
-            throw new \RuntimeException('View file not found! file: '. $file);
-        }
-        return $file;
-    }
+   final public function includeFile($file, array $data = null) {
+      extract((array) $data);
+      include($file);
+   }
+   final public function prepareFile($file, $fileCheck = true) {
+      // default file given
+      if ($file[0] == '.') {
+         $file = sprintf('%s.php', $file);
+      } else {
+         $file = sprintf('./app/service/%s/view/%s.php', $this->service->name, $file);
+      }
+      if ($fileCheck && !is_file($file)) {
+         throw new \RuntimeException('View file not found! file: '. $file);
+      }
+      return $file;
+   }
+   final public function prepareFileGlobal($file, $fileCheck = true) {
+      $file = sprintf('./app/service/view/%s.php', $file);
+      if ($fileCheck && !is_file($file)) {
+         throw new \RuntimeException('View file not found! file: '. $file);
+      }
+      return $file;
+   }
 }

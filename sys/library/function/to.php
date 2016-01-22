@@ -16,6 +16,7 @@ function to_array($input, bool $deep = true): array
             ? to_array($value, $deep) : $value;
       }
    }
+
    return $input;
 }
 
@@ -23,7 +24,7 @@ function to_array($input, bool $deep = true): array
  * Convert an iterable to object.
  * @param  iter $input
  * @param  bool $deep
- * @return array
+ * @return \stdClass
  */
 function to_object($input, bool $deep = true): \stdClass
 {
@@ -34,5 +35,6 @@ function to_object($input, bool $deep = true): \stdClass
             ? to_object($value, $deep) : $value;
       }
    }
+
    return $input;
 }

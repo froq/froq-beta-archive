@@ -70,7 +70,7 @@ final class Uri
    private $segments = [];
 
    /**
-    * Object constructor.
+    * Constructor.
     *
     * @param mixed $source
     */
