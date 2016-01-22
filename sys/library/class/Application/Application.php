@@ -24,6 +24,7 @@ final class Application
    private $request, $response;
    private $config;
    private $db;
+   private $handlers = array();
 
    final private function __construct()
    {
@@ -80,21 +81,21 @@ final class Application
    /**
     * Set error handler.
     *
-    * @return mixed
+    * @return void
     */
    final public function setErrorHandler()
    {
-      return set_error_handler(ErrorHandler::handler());
+      set_error_handler(ErrorHandler::handler());
    }
 
    /**
     * Set exception handler.
     *
-    * @return mixed
+    * @return void
     */
    final public function setExceptionHandler()
    {
-      return set_exception_handler(ExceptionHandler::handler());
+      set_exception_handler(ExceptionHandler::handler());
    }
 
    /**
@@ -149,6 +150,15 @@ final class Application
       return $this;
    }
 
+   final public function setHandler($name, callable $handler): self
+   {
+      if (!is_callable($handler)) {
+         throw new \RuntimeException('Handler must be a valid callable!');
+      }
+      $this->handlers[$name] = $handler;
+      return $this;
+   }
+
    final public function setDefaults(): self
    {
       $cfg = ['locale'   => $this->config['app.locale'],
@@ -195,9 +205,8 @@ final class Application
          }
       }
 
-      $outputFilter = get_global('app.handler.output');
-      if (is_callable($outputFilter)) {
-         $output = $outputFilter($output);
+      if (isset($this->handlers['output'])) {
+         $output = $this->handlers['output']($output);
       }
 
       print $output;

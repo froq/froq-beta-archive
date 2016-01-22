@@ -27,7 +27,7 @@ if (is_local()) {
  * Set output handler as you wish.
  * @todo error, exception, shutdown
  */
-// set_global('app.handler.output', function($output) {
+// $app->setHandler('output', function($output) {
 //    return trim($output);
 // });
 
