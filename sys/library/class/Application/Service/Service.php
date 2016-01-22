@@ -50,7 +50,7 @@ abstract class Service
 
    final public function isMain(): bool
    {
-      return empty($this->method) || ($this->method == ServiceInterface::METHOD_MAIN);
+      return (empty($this->method) || ($this->method == ServiceInterface::METHOD_MAIN));
    }
 
    final public function run()
@@ -70,7 +70,7 @@ abstract class Service
          $output = $this->{$this->method}();
       } else {
          // call fail::main
-         $output = $this->main();
+         $output = $this->{ServiceInterface::METHOD_MAIN}();
       }
 
       if (method_exists($this, ServiceInterface::METHOD_ONAFTER)) {
