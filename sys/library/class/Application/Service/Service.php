@@ -80,7 +80,7 @@ abstract class Service
       return $output;
    }
 
-   final public function isRequestMethodAllowed(string $requestMethod): bool
+   final public function isAllowedRequestMethod(string $requestMethod): bool
    {
       if (empty($this->allowedRequestMethods)) {
          return true;
