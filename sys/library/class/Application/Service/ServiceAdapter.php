@@ -35,17 +35,17 @@ final class ServiceAdapter
         }
 
         $this->service = $this->createService();
+        if (!$this->service->useMainOnly) {
+            if (!$this->isServiceMethodExists()) {
+                $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
+                $this->serviceViewData['fail']['text'] = sprintf(
+                    'Service method not found! [%s::%s()]', $this->serviceName, $this->serviceMethod);
+                $this->serviceName = ServiceInterface::SERVICE_FAIL;
+                $this->serviceFile = $this->toServiceFile($this->serviceName);
 
-        if (!$this->isServiceMethodExists()) {
-            $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
-            $this->serviceViewData['fail']['text'] = sprintf(
-                'Service method not found! [%s::%s()]', $this->serviceName, $this->serviceMethod);
-            $this->serviceName = ServiceInterface::SERVICE_FAIL;
-            $this->serviceFile = $this->toServiceFile($this->serviceName);
-
-            $this->service = $this->createService();
+                $this->service = $this->createService();
+            }
         }
-
     }
 
     final public function isServiceExists(): bool
