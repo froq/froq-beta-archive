@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @object  Autoload
- * @author  Kerem! <qeremy@gmail>
+ * @author  Kerem Güneş <qeremy@gmail.com>
  */
 final class Autoload
 {
