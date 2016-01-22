@@ -8,17 +8,18 @@ use Application\Util\Collection;
  * @subpackage Application\Http
  * @object     Application\Http\Headers
  * @extends    Application\Util\Collection
- * @author     Kerem! <qeremy@gmail>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Headers
-    extends Collection
+   extends Collection
 {
-    /**
-     * Object constructor.
-     *
-     * @param array $headers
-     */
-    final public function __construct(array $headers = []) {
-        parent::__construct($headers);
-    }
+   /**
+    * Constructor.
+    *
+    * @param array $headers
+    */
+   final public function __construct(array $headers = [])
+   {
+      parent::__construct($headers);
+   }
 }

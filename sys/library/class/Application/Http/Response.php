@@ -1,13 +1,9 @@
 <?php declare(strict_types=1);
 namespace Application\Http;
 
-use Application\{
-   Encoding\Gzip,
-   // @todo Encoding\Xml
-   // @todo Encoding\Json
-   Http\Response\Status,
-   Util\Traits\GetterTrait as Getter
-};
+use Application\Http\Response\Status;
+use Application\Util\Traits\GetterTrait as Getter;
+use Application\{Encoding\Gzip /*, @todo Encoding\Xml, Encoding\Json */ };
 
 /**
  * @package    Application
@@ -18,7 +14,7 @@ use Application\{
  *             @todo Application\Encoding\Json,
  *             Application\Http\Response\Status,
  *             Application\Util\Traits\SetGetTrait
- * @author     Kerem! <qeremy@gmail>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Response
 {
@@ -94,7 +90,7 @@ final class Response
    private $cookies;
 
    /**
-    * Object constructor.
+    * Constructor.
     *
     * @param string $body
     * @param array  $status (eg: [code] or [code, text])

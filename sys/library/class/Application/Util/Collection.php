@@ -1,5 +1,4 @@
 <?php declare(strict_types=1);
-
 namespace Application\Util;
 
 /**
@@ -7,7 +6,7 @@ namespace Application\Util;
  * @subpackage Application\Util
  * @object     Application\Util\Collection
  * @implements \Countable, \IteratorAggregate, \ArrayAccess
- * @author     Kerem! <qeremy@gmail>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 class Collection
    implements \Countable, \IteratorAggregate, \ArrayAccess
@@ -109,7 +108,7 @@ class Collection
     * @param  any        $value
     * @return void
     */
-   public function offsetSet($key, $value)
+   final public function offsetSet($key, $value)
    {
       return $this->set($key, $value);
    }
@@ -120,7 +119,7 @@ class Collection
     * @param  int|string $key
     * @return any
     */
-   public function offsetGet($key)
+   final public function offsetGet($key)
    {
       return $this->get($key);
    }
@@ -131,7 +130,7 @@ class Collection
     * @param  any $key
     * @return void
     */
-   public function offsetUnset($key)
+   final public function offsetUnset($key)
    {
       unset($this->data[$key]);
    }
@@ -142,7 +141,7 @@ class Collection
     * @param  int|string $key
     * @return bool
     */
-   public function offsetExists($key): bool
+   final public function offsetExists($key): bool
    {
       return array_key_exists($key, $this->data);
    }

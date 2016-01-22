@@ -8,17 +8,18 @@ use Application\Util\Collection;
  * @subpackage Application\Http
  * @object     Application\Http\Cookies
  * @extends    Application\Util\Collection
- * @author     Kerem! <qeremy@gmail>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Cookies
-    extends Collection
+   extends Collection
 {
-    /**
-     * Object constructor.
-     *
-     * @param array $cookies
-     */
-    final public function __construct(array $cookies = []) {
-        parent::__construct($cookies);
-    }
+   /**
+    * Constructor.
+    *
+    * @param array $cookies
+    */
+   final public function __construct(array $cookies = [])
+   {
+      parent::__construct($cookies);
+   }
 }

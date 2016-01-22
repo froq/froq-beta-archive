@@ -5,7 +5,7 @@ namespace Application\Encryption\Twoway;
  * @package    Application
  * @subpackage Application\Encryption\Twoway
  * @object     Application\Encryption\Twoway\OpenSsl
- * @author     Kerem! <qeremy@gmail>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class OpenSsl
 {}
