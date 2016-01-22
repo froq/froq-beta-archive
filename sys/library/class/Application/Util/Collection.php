@@ -19,7 +19,7 @@ class Collection
    protected $data = array();
 
    /**
-    * Object constructor.
+    * Constructor.
     *
     * @param array $data;
     */
@@ -82,7 +82,11 @@ class Collection
     */
    public function set($key, $value)
    {
-      $this->data[$key] = $value;
+      if ($key === null) {
+         $this->data[] = $value;
+      } else {
+         $this->data[$key] = $value;
+      }
    }
 
    /**
