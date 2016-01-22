@@ -10,5 +10,6 @@ class FailService extends Service
          $data['error_detail'] = $this->viewData['fail']['text'];
          $this->view('./app/service/view/fail/404', $data);
       }
+      // @todo add more if's
    }
 }
