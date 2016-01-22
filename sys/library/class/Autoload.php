@@ -1,160 +1,159 @@
 <?php
-
 /**
  * @object  Autoload
  * @author  Kerem Güneş <qeremy@gmail.com>
  */
 final class Autoload
 {
-    /**
-     * Singleton stuff.
-     * @var self
-     */
-    private static $instance;
+   /**
+    * Singleton stuff.
+    * @var self
+    */
+   private static $instance;
 
-    /**
-     * Application namespace
-     * @var string
-     */
-    private static $namespace = 'Application';
+   /**
+    * Application namespace
+    * @var string
+    */
+   private static $namespace = 'Application';
 
-    /**
-     * Forbid idle initializations.
-     */
-    final private function __clone() {}
-    final private function __construct() {}
+   /**
+    * Forbid idle initializations.
+    */
+   final private function __clone() {}
+   final private function __construct() {}
 
-    /**
-     * Unregister auload.
-     *
-     * @return void
-     */
-    final public function __destruct()
-    {
-        spl_autoload_unregister([$this, 'load']);
-    }
+   /**
+    * Unregister auload.
+    *
+    * @return void
+    */
+   final public function __destruct()
+   {
+      spl_autoload_unregister([$this, 'load']);
+   }
 
-    /**
-     * Get an instance of Autoload.
-     *
-     * @return self
-     */
-    final public static function init(): self
-    {
-        if (self::$instance == null) {
-            self::$instance = new self();
-        }
+   /**
+    * Get an instance of Autoload.
+    *
+    * @return self
+    */
+   final public static function init(): self
+   {
+      if (self::$instance == null) {
+         self::$instance = new self();
+      }
 
-        return self::$instance;
-    }
+      return self::$instance;
+   }
 
-    /**
-     * Register SPL Autoload.
-     *
-     * @return bool
-     */
-    final public function register()
-    {
-        return spl_autoload_register([$this, 'load']);
-    }
+   /**
+    * Register SPL Autoload.
+    *
+    * @return bool
+    */
+   final public function register()
+   {
+      return spl_autoload_register([$this, 'load']);
+   }
 
-    /**
-     * Load an object (class/trait/interface) file.
-     *
-     * @param  string $objectName
-     * @return mixed
-     * @throws \RuntimeException
-     */
-    final public static function load($objectName)
-    {
-        // Autoload::load('./Single')
-        // Autoload::load('router/Router/Route')
-        if (0 === strpos($objectName, './')) {
-            $objectName = str_replace('.', self::$namespace, $objectName);
-        }
+   /**
+    * Load an object (class/trait/interface) file.
+    *
+    * @param  string $objectName
+    * @return mixed
+    * @throws \RuntimeException
+    */
+   final public static function load($objectName)
+   {
+      // Autoload::load('./Single')
+      // Autoload::load('router/Router/Route')
+      if (0 === strpos($objectName, './')) {
+         $objectName = str_replace('.', self::$namespace, $objectName);
+      }
 
-        // internal Application object invoked
-        if (0 === strpos($objectName, self::$namespace)) {
+      // internal Application object invoked
+      if (0 === strpos($objectName, self::$namespace)) {
+         $objectFile = self::fixSlashes(sprintf(
+            '%s/%s/%s.php', __dir__,
+               self::$namespace,
+                  // remove Application namespace once
+                  substr_replace($objectName, '', 0, strlen(self::$namespace))
+         ));
+      } else {
+         // service files
+         $objectFile = self::fixSlashes(sprintf(
+            '%s/app/service/%s/%s.php', root, $objectName, $objectName
+         ));
+         // external object invoked with namespace
+         if (!is_file($objectFile)) {
             $objectFile = self::fixSlashes(sprintf(
-                '%s/%s/%s.php', __dir__,
-                    self::$namespace,
-                        // remove Application namespace once
-                        substr_replace($objectName, '', 0, strlen(self::$namespace))
+               '%s/app/library/class/%s/%s.php', root,
+                  // here namespace a prefix as subdir
+                  strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
+                     $objectName
             ));
-        } else {
-            // service files
-            $objectFile = self::fixSlashes(sprintf(
-                '%s/app/service/%s/%s.php', root, $objectName, $objectName
-            ));
-            // external object invoked with namespace
+            // try without namespace
             if (!is_file($objectFile)) {
-                $objectFile = self::fixSlashes(sprintf(
-                    '%s/app/library/class/%s/%s.php', root,
-                        // here namespace a prefix as subdir
-                        strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
-                            $objectName
-                ));
-                // try without namespace
-                if (!is_file($objectFile)) {
-                    $objectFile = self::fixSlashes(sprintf(
-                        '%s/app/library/class/%s/%s.php', root,
-                            // here namespace a prefix as subdir
-                            strtolower($objectName),
-                                $objectName
-                    ));
-                }
+               $objectFile = self::fixSlashes(sprintf(
+                  '%s/app/library/class/%s/%s.php', root,
+                     // here namespace a prefix as subdir
+                     strtolower($objectName),
+                        $objectName
+               ));
             }
-        }
+         }
+      }
 
-        // check file exists
-        if (!is_file($objectFile)) {
-            // throw regular exception
-            throw new \RuntimeException("Object file not found! file: `{$objectFile}`.");
-        }
+      // check file exists
+      if (!is_file($objectFile)) {
+         // throw regular exception
+         throw new \RuntimeException("Object file not found! file: `{$objectFile}`.");
+      }
 
-        // include file
-        $return = require($objectFile);
+      // include file
+      $return = require($objectFile);
 
-        // !!! REMOVE THESE CONTROLS AFTER BASIC DEVELOPMENT !!!
-        $objectName = str_replace('/', '\\', $objectName);
+      // !!! REMOVE THESE CONTROLS AFTER BASIC DEVELOPMENT !!!
+      $objectName = str_replace('/', '\\', $objectName);
 
-        // check: interface name is same with filaname?
-        if (strripos($objectName, 'interface') !== false) {
-            if (!interface_exists($objectName, false)) {
-                throw new \RuntimeException(
-                    "Interface file `{$objectFile}` has been loaded but no ".
-                    "interface found such as `{$objectName}`.");
-            }
-            return $return;
-        }
-        // check: trait name is same with filaname?
-        if (strripos($objectName, 'trait') !== false) {
-            if (!trait_exists($objectName, false)) {
-                throw new \RuntimeException(
-                    "Trait file `{$objectFile}` has been loaded but no ".
-                    "trait found such as `{$objectName}`.");
-            }
-            return $return;
-        }
-        // check: class name is same with filaname?
-        if (!class_exists($objectName, false)) {
+      // check: interface name is same with filaname?
+      if (strripos($objectName, 'interface') !== false) {
+         if (!interface_exists($objectName, false)) {
             throw new \RuntimeException(
-                "Class file `{$objectFile}` has been loaded but no ".
-                "class found such as `{$objectName}`.");
-        }
+               "Interface file `{$objectFile}` has been loaded but no ".
+               "interface found such as `{$objectName}`.");
+         }
+         return $return;
+      }
+      // check: trait name is same with filaname?
+      if (strripos($objectName, 'trait') !== false) {
+         if (!trait_exists($objectName, false)) {
+            throw new \RuntimeException(
+               "Trait file `{$objectFile}` has been loaded but no ".
+               "trait found such as `{$objectName}`.");
+         }
+         return $return;
+      }
+      // check: class name is same with filaname?
+      if (!class_exists($objectName, false)) {
+         throw new \RuntimeException(
+            "Class file `{$objectFile}` has been loaded but no ".
+            "class found such as `{$objectName}`.");
+      }
 
-        return $return;
-    }
+      return $return;
+   }
 
-    /**
-     * Prepare file path.
-     *
-     * @return string
-     */
-    final public static function fixSlashes($path): string
-    {
-        return preg_replace(['~\\\\~', '~/+~'], '/', $path);
-    }
+   /**
+    * Prepare file path.
+    *
+    * @return string
+    */
+   final public static function fixSlashes($path): string
+   {
+      return preg_replace(['~\\\\~', '~/+~'], '/', $path);
+   }
 }
 
 // auto-init as a shorcut for require/include actions
