@@ -28,8 +28,8 @@ abstract class Service
              $useViewPartialHead = false,
              $useViewPartialFoot = false;
 
-   protected $validations = []; // @todo from <service>/config/config.php
-   protected $allowedRequestMethods = [];
+   protected $validations = array(); // @todo from <service>/config/config.php
+   protected $allowedRequestMethods = array();
 
    final public function __construct(Application $app, string $name, string $method, $viewData = null)
    {
