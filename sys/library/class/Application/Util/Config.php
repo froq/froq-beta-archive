@@ -4,7 +4,7 @@ namespace Application\Util;
 final class Config
    extends Collection
 {
-   final public function __construct($data, bool $merge = false)
+   final public function __construct($data)
    {
       if (is_string($data)) {
          $data = require($data);
@@ -13,10 +13,6 @@ final class Config
       if (!is_array($data)) {
          throw new \RuntimeException(
             'Config data must be array or path to array file!');
-      }
-
-      if ($merge) {
-         $data = self::merge($this->data, $data);
       }
 
       $this->setData($data);
@@ -34,6 +30,18 @@ final class Config
       return dig($this->data, $key, $valueDefault);
    }
 
+   final public function setData(array $data): self
+   {
+      $this->data = $data;
+
+      return $this;
+   }
+
+   final public function getData(): array
+   {
+      return $this->data;
+   }
+
    final public static function merge(array $source, array $target): array
    {
       foreach ($source as $key => $value) {
@@ -45,17 +53,5 @@ final class Config
       }
 
       return $target;
-   }
-
-   final public function setData(array $data): self
-   {
-      $this->data = $data;
-
-      return $this;
-   }
-
-   final public function getData(): array
-   {
-      return $this->data;
    }
 }
