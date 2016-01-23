@@ -94,9 +94,7 @@ class BookService extends Service
 }
 ```
 
-## Application
-
-### Folder Structure
+## Folder Structure
 
 As you guess, all files in `app` directory your and may be modified as you wish, as well as `pub` directory but `index.php`.
 
