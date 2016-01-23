@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * Copyright (c) 2016 Kerem Güneş
  *    <http://qeremy.com>
