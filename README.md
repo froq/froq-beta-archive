@@ -144,9 +144,9 @@ All service may have individual `head/foot` file in its own folder such as `FooS
 
 ## Output Handling
 
-Output handler is optional but it could be useful sometimes for a developer. For example, while working with single header file, it could be headache to set page title differently for each page, or using different image/resource files for different pages. Using output handler, that could be done as well. Remember, when it is called the output did not `gzip'd` yet.
+Output handler is optional but it could be useful sometimes for a developer. For example, while working with single header file, it could be headache to set page title differently for each page, or using different image/resource files for different pages. Using output handler, that could be done as well. Remember, when it is called the output not `gzip'd` yet.
 
-Output handler could be defined for once and in `pub/index.php` (see line 36).
+Output handler could be defined for once in `pub/index.php` (line 36).
 
 ```php
 // simply fulfill callback closure
@@ -166,7 +166,7 @@ Roots could be set easily in `pub/index.php`. For example, if you want to use a 
 
 ## Fails (Error Handling)
 
-All fails go to `app/service/default/FailService` file, so you can easily default fail files as wish.
+All fails go to `app/service/default/FailService` file, so you can edit easily default fail files as wish.
 
 ## Composer Support
 
