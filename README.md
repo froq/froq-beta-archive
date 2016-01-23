@@ -15,7 +15,7 @@ class BookService extends Service
    protected $useMainOnly = true;
    // opt: use header/footer partials, default=false
    protected $useViewPartialAll = true;
-   // opt: restrict requests method, accept only GET, POST, default=[] so accept all
+   // opt: restrict request methods, accept only GET, POST, default=[] so accept all
    protected $allowedRequestMethods = ['GET', 'POST'];
 
    // @optional initialization
@@ -49,7 +49,7 @@ use Application\Service\Protocol\Rest as Service;
 
 class BookService extends Service
 {
-   // opt: restrict requests method, accept only GET, POST, PATCH
+   // opt: restrict request methods, accept only GET, POST, PATCH
    protected $allowedRequestMethods = ['GET', 'POST', 'PATCH'];
 
    // initialization
