@@ -95,6 +95,8 @@ class BookService extends Service
 
 ### Folder Structure
 
+As you guess, all files in `app` directory your and may be modified as you wish, as well as `pub` directory but `index.php`.
+
 ```bash
 ./
    app/ # all your in app folder
