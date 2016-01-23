@@ -388,12 +388,12 @@ final class Uri
     * @param  int $i
     * @return mixed|null
     */
-   final public function segment($i, $def = null)
+   final public function segment($i, $default = null)
    {
       if (isset($this->segments[$i])) {
          return $this->segments[$i];
       }
 
-      return $def;
+      return $default;
    }
 }
