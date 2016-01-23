@@ -4,7 +4,7 @@ Froq! is a uber-easy service generator that designed especially for RESTful back
 
 ## In a Nutshell
 
-Using as site pages responder.
+Using as site page responder.
 
 ```php
 use Application\Service\Protocol\Site as Service;
@@ -37,7 +37,7 @@ class BookService extends Service
 }
 ```
 
-Using as REST resources responder.
+Using as REST resource responder.
 
 ```php
 <?php
