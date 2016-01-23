@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 namespace Application;
 
-use Application\Util\{Config, Session};
-use Application\Util\Traits\{SingleTrait as Single, GetterTrait as Getter};
-use Application\Http\{Request, Response};
-use Application\Service\{ServiceAdapter, ServiceInterface};
 use Application\Database\Database;
+use Application\Util\{Config, Session};
+use Application\Service\{ServiceAdapter, ServiceInterface};
+use Application\Util\Traits\{SingleTrait as Single, GetterTrait as Getter};
+use Application\Http\{Request, Response, Response\Status, Response\ContentType, Response\ContentCharset};
 use Application\Handler\{Error as ErrorHandler, Exception as ExceptionHandler, Shutdown as ShutdownHandler};
 
 final class Application
@@ -134,7 +134,13 @@ final class Application
          $this->session = Session::init($this->config['app.session.cookie']);
       }
 
-      $output = $this->service->run();
+      if (!$this->service->isAllowedRequestMethod($this->request->method)) {
+         $this->response->setStatus(Status::METHOD_NOT_ALLOWED);
+         $this->response->setContentType(ContentType::NONE);
+         $output = '';
+      } else {
+         $output = $this->service->run();
+      }
 
       $this->endOutputBuffer($output);
    }
