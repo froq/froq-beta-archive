@@ -3,10 +3,15 @@ use Application\Http\Response\Status;
 use Application\Http\Response\ContentType;
 use Application\Service\Protocol\Rest as Service;
 
+/**
+ * Demo service.
+ */
 class BookService extends Service
 {
-   protected $allowedRequestMethods = ['GET', 'POST', 'PATCH', 'DELETE'];
+   // allowed request methods
+   protected $allowedRequestMethods = ['GET', 'POST', 'PATCH'];
 
+   // initialization
    public function init()
    {
       // init model
@@ -15,6 +20,7 @@ class BookService extends Service
       $this->app->response->setContentType(ContentType::JSON);
    }
 
+   // main method always called
    public function main()
    {
       $id = (int) $this->app->request->uri->segment(1);
@@ -32,26 +38,25 @@ class BookService extends Service
       return $book;
    }
 
+   // GET /book/123
    public function get()
    {
       return $this->main();
    }
 
+   // POST /book
    public function post()
    {
       return $this->main();
    }
 
-   public function put()
-   {}
-
+   // PATCH /book/123
    public function patch()
    {
       return $this->main();
    }
 
-   public function delete()
-   {
-      return $this->main();
-   }
+   // nope!
+   public function put() {}
+   public function delete() {}
 }
