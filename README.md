@@ -152,7 +152,7 @@ Output handler could be defined for once in `pub/index.php` (line 36).
 // simply fulfill callback closure
 $app->setHandler('output', function($output) {
    // and do something with output
-   return str_replace("\t", "   ", $output);
+   return str_replace("\t", '   ', $output);
 });
 ```
 
@@ -166,7 +166,7 @@ Root could be set easily in `pub/index.php`. For example, if you want to use a v
 
 ## Fails (Error Handling)
 
-All fails go to `app/service/default/FailService` file, so you can edit easily default fail files as wish.
+All fails go to `app/service/default/FailService` file, so you can edit easily default fail files as you wish.
 
 ## Composer Support
 
