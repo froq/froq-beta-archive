@@ -111,10 +111,15 @@ A service `init()` method always called first of all methods, so it could be use
 
 A service `main()` method could be handler for all requests that invoked service, just set `$useMainOnly = true` for this action.
 
-Following methods must be implemented by child object;
+A service could have `onbefore()` and `onafter()` methods to simply implement event driven processes.
+
+Following methods must be implemented by child object by service type;
 
 - For `Site` services: `main()`.
+Note: All other methods must be prefixed with `do` phrase E.g: for `/book/save`, book service must have `doSave()` method.
+
 - For `Rest` services: `main()`, `get()`, `post()`, `put()`, `patch()`, `delete()`.
+Note: Even service does not handle all these method must be found in extender service object.
 
 ## Partials
 
