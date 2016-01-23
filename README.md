@@ -94,6 +94,21 @@ class BookService extends Service
 }
 ```
 
+Example `GET` call:
+
+```
+curl -i -XGET froq.local/book/1
+HTTP/1.1 200 OK
+Status: 200 OK
+Server: Apache/2.4.18 (Ubuntu)
+Date: Sat, 23 Jan 2016 15:37:59 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 48
+X-Load-Time: 0.0209240913
+
+{"id":"1","name":"PHP in Action","price":"6.50"}
+```
+
 ## Configuration
 
 All config object's option might be reachable via `config->get()` method or simply array access like `config['key']`. Also its possible request a value by dot notations like `config['x.y.z']`.
