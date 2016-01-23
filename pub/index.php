@@ -14,7 +14,7 @@ $app = require('./sys/Boot.php');
 /**
  * Application root.
  */
-$appRoot = '/api/v1';
+$appRoot = '/';
 
 /**
  * User app config.
