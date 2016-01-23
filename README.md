@@ -11,11 +11,11 @@ use Application\Service\Protocol\Site as Service;
 
 class BookService extends Service
 {
-   // opt: redirect all requests to main()
+   // opt: redirect all requests to main(), default=false
    protected $useMainOnly = true;
-   // opt: use header/footer partials
+   // opt: use header/footer partials, default=false
    protected $useViewPartialAll = true;
-   // opt: restrict requests method, accept only GET, POST
+   // opt: restrict requests method, accept only GET, POST, default=[]
    protected $allowedRequestMethods = ['GET', 'POST'];
 
    // @optional initialization
@@ -34,6 +34,9 @@ class BookService extends Service
       // show it in view as you wish
       $this->view('main', $book);
    }
+
+   // when $useMainOnly=false for "/book/foo" calls
+   // public function doFoo() { ... }
 }
 ```
 
@@ -62,7 +65,7 @@ class BookService extends Service
    public function main()
    {}
 
-   // @required get method GET /book/123
+   // @required get method "GET /book/123"
    public function get()
    {
       $id = (int) $this->app->request->uri->segment(1);
@@ -84,10 +87,10 @@ class BookService extends Service
    }
 
    // @required all
-   // public function post() {}
-   // public function put() {}
-   // public function patch() {}
-   // public function delete() {}
+   // public function post() { ... }
+   // public function put() { ... }
+   // public function patch() { ... }
+   // public function delete() { ... }
 }
 ```
 
