@@ -29,7 +29,7 @@ class BookService extends Application\Service\Protocol\Site
       // find book by id
       $book = $this->model->find($id);
       // show it in view as you wish
-      $this->view->display('main', $book);
+      $this->view('main', $book);
    }
 }
 ```
