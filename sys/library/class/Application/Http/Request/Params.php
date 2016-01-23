@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 namespace Application\Http\Request;
 
+use Application\Util\Traits\GetterTrait as Getter;
+use Application\Http\Request\Params\{Get, Post, Cookie};
+
 /**
  * @package    Application
  * @subpackage Application\Http\Request
@@ -10,9 +13,28 @@ namespace Application\Http\Request;
 final class Params
 {
    /**
+    * Getter.
+    * @object Application\Util\Traits\GetterTrait
+    */
+   use Getter;
+
+   /**
+    * Get,Post,Cookie params.
+    * @var Application\Http\Request\Params\Get,
+    *      Application\Http\Request\Params\Post,
+    *      Application\Http\Request\Params\Cookie
+    */
+   private $get, $post, $cookie;
+
+   /**
     * Constructor.
     */
-   // final public function __construct() {}
+   final public function __construct()
+   {
+      $this->get = new Get();
+      $this->post = new Post();
+      $this->cookie = new Cookie();
+   }
 
    /**
     * Get a GET param.
@@ -23,7 +45,7 @@ final class Params
     */
    final public function get(string $key, $valueDefault = null)
    {
-      return dig($_GET, $key, $valueDefault);
+      return $this->get->get($key, $valueDefault);
    }
 
    /**
@@ -35,7 +57,7 @@ final class Params
     */
    final public function post(string $key, $valueDefault = null)
    {
-      return dig($_POST, $key, $valueDefault);
+      return $this->post->get($key, $valueDefault);
    }
 
    /**
@@ -47,6 +69,6 @@ final class Params
     */
    final public function cookie(string $key, $valueDefault = null)
    {
-      return dig($_COOKIE, $key, $valueDefault);
+      return $this->cookie->get($key, $valueDefault);
    }
 }
