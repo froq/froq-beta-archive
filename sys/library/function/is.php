@@ -14,6 +14,18 @@ function is_local(): bool
 }
 
 /**
+ * Check value is in array.
+ * @param  mixed $value
+ * @param  array $array
+ * @return bool
+ */
+function is_in($value, array $array): bool
+{
+   // @extend if needs
+   return in_array($value, $array);
+}
+
+/**
  * Check callee allowed.
  * @param  string      $filePath
  * @param  array|null  &$callee
