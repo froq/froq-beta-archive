@@ -31,11 +31,12 @@ abstract class Service
    protected $validations = array(); // @todo from <service>/config/config.php
    protected $allowedRequestMethods = array();
 
-   final public function __construct(Application $app, string $name, string $method, $viewData = null)
+   final public function __construct(Application $app, string $name,
+      string $method = null, $viewData = null)
    {
       $this->app = $app;
-      $this->name = $name;
-      $this->method = $method;
+      $this->name = (string) $name;
+      $this->method = (string) $method;
       $this->viewData = $viewData;
 
       // autoloads
@@ -58,19 +59,32 @@ abstract class Service
       if (method_exists($this, ServiceInterface::METHOD_INIT)) {
          $this->{ServiceInterface::METHOD_INIT}();
       }
+
       if (method_exists($this, ServiceInterface::METHOD_ONBEFORE)) {
          $this->{ServiceInterface::METHOD_ONBEFORE}();
       }
 
       $output = null;
-      // always uses main method
-      if ($this->isMain() || $this->useMainOnly) {
-         $output = $this->{ServiceInterface::METHOD_MAIN}();
-      } elseif (method_exists($this, $this->method)) {
-         $output = $this->{$this->method}();
-      } else {
-         // call fail::main
-         $output = $this->{ServiceInterface::METHOD_MAIN}();
+      // site interface
+      if ($this->protocol == ServiceInterface::PROTOCOL_SITE) {
+         // always uses main method
+         if ($this->useMainOnly || $this->isMain()) {
+            $output = $this->{ServiceInterface::METHOD_MAIN}();
+         } elseif (method_exists($this, $this->method)) {
+            $output = $this->{$this->method}();
+         } else {
+            // call fail::main
+            $output = $this->{ServiceInterface::METHOD_MAIN}();
+         }
+      }
+      // rest interface
+      elseif ($this->protocol == ServiceInterface::PROTOCOL_REST) {
+         if (method_exists($this, $this->method)) {
+            $output = $this->{$this->method}();
+         } else {
+            // call fail::main
+            $output = $this->{ServiceInterface::METHOD_MAIN}();
+         }
       }
 
       if (method_exists($this, ServiceInterface::METHOD_ONAFTER)) {
@@ -80,13 +94,6 @@ abstract class Service
       return $output;
    }
 
-   final public function isAllowedRequestMethod(string $requestMethod): bool
-   {
-      if (empty($this->allowedRequestMethods)) {
-         return true;
-      }
-      return in_array($requestMethod, $this->allowedRequestMethods);
-   }
    final public function setAllowedRequestMethods(array ...$allowedRequestMethods): self
    {
       $this->allowedRequestMethods = array_map('strtoupper', $allowedRequestMethods);
@@ -95,6 +102,14 @@ abstract class Service
    final public function getAllowedRequestMethods(): array
    {
       return $this->allowedRequestMethods;
+   }
+
+   final public function isAllowedRequestMethod(string $requestMethod): bool
+   {
+      if (empty($this->allowedRequestMethods)) {
+         return true;
+      }
+      return in_array($requestMethod, $this->allowedRequestMethods);
    }
 
    final private function loadConfig(): self

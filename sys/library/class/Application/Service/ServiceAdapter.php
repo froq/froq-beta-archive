@@ -19,11 +19,11 @@ final class ServiceAdapter
    {
       $this->app = $app;
 
-      $this->serviceName = ('/' == ($serviceName = $this->app->request->uri->segment(0, '/')))
-         ? $this->serviceNameDefault : $this->toServiceName($serviceName);
-      $this->serviceMethod = ('' == ($serviceMethod = $this->app->request->uri->segment(1, '')))
-         ? $this->serviceMethodDefault : $this->toServiceMethod($serviceMethod);
+      // detect service name
+      $this->serviceName = ($serviceName = $this->app->request->uri->segment(0))
+         ? $this->toServiceName($serviceName) : $this->serviceNameDefault;
 
+      // detect service file
       $this->serviceFile = $this->toServiceFile($this->serviceName);
 
       if (!$this->isServiceExists()) {
@@ -33,19 +33,27 @@ final class ServiceAdapter
          $this->serviceName = ServiceInterface::SERVICE_FAIL;
          $this->serviceFile = $this->toServiceFile($this->serviceName);
       }
-
       $this->service = $this->createService();
 
-      if (!$this->isServiceFail() && !$this->service->useMainOnly) {
-         if (!$this->isServiceMethodExists()) {
-            $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
-            $this->serviceViewData['fail']['text'] = sprintf(
-               'Service method not found! [%s::%s()]', $this->serviceName, $this->serviceMethod);
-            $this->serviceName = ServiceInterface::SERVICE_FAIL;
-            $this->serviceFile = $this->toServiceFile($this->serviceName);
+      // detect service method
+      if ($this->service->protocol == ServiceInterface::PROTOCOL_SITE && !$this->service->useMainOnly) {
+         $this->serviceMethod = ($serviceMethod = $this->app->request->uri->segment(1, ''))
+            ? $this->toServiceMethod($serviceMethod) : $this->serviceMethodDefault;
+      } elseif ($this->service->protocol == ServiceInterface::PROTOCOL_REST) {
+         $this->serviceMethod = strtolower($this->app->request->method);
+      }
 
-            $this->service = $this->createService();
-         }
+      if (!$this->isServiceFail() && !$this->isServiceMethodExists()) {
+         $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
+         $this->serviceViewData['fail']['text'] = sprintf(
+            'Service method not found! [%s::%s()]', $this->serviceName, $this->serviceMethod);
+         // overwrite
+         $this->serviceName = ServiceInterface::SERVICE_FAIL;
+         $this->serviceMethod = ServiceInterface::METHOD_MAIN;
+         $this->serviceFile = $this->toServiceFile($this->serviceName);
+
+         // re-create service as FailService
+         $this->service = $this->createService();
       }
    }
 
@@ -56,7 +64,7 @@ final class ServiceAdapter
 
    final public function isServiceExists(): bool
    {
-      return (is_file($this->serviceFile) && class_exists($this->serviceName));
+      return is_file($this->serviceFile) && class_exists($this->serviceName);
    }
 
    final public function isServiceMethodExists(): bool

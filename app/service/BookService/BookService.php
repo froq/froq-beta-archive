@@ -1,11 +1,9 @@
 <?php
-use Application\Service\Protocol\Site as Service;
+use Application\Service\Protocol\Rest as Service;
 
 class BookService extends Service
 {
-   protected $useMainOnly = true;
-   protected $useViewPartialAll = true;
-   protected $allowedRequestMethods = ['GET', 'POST'];
+   protected $allowedRequestMethods = ['GET', 'POST', 'PATCH', 'DELETE'];
 
    public function init()
    {
@@ -14,15 +12,31 @@ class BookService extends Service
 
    public function main()
    {
-      $this->model->id = 1; // get from request
-      $book = $this->model->find();
-      pre($book);
+      pre($this->method);
+   }
 
-      $books = $this->model->findAll();
-      $books = $this->model->findAll('id > ?', [0]);
-      pre($books);
+   public function get()
+   {
+      $this->main();
+   }
 
-      // $this->view('main');
-      // $this->view->display('main');
+   public function post()
+   {
+      print __method__;
+   }
+
+   public function put()
+   {
+      print __method__;
+   }
+
+   public function patch()
+   {
+      print __method__;
+   }
+
+   public function delete()
+   {
+      print __method__;
    }
 }
