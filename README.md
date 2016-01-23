@@ -198,3 +198,7 @@ As you guess, all files in `app` directory your and may be modified as you wish,
 - Wiki.
 - Add callback-driven service definition support.
 - Have a tequila.
+
+## Logo
+
+Huge thanks: http://www.clipartbest.com/clipart-LcKqXnbca
