@@ -142,7 +142,7 @@ $app->setHandler('output', function($output) {
 
 ## Service Roots (Base URI)
 
-Roots could be set easily in `pub/index.php`. For example, if you want to use a versioning  in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally (so you do not need to create another service such as `ApiService` for all these requests).
+Roots could be set easily in `pub/index.php`. For example, if you want to use a versioning structure in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally (so you do not need to create another service such as `ApiService` for all these requests).
 
 ## Fails (Error Handling)
 
