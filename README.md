@@ -112,7 +112,7 @@ A service `init()` method always called first of all methods, so it could be use
 
 A service `main()` method could be handler for all requests that invoked service, just set `$useMainOnly = true` for this action.
 
-A service could have `onBefore()` and `onAfter()` methods to simply implement event driven processes.
+A service could have `onBefore()` and `onAfter()` methods to simply implement event-driven processes.
 
 Following methods must be implemented by child object by service type;
 
