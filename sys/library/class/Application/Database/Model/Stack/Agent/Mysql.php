@@ -64,8 +64,10 @@ final class Mysql extends Stack
          return null;
       }
 
-      return $this->db->getConnection()->getAgent()->get(
-         "SELECT * FROM `{$this->name}` WHERE `{$this->primary}` = ?", [$primaryValue]);
+      try {
+         return $this->db->getConnection()->getAgent()->get(
+            "SELECT * FROM `{$this->name}` WHERE `{$this->primary}` = ?", [$primaryValue]);
+      } catch (\Exception $e) { return null; }
    }
 
    /**
@@ -80,21 +82,23 @@ final class Mysql extends Stack
    public function findAll(string $where = null, array $params = null, $limit = null,
       int $order = -1)
    {
-      $agent = $this->db->getConnection()->getAgent();
+      try {
+         $agent = $this->db->getConnection()->getAgent();
 
-      $query = empty($where)
-         ? "SELECT * FROM `{$this->name}` "
-         : "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
+         $query = empty($where)
+            ? "SELECT * FROM `{$this->name}` "
+            : "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
 
-      if ($order == -1) {
-         $query .= "ORDER BY `{$this->primary}` DESC ";
-      } else {
-         $query .= "ORDER BY `{$this->primary}` ASC ";
-      }
+         if ($order == -1) {
+            $query .= "ORDER BY `{$this->primary}` DESC ";
+         } else {
+            $query .= "ORDER BY `{$this->primary}` ASC ";
+         }
 
-      $query .= $agent->limit($limit ?: self::SELECT_LIMIT);
+         $query .= $agent->limit($limit ?: self::SELECT_LIMIT);
 
-      return $agent->getAll($query, $params);
+         return $agent->getAll($query, $params);
+      } catch (\Exception $e) { return null; }
    }
 
    /**
