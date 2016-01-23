@@ -126,6 +126,19 @@ Note: Even service does not handle all these method must be found in extender se
 
 All service might have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
 
+## Output Handling
+
+Output handler is optional but it could be useful sometimes for a developer. For example, while working with single header file, it could be headache to set page title differently for each page, or using different image/resource files for different pages. Using output handler, that could be done as well. Remember, when it is called the output did not `gzip'd` yet.
+
+Output handler could be defined for once and in `pub/index.php`. Just uncomment see line#36.
+
+```php
+$app->setHandler('output', function($output) {
+   // do something with output
+   return str_replace("\t", "   ", $output);
+});
+```
+
 ## Fails (Error Handling)
 
 All fails go to `app/service/default/FailService` file, so you can easily default fail files as wish.
