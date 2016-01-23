@@ -3,7 +3,7 @@ namespace Application\Http;
 
 use Application\Http\Response\Status;
 use Application\Util\Traits\GetterTrait as Getter;
-use Application\{Encoding\Gzip /*, @todo Encoding\Xml, Encoding\Json */ };
+use Application\{Encoding\Gzip, Encoding\Xml, Encoding\Json, Encoding\JsonException};
 
 /**
  * @package    Application
@@ -447,30 +447,38 @@ final class Response
     */
    final public function setBody($body): self
    {
-      // @todo
-      // check content type
-      // if ($this->contentType == self::CONTENT_TYPE_HTML) {
-      //    // check for page title
-      //       if ($pageTitle = get_global('page.title')) {
-      //          $body = preg_replace(
-      //             '~<title>(.*?)</title>~s',
-      //              '<title>'. html_encode($pageTitle) .'</title>',
-      //                $body, 1 // only once
-      //          );
-      //       }
-      //       // check page description
-      //       if ($pageDescription = get_global('page.description')) {
-      //          $body = preg_replace(
-      //             '~<meta\s+name="description"\s+content="(.*?)">~',
-      //              '<meta\s+name="description"\s+content="'. html_encode($pageDescription) .'">',
-      //                $body, 1 // only once
-      //          );
-      //       }
-      // }
-      // @todo
-      // elseif ($this->contentType == self::CONTENT_TYPE_XML) {
-      // } elseif ($this->contentType == self::CONTENT_TYPE_JSON) {
-      // }
+      switch ($this->contentType) {
+         // handle xml @todo
+         case self::CONTENT_TYPE_XML:
+            break;
+         // handle json
+         case self::CONTENT_TYPE_JSON:
+            $json = new Json($body);
+            $body = $json->encode();
+            if ($json->hasError()) {
+               throw new JsonException($json->getErrorMessage(), $json->getErrorCode());
+            }
+            break;
+         // handle html
+         case self::CONTENT_TYPE_HTML:
+            // check for page title
+            if ($pageTitle = get_global('page.title')) {
+               $body = preg_replace(
+                  '~<title>(.*?)</title>~s',
+                   '<title>'. html_encode($pageTitle) .'</title>',
+                     $body, 1 // only once
+               );
+            }
+            // check page description
+            if ($pageDescription = get_global('page.description')) {
+               $body = preg_replace(
+                  '~<meta\s+name="description"\s+content="(.*?)">~',
+                   '<meta\s+name="description"\s+content="'. html_encode($pageDescription) .'">',
+                     $body, 1 // only once
+               );
+            }
+            break;
+      }
 
       // can gzip?
       if (!empty($this->gzipOptions)) {
@@ -482,7 +490,7 @@ final class Response
       // content length
       $this->setContentLength(strlen($body));
 
-      $this->body = $body ."\n";
+      $this->body = $body;
 
       return $this;
    }

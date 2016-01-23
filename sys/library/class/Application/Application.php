@@ -208,7 +208,7 @@ final class Application
       ob_start();
    }
 
-   final public function endOutputBuffer(string $output = null)
+   final public function endOutputBuffer($output = null)
    {
       // handle redirections
       if ($this->response->status->code >= 300 && $this->response->status->code < 400) {

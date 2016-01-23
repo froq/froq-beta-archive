@@ -7,36 +7,40 @@ class BookService extends Service
 
    public function init()
    {
+      // init model
       $this->model = new BookModel();
+
+      // set default content type
+      $this->app->response->setContentType('application/json');
    }
 
    public function main()
    {
-      printf('BookService::%s()', $this->method);
+      return ['hello' => 'world!'];
    }
 
    public function get()
    {
-      $this->main();
+      return $this->main();
    }
 
    public function post()
    {
-      $this->main();
+      return $this->main();
    }
 
    public function put()
    {
-      $this->main();
+      return $this->main();
    }
 
    public function patch()
    {
-      $this->main();
+      return $this->main();
    }
 
    public function delete()
    {
-      $this->main();
+      return $this->main();
    }
 }
