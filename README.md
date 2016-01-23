@@ -160,9 +160,9 @@ $app->setHandler('output', function($output) {
 
 If you set your local development server like `froq.local`, Froq! will decide that you are on local development environment. Otherwise, it always thinks running on production environment. Note: this feature is not implemented yet properly/completely, just all exceptions thrown directly if environment is local.
 
-## Service Roots (Base URI)
+## Service Root (Base URI)
 
-Roots could be set easily in `pub/index.php`. For example, if you want to use a versioning approach in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally (so you do not need to create another service such as `ApiService` for all these requests cos `/api/v1` part will be dropped).
+Root could be set easily in `pub/index.php`. For example, if you want to use a versioning approach in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally. So you do not need to create another service such as `ApiService` for all these requests cos `/api/v1` part will be dropped while routing act.
 
 ## Fails (Error Handling)
 
