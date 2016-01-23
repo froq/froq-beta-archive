@@ -1,5 +1,8 @@
 <?php
-/** !!! MUST BE CALLED FIRST HERE ONCE !!! **/
+/**
+ * Must be called first here once.
+ * @important
+ */
 ob_start();
 
 /**

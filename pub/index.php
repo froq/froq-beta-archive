@@ -1,6 +1,7 @@
 <?php
 /**
  * Set everything as relative to the application root.
+ * @important
  */
 chdir(dirname(__dir__));
 
