@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Application\Http;
+namespace Application\Http\Request\Params;
 
 use Application\Util\Collection;
 
