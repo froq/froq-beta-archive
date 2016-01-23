@@ -397,4 +397,14 @@ final class Uri
 
       return $default;
    }
+
+   /**
+    * Get segments.
+    *
+    * @return array
+    */
+   final public function segments(): array
+   {
+      return $this->segments;
+   }
 }
