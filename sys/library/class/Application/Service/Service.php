@@ -31,12 +31,14 @@ abstract class Service
    protected $validations = array(); // @todo from <service>/config/config.php
    protected $allowedRequestMethods = array();
 
-   final public function __construct(Application $app, string $name,
-      string $method = null, $viewData = null)
+   final public function __construct(Application $app,
+      string $name = null, string $method = null, $viewData = null)
    {
       $this->app = $app;
-      $this->name = (string) $name;
-      $this->method = (string) $method;
+
+      $this->setName($name);
+      $this->setMethod($method);
+
       $this->viewData = $viewData;
 
       // autoloads
@@ -47,6 +49,15 @@ abstract class Service
       if (!empty($this->allowedRequestMethods)) {
          $this->allowedRequestMethods = array_map('strtoupper', $this->allowedRequestMethods);
       }
+   }
+
+   final public function setName(string $name = null)
+   {
+      $this->name = (string) $name;
+   }
+   final public function setMethod(string $method = null)
+   {
+      $this->method = (string) $method;
    }
 
    final public function isMain(): bool

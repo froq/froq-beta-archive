@@ -33,6 +33,8 @@ final class ServiceAdapter
          $this->serviceName = ServiceInterface::SERVICE_FAIL;
          $this->serviceFile = $this->toServiceFile($this->serviceName);
       }
+
+      // create service
       $this->service = $this->createService();
 
       // detect service method
@@ -55,6 +57,9 @@ final class ServiceAdapter
          // re-create service as FailService
          $this->service = $this->createService();
       }
+
+      // re-set service method
+      $this->service->setMethod($this->serviceMethod);
    }
 
    final public function isServiceFail(): bool

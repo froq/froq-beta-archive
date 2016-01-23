@@ -22,21 +22,21 @@ class BookService extends Service
 
    public function post()
    {
-      print __method__;
+      $this->main();
    }
 
    public function put()
    {
-      print __method__;
+      $this->main();
    }
 
    public function patch()
    {
-      print __method__;
+      $this->main();
    }
 
    public function delete()
    {
-      print __method__;
+      $this->main();
    }
 }
