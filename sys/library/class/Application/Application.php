@@ -17,8 +17,10 @@ final class Application
          ENVIRONMENT_STAGE       = 'stage',
          ENVIRONMENT_PRODUCTION  = 'production';
 
+   const DEFAULT_ROOT = '/';
+
    private $env;
-   private $root = '/'; // @todo
+   private $root = self::DEFAULT_ROOT;
    private $service;
    private $session;
    private $request, $response;
@@ -61,9 +63,6 @@ final class Application
       $this->setShutdownHandler();
 
       $this->db = new Database();
-
-      $this->request = new Request();
-      $this->response = new Response();
    }
 
    /**
@@ -114,6 +113,12 @@ final class Application
          throw new \RuntimeException('Call setConfig() first to get run application!');
       }
 
+      // re-set app as global
+      set_global('app', $this);
+
+      $this->request = new Request();
+      $this->response = new Response();
+
       $this->setDefaults();
 
       if ($halt = $this->haltCheck()) {
@@ -139,7 +144,11 @@ final class Application
       $this->env = $env;
       return $this;
    }
-
+   final public function setRoot(string $root): self
+   {
+      $this->root = $root;
+      return $this;
+   }
    final public function setConfig(array $config): self
    {
       if ($this->config) {

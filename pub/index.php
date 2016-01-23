@@ -12,6 +12,11 @@ chdir(dirname(__dir__));
 $app = require('./sys/Boot.php');
 
 /**
+ * Application root.
+ */
+$appRoot = '/api/v1';
+
+/**
  * User app config.
  */
 $appConfig = require('./app/global/cfg.php');
@@ -36,6 +41,6 @@ if (is_local()) {
  * Set application env/root/config and run application.
  */
 $app->setEnv($env)
-   // ->setRoot('/') @todo
+   ->setRoot($appRoot)
    ->setConfig($appConfig)
    ->run();

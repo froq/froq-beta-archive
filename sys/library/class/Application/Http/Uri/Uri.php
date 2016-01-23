@@ -104,8 +104,9 @@ final class Uri
             $this->setFragment($source['fragment']);
 
          // segments
-         if (!empty($source['path'])) {
-            $this->segments = UriPath::parse($source['path']);
+         if ($this->path != '') {
+            $app = app();
+            $this->segments = UriPath::parse($this->path, $app->root);
          }
       }
    }

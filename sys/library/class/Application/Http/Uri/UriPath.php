@@ -41,8 +41,15 @@ final class UriPath
       return $this->getSegment($i, $def);
    }
 
-   final public static function parse($path): array
+   final public static function parse($path, string $pathRoot = null): array
    {
+
+      if ($pathRoot != '' && $pathRoot != '/') {
+         $path = preg_replace('~^'. preg_quote($pathRoot) .'~', '', $path);
+      }
+      // pre($path);
+      // pre($pathRoot,1);
+
       $path = preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY);
       $path = array_filter(array_map('trim', $path));
       return $path;
