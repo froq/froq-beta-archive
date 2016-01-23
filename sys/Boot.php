@@ -51,10 +51,13 @@ require(root .'/sys/global/def.php');
 require(root .'/sys/global/cfg.php');
 require(root .'/sys/global/fun.php');
 
-/** !!! START APPLICATION !!! **/
-// register autoload
+/**
+ * Register autoload.
+ */
 $autoload = require(root .'/sys/library/class/Autoload.php');
 $autoload->register();
 
-// init application
+/**
+ * Init application.
+ */
 return Application\Application::init();
