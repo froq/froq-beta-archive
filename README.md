@@ -49,8 +49,8 @@ use Application\Service\Protocol\Rest as Service;
 
 class BookService extends Service
 {
-   // opt: restrict requests method, accept only GET, POST
-   protected $allowedRequestMethods = ['GET', 'POST', 'PATCH', 'DELETE'];
+   // opt: restrict requests method, accept only GET, POST, PATCH
+   protected $allowedRequestMethods = ['GET', 'POST', 'PATCH'];
 
    // initialization
    public function init()
