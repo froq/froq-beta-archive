@@ -86,16 +86,13 @@ final class Mysql extends Stack
          $agent = $this->db->getConnection()->getAgent();
 
          $query = empty($where)
-            ? "SELECT * FROM `{$this->name}` "
-            : "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
+            ? sprintf('SELECT * FROM `%s`', $this->name)
+            : sprintf('SELECT * FROM `%s` WHERE (%s)', $this->name, $where);
 
-         if ($order == -1) {
-            $query .= "ORDER BY `{$this->primary}` DESC ";
-         } else {
-            $query .= "ORDER BY `{$this->primary}` ASC ";
-         }
-
-         $query .= $agent->limit($limit ?: self::SELECT_LIMIT);
+         $query = (($order == -1)
+            ? sprintf('%s ORDER BY `%s` DESC ', $query, $this->primary)
+            : sprintf('%s ORDER BY `%s` ASC ', $query, $this->primary)
+         ) . $agent->limit($limit ?: self::SELECT_LIMIT);
 
          return $agent->getAll($query, $params);
       } catch (\Exception $e) { return null; }
