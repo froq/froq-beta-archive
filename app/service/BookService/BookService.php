@@ -16,6 +16,14 @@ class BookService extends Service
 
    public function main()
    {
+      $id = (int) $this->app->request->uri->segment(1);
+      if (!is_id($id)) {
+         $this->app->response->setStatus(400);
+         $this->app->response->setContentType('none');
+         return null;
+      }
+
+      pre($id);
       return ['hello' => 'world!'];
    }
 

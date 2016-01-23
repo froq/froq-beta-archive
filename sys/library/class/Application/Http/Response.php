@@ -28,7 +28,7 @@ final class Response
     * Content types.
     * @const string
     */
-   const CONTENT_TYPE_NA   = 'n/a',
+   const CONTENT_TYPE_NONE = 'none',
          CONTENT_TYPE_HTML = 'text/html',
          CONTENT_TYPE_XML  = 'application/xml',
          CONTENT_TYPE_JSON = 'application/json';
@@ -512,9 +512,9 @@ final class Response
       // content type / length
       $this->sendHeader('Content-Length', $this->contentLength);
       if (empty($this->contentType)) {
-         $this->sendHeader('Content-Type', self::CONTENT_TYPE_NA);
+         $this->sendHeader('Content-Type', self::CONTENT_TYPE_NONE);
       } elseif (empty($this->contentCharset)
-         || strtolower($this->contentType) == self::CONTENT_TYPE_NA) {
+         || strtolower($this->contentType) == self::CONTENT_TYPE_NONE) {
             $this->sendHeader('Content-Type', $this->contentType);
       } else {
          $this->sendHeader('Content-Type',

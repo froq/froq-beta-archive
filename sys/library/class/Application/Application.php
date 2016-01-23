@@ -213,7 +213,7 @@ final class Application
       // handle redirections
       if ($this->response->status->code >= 300 && $this->response->status->code < 400) {
          // no content!
-         $this->response->setContentType('n/a');
+         $this->response->setContentType('none');
       } else {
          // print'ed service methods return "null"
          if ($output === null) {
