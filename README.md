@@ -70,7 +70,7 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 48
 X-Load-Time: 0.0209240913
 
-{"id":"1","name":"PHP in Action","price":"16.50"}
+{"id":1,"name":"PHP in Action","price":16.55}
 ```
 
 ### Using as Site Page Responder
