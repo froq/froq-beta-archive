@@ -1,7 +1,17 @@
 {
-    "name": "froq/froq",
-    "type": "framework",
-    "require": {
-        "php": ">=7.0.0"
-    }
+   "name": "froq/froq",
+   "type": "framework",
+   "version": "1.0.0",
+   "homepage": "https://github.com/froq/froq",
+   "description": "Froq! Simply a service generator..",
+   "keywords": ["rest", "restful", "service"],
+   "license": "GNU General Public License v3.0",
+   "authors": [{
+      "name": "Kerem Gunes",
+      "email": "qeremy@gmail.com",
+      "homepage": "http://qeremy.com"
+   }],
+   "require": {
+     "php": ">=7.0.0"
+   }
 }
