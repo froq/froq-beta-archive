@@ -12,7 +12,7 @@ class BookService extends Service
 
    public function main()
    {
-      pre($this->method);
+      printf('BookService::%s()', $this->method);
    }
 
    public function get()
