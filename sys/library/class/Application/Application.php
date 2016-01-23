@@ -420,12 +420,11 @@ final class Application
     */
    final public function loadTime(): string
    {
-      $loadTime = '';
       if (defined('APP_START_TIME')) {
-         $loadTime = sprintf('%.10f', (microtime(true) - APP_START_TIME));
+         return sprintf('%.10f', (microtime(true) - APP_START_TIME));
       }
 
-      return $loadTime;
+      return '';
    }
 
    /**
