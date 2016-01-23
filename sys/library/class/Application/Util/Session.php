@@ -296,9 +296,6 @@ final class Session
     */
    final public function start(): bool
    {
-      // app
-      $app = app();
-
       // check started?
       if ($this->isStarted) {
          return true;
@@ -311,6 +308,9 @@ final class Session
                __method__, $file, $line
          ));
       }
+
+      // app
+      $app = app();
 
       // set/check id
       $id = session_id();
