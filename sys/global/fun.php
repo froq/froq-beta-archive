@@ -2,8 +2,8 @@
 /*************************************************
  * Core functions module, that used all over the *
  * application. Define all global functions will *
- * be used anywhere.                      *
- ************************************************/
+ * be used anywhere.                             *
+ *************************************************/
 
 if (!isset($GLOBALS['@'])) {
    $GLOBALS['@'] = [];
