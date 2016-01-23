@@ -11,7 +11,6 @@ class BookService extends Service
    {
       // init model
       $this->model = new BookModel();
-
       // set default content type
       $this->app->response->setContentType(ContentType::JSON);
    }
@@ -44,9 +43,7 @@ class BookService extends Service
    }
 
    public function put()
-   {
-      return $this->main();
-   }
+   {}
 
    public function patch()
    {
