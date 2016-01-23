@@ -212,11 +212,10 @@ final class Application
    {
       // handle redirections
       if ($this->response->status->code >= 300 && $this->response->status->code < 400) {
-         // no content
+         // no content!
          $this->response->setContentType('n/a');
-         // prepare & send response body / headers / cookies
       } else {
-         // print'ed service methods return null
+         // print'ed service methods return "null"
          if ($output === null) {
             $output = '';
             while (ob_get_level()) {
@@ -224,13 +223,14 @@ final class Application
             }
          }
 
+         // use user output handler if provided
          if (isset($this->handlers['output'])) {
             $output = $this->handlers['output']($output);
          }
-      }
 
-      // prepare response body
-      $this->response->setBody($output);
+         // set response body
+         $this->response->setBody($output);
+      }
 
       // send response body, headers and cookies
       $this->response->sendCookieAll();
