@@ -47,13 +47,13 @@ class BookService extends Service
    // POST /book
    public function post()
    {
-      return $this->main();
+      // ...
    }
 
    // PATCH /book/123
    public function patch()
    {
-      return $this->main();
+      // ...
    }
 
    // nope!
