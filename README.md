@@ -122,6 +122,7 @@ Note: All other methods must be prefixed with `do` phrase E.g: for `/book/save`,
 - For `Rest` services: `main()`, `get()`, `post()`, `put()`, `patch()`, `delete()`.<br>
 Note: Even service does not handle all these method must be found in extender service object.
 
+
 ## Partials
 
 All service might have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
@@ -139,13 +140,17 @@ $app->setHandler('output', function($output) {
 });
 ```
 
+## Service Roots (Base URI)
+
+Roots could be set easily in `pub/index.php`. For example, if you want to use a versioning  in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally (so you do not need to create another service such as `ApiService` for all these requests).
+
 ## Fails (Error Handling)
 
 All fails go to `app/service/default/FailService` file, so you can easily default fail files as wish.
 
 ## Composer Support
 
-You can integrate any library you want use into Froq!. Composer's `vendor` file will be in root and its autoloader will be included automatically in application.
+You can integrate any library you want use into Froq!. Composer's `vendor` file will be in root (`/`) directory and composer's autoloader will be included automatically in application.
 
 
 ## Folder Structure
