@@ -51,7 +51,7 @@ class BookService extends Service
    // opt: restrict request methods, accept only GET, POST, PATCH
    protected $allowedRequestMethods = ['GET', 'POST', 'PATCH'];
 
-   // initialization
+   // @optional initialization
    public function init()
    {
       // init model
