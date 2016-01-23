@@ -116,10 +116,10 @@ A service could have `onBefore()` and `onAfter()` methods to simply implement ev
 
 Following methods must be implemented by child object by service type;
 
-- For `Site` services: `main()`.
+- For `Site` services: `main()`.<br>
 Note: All other methods must be prefixed with `do` phrase E.g: for `/book/save`, book service must have `doSave()` method.
 
-- For `Rest` services: `main()`, `get()`, `post()`, `put()`, `patch()`, `delete()`.
+- For `Rest` services: `main()`, `get()`, `post()`, `put()`, `patch()`, `delete()`.<br>
 Note: Even service does not handle all these method must be found in extender service object.
 
 ## Partials
@@ -130,7 +130,7 @@ All service might have individual `head/foot` file in its own folder such as `Fo
 
 Output handler is optional but it could be useful sometimes for a developer. For example, while working with single header file, it could be headache to set page title differently for each page, or using different image/resource files for different pages. Using output handler, that could be done as well. Remember, when it is called the output did not `gzip'd` yet.
 
-Output handler could be defined for once and in `pub/index.php`. Just uncomment see line#36.
+Output handler could be defined for once and in `pub/index.php` (see line 36).
 
 ```php
 $app->setHandler('output', function($output) {
