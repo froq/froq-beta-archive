@@ -107,6 +107,15 @@ All service objects must be in `app/service/` in its folder: e.g. `FooService/Fo
 - Each service might have its model file: e.g. `FooService/model/model.php`.
 - Each service might have its view file: e.g. `FooService/view/view.php`.
 
+A service `init()` method always called first of all methods, so it could be used as constructor. By the way, you can not define `__construct()` method in any service cos it's finalized in parent object.
+
+A service `main()` method could be handler for all requests that invoked service, just set `$useMainOnly = true` for this action.
+
+Following methods must be implemented by child object;
+
+- For `Site` services: `main()`.
+- For `Rest` services: `main()`, `get()`, `post()`, `put()`, `patch()`, `delete()`.
+
 ## Partials
 
 All service might have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used.
