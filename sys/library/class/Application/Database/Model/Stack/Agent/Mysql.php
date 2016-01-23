@@ -56,9 +56,8 @@ final class Mysql extends Stack
     */
    public function find($primaryValue = null)
    {
-      $primaryName = $this->primary;
       if ($primaryValue === null) {
-         $primaryValue = $this->data[$primaryName];
+         $primaryValue = dig($this->data, $this->primary);
       }
 
       if ($primaryValue === null) {
@@ -66,7 +65,7 @@ final class Mysql extends Stack
       }
 
       return $this->db->getConnection()->getAgent()->get(
-         "SELECT * FROM `{$this->name}` WHERE `{$primaryName}` = ?", [$primaryValue]);
+         "SELECT * FROM `{$this->name}` WHERE `{$this->primary}` = ?", [$primaryValue]);
    }
 
    /**
@@ -78,16 +77,14 @@ final class Mysql extends Stack
     * @param  int       $order
     * @return mixed
     */
-   public function findAll(string $where = null, array $params = null,
-      $limit = null, int $order = -1)
+   public function findAll(string $where = null, array $params = null, $limit = null,
+      int $order = -1)
    {
       $agent = $this->db->getConnection()->getAgent();
 
-      if (empty($where)) {
-         $query = "SELECT * FROM `{$this->name}` ";
-      } else {
-         $query = "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
-      }
+      $query = empty($where)
+         ? "SELECT * FROM `{$this->name}` "
+         : "SELECT * FROM `{$this->name}` WHERE ({$where}) ";
 
       if ($order == -1) {
          $query .= "ORDER BY `{$this->primary}` DESC ";
@@ -103,15 +100,28 @@ final class Mysql extends Stack
    /**
     * Save an object.
     *
-    * @return int|bool
+    * @return int|null
     */
    public function save()
-   {}
+   {
+      try {
+         $agent = $this->db->getConnection()->getAgent();
+
+         // insert
+         if (!isset($this->data[$this->primary])) {
+            return $agent->insert($this->name, $this->data);
+         }
+
+         // update
+         return $agent->update($this->name, $this->data,
+            "`{$this->primary}` = ?", [$this->data[$this->primary]]);
+      } catch (\Exception $e) { return null; }
+   }
 
    /**
     * Remove an object.
     *
-    * @return int|bool
+    * @return int|null
     */
    public function remove()
    {}
