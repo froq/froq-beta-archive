@@ -101,7 +101,7 @@ Global application config file is in `sys/global/cfg.php` file but user might ov
 
 ## Services
 
-All service objects must be in `app/service/` in its folder: e.g. `FooService/FooService.php` with same name, also;
+All service objects must be in `app/service/` in its folder: e.g. `FooService/FooService.php` with same name and suffixed with `Service` phrase, also;
 
 - Each service might have its config file: e.g. `FooService/config/config.php`.
 - Each service might have its model file: e.g. `FooService/model/model.php`.
@@ -111,7 +111,7 @@ A service `init()` method always called first of all methods, so it could be use
 
 A service `main()` method could be handler for all requests that invoked service, just set `$useMainOnly = true` for this action.
 
-A service could have `onbefore()` and `onafter()` methods to simply implement event driven processes.
+A service could have `onBefore()` and `onAfter()` methods to simply implement event driven processes.
 
 Following methods must be implemented by child object by service type;
 
