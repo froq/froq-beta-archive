@@ -4,42 +4,6 @@ Froq! is a uber-easy service generator that designed especially for RESTful back
 
 Let's dive into that sweet thing quickly keeping short the introduction..
 
-### Using as Site Page Responder
-
-```php
-use Application\Service\Protocol\Site as Service;
-
-class BookService extends Service
-{
-   // opt: redirect all requests to main(), default=false
-   protected $useMainOnly = true;
-   // opt: use header/footer partials, default=false
-   protected $useViewPartialAll = true;
-   // opt: restrict request methods, accept only GET, POST, default=[] so accept all
-   protected $allowedRequestMethods = ['GET', 'POST'];
-
-   // @optional initialization
-   public function init()
-   {
-      // init model
-      $this->model = new BookModel();
-   }
-
-   // @required main method
-   public function main()
-   {
-      $id = (int) $this->app->request->uri->segment(1);
-      // find book by id
-      $book = $this->model->find($id);
-      // show it in view as you wish
-      $this->view('main', $book);
-   }
-
-   // when $useMainOnly=false for "/book/foo" calls
-   // public function doFoo() { ... }
-}
-```
-
 ### Using as REST Resource Responder
 
 ```php
@@ -107,6 +71,42 @@ Content-Length: 48
 X-Load-Time: 0.0209240913
 
 {"id":"1","name":"PHP in Action","price":"6.50"}
+```
+
+### Using as Site Page Responder
+
+```php
+use Application\Service\Protocol\Site as Service;
+
+class BookService extends Service
+{
+   // opt: redirect all requests to main(), default=false
+   protected $useMainOnly = true;
+   // opt: use header/footer partials, default=false
+   protected $useViewPartialAll = true;
+   // opt: restrict request methods, accept only GET, POST, default=[] so accept all
+   protected $allowedRequestMethods = ['GET', 'POST'];
+
+   // @optional initialization
+   public function init()
+   {
+      // init model
+      $this->model = new BookModel();
+   }
+
+   // @required main method
+   public function main()
+   {
+      $id = (int) $this->app->request->uri->segment(1);
+      // find book by id
+      $book = $this->model->find($id);
+      // show it in view as you wish
+      $this->view('main', $book);
+   }
+
+   // when $useMainOnly=false for "/book/foo" calls
+   // public function doFoo() { ... }
+}
 ```
 
 ## Configuration
