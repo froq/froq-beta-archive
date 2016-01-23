@@ -22,7 +22,7 @@ class BookService extends Application\Service\Protocol\Site
       $this->model = new BookModel();
    }
 
-   // main method
+   // main method @implement
    public function main()
    {
       $id = (int) $this->app->request->uri->segment(1);
