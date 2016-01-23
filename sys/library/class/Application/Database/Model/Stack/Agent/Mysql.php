@@ -12,9 +12,11 @@ final class Mysql extends Stack
       $this->primary = trim($primary);
    }
 
-   public function find() {
+   public function find($primaryValue = null) {
       $primaryName = $this->primary;
-      $primaryValue = $this->data[$primaryName];
+      if ($primaryValue === null) {
+         $primaryValue = $this->data[$primaryName];
+      }
 
       if ($primaryValue === null) {
          return null;
