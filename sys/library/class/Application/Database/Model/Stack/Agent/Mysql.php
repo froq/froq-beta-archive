@@ -125,5 +125,17 @@ final class Mysql extends Stack
     * @return int|null
     */
    public function remove()
-   {}
+   {
+      try {
+         $agent = $this->db->getConnection()->getAgent();
+
+         // check
+         if (!isset($this->data[$this->primary])) {
+            return null;
+         }
+
+         return $agent->delete($this->name,
+            "`{$this->primary}` = ?", [$this->data[$this->primary]]);
+      } catch (\Exception $e) { return null; }
+   }
 }
