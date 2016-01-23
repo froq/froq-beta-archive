@@ -35,6 +35,6 @@ if (is_local()) {
  * Set application env/root/config and run application.
  */
 $app->setEnv($env)
-    // ->setRoot('/') @todo
-    ->setConfig($appConfig)
-    ->run();
+   // ->setRoot('/') @todo
+   ->setConfig($appConfig)
+   ->run();
