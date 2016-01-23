@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 namespace Application\Http;
 
-use Application\Http\Response\Status;
 use Application\Util\Traits\GetterTrait as Getter;
+use Application\Http\Response\{Status, ContentType, ContentCharset};
 use Application\{Encoding\Gzip, Encoding\Xml, Encoding\Json, Encoding\JsonException};
 
 /**
@@ -25,21 +25,6 @@ final class Response
    use Getter;
 
    /**
-    * Content types.
-    * @const string
-    */
-   const CONTENT_TYPE_NONE = 'none',
-         CONTENT_TYPE_HTML = 'text/html',
-         CONTENT_TYPE_XML  = 'application/xml',
-         CONTENT_TYPE_JSON = 'application/json';
-
-   /**
-    * Content charset.
-    * @const string
-    */
-   const CONTENT_CHARSET = 'utf-8';
-
-   /**
     * HTTP Version.
     * @var string
     */
@@ -49,8 +34,8 @@ final class Response
     * Content type, encoding, length.
     * @var string, string, int
     */
-   private $contentType    = self::CONTENT_TYPE_HTML,
-           $contentCharset = self::CONTENT_CHARSET,
+   private $contentType    = ContentType::HTML,
+           $contentCharset = ContentCharset::UTF8,
            $contentLength  = 0;
 
    /**
@@ -449,10 +434,10 @@ final class Response
    {
       switch ($this->contentType) {
          // handle xml @todo
-         case self::CONTENT_TYPE_XML:
+         case ContentType::XML:
             break;
          // handle json
-         case self::CONTENT_TYPE_JSON:
+         case ContentType::JSON:
             $json = new Json($body);
             $body = $json->encode();
             if ($json->hasError()) {
@@ -460,7 +445,7 @@ final class Response
             }
             break;
          // handle html
-         case self::CONTENT_TYPE_HTML:
+         case ContentType::HTML:
             // check for page title
             if ($pageTitle = get_global('page.title')) {
                $body = preg_replace(
@@ -512,9 +497,9 @@ final class Response
       // content type / length
       $this->sendHeader('Content-Length', $this->contentLength);
       if (empty($this->contentType)) {
-         $this->sendHeader('Content-Type', self::CONTENT_TYPE_NONE);
+         $this->sendHeader('Content-Type', ContentType::NONE);
       } elseif (empty($this->contentCharset)
-         || strtolower($this->contentType) == self::CONTENT_TYPE_NONE) {
+         || strtolower($this->contentType) == ContentType::NONE) {
             $this->sendHeader('Content-Type', $this->contentType);
       } else {
          $this->sendHeader('Content-Type',

@@ -10,7 +10,7 @@ use Application\Util\Traits\{SetterTrait as Setter, GetterTrait as Getter};
  * @object     Application\Http\Response\Status
  * @uses       Application\Util\Traits\SetterTrait,
  *             Application\Util\Traits\GetterTrait
- * @author     Kerem! <kerem@Application>
+ * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Status
 {

@@ -1,4 +1,6 @@
 <?php
+use Application\Http\Response\Status;
+use Application\Http\Response\ContentType;
 use Application\Service\Protocol\Rest as Service;
 
 class BookService extends Service
@@ -11,20 +13,24 @@ class BookService extends Service
       $this->model = new BookModel();
 
       // set default content type
-      $this->app->response->setContentType('application/json');
+      $this->app->response->setContentType(ContentType::JSON);
    }
 
    public function main()
    {
       $id = (int) $this->app->request->uri->segment(1);
       if (!is_id($id)) {
-         $this->app->response->setStatus(400);
-         $this->app->response->setContentType('none');
+         $this->app->response->setStatus(Status::BAD_REQUEST);
+         $this->app->response->setContentType(ContentType::NONE);
          return null;
       }
 
-      pre($id);
-      return ['hello' => 'world!'];
+      $book = $this->model->find($id);
+      if (empty($book)) {
+         return null;
+      }
+
+      return $book;
    }
 
    public function get()
