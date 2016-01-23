@@ -134,8 +134,9 @@ Output handler is optional but it could be useful sometimes for a developer. For
 Output handler could be defined for once and in `pub/index.php` (see line 36).
 
 ```php
+// simply fulfill callback closure
 $app->setHandler('output', function($output) {
-   // do something with output
+   // and do something with output
    return str_replace("\t", "   ", $output);
 });
 ```
