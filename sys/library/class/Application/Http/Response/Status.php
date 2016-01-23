@@ -2,22 +2,24 @@
 
 namespace Application\Http\Response;
 
-use Application\Util\Traits\GetterTrait as Getter;
+use Application\Util\Traits\{SetterTrait as Setter, GetterTrait as Getter};
 
 /**
  * @package    Application
  * @subpackage Application\Http\Response
  * @object     Application\Http\Response\Status
- * @uses       Application\Util\Traits\GetterTrait
+ * @uses       Application\Util\Traits\SetterTrait,
+ *             Application\Util\Traits\GetterTrait
  * @author     Kerem! <kerem@Application>
  */
 final class Status
 {
    /**
-    * Getter.
-    * @object Application\Util\Traits\GetterTrait
+    * Setter, Getter.
+    * @object Application\Util\Traits\SetterTrait,
+    *         Application\Util\Traits\GetterTrait
     */
-   use Getter;
+   use Setter, Getter;
 
    /**
     * Default code.
