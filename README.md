@@ -2,9 +2,7 @@
 
 Froq! is a uber-easy service generator that designed especially for RESTful back-end'd structures, but may be used for front-end'd platforms as well. You simply create your service object (aka resource/endpoint class) and return its actions data.
 
-## In a Nutshell
-
-Using as site page responder.
+### Using as Site Page Responder
 
 ```php
 use Application\Service\Protocol\Site as Service;
@@ -40,7 +38,7 @@ class BookService extends Service
 }
 ```
 
-Using as REST resource responder.
+### Using as REST Resource Responder
 
 ```php
 use Application\Http\Response\Status;
