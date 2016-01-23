@@ -133,8 +133,8 @@ As you guess, all files in `app` directory your and may be modified as you wish,
                head.php
                foot.php
 
-   pub/
+   pub/ # where assets, images go
       index.php
-   sys/
+   sys/ # core
       ...
 ```
