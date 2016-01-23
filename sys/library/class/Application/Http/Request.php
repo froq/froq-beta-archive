@@ -28,7 +28,7 @@ final class Request
     * Methods.
     * @conts string
     */
-   const METHOD_GET   = 'GET',
+   const METHOD_GET    = 'GET',
          METHOD_POST   = 'POST',
          METHOD_PUT    = 'PUT',
          METHOD_PATCH  = 'PATCH',
@@ -122,16 +122,12 @@ final class Request
       switch ($this->method) {
          case self::METHOD_POST:
             $this->body = $_POST;
-            // @cancel open if needs
-            // $this->bodyRaw = to_queryString($_POST);
             break;
          case self::METHOD_PUT:
          case self::METHOD_PATCH:
             $bodyRaw = file_get_contents('php://input');
             parse_str($bodyRaw, $body);
             $this->body = $body;
-            // @cancel open if needs
-            // $this->bodyRaw = $bodyRaw;
             // act as post param
             $_POST = $body;
             break;
