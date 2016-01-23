@@ -9,7 +9,8 @@ $cfg = [];
  */
 // allowed hosts
 $cfg['app']['hosts'] = [
-   'froq.local',
+   $_SERVER['SERVER_NAME'],
+   // add more if needed..
 ];
 
 // defaults
