@@ -170,7 +170,7 @@ All fails go to `app/service/default/FailService` file, so you can edit easily d
 
 ## Composer Support
 
-You can integrate any library you want use into Froq!. Composer's `vendor` file will be in root (`/`) directory and composer's autoloader will be included automatically in application.
+You can integrate any library you want use into Froq!. Composer's `vendor` folder will be in root (`/`) directory and composer's autoloader will be included automatically in application.
 
 
 ## Folder Structure
