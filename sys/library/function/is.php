@@ -14,15 +14,25 @@ function is_local(): bool
 }
 
 /**
- * Check value is in array.
- * @param  mixed $value
+ * Check input is in array.
+ * @param  mixed $input
  * @param  array $array
  * @return bool
  */
-function is_in($value, array $array): bool
+function is_in($input, array $array): bool
 {
    // @extend if needs
-   return in_array($value, $array);
+   return in_array($input, $array);
+}
+
+/**
+ * Check input is valid int ID.
+ * @param  mixed $input
+ * @return bool
+ */
+function is_id($input): bool
+{
+   return (is_int($input) && $input > 0);
 }
 
 /**
