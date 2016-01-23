@@ -40,7 +40,6 @@ class BookService extends Service
 Using as REST resource responder.
 
 ```php
-<?php
 use Application\Http\Response\Status;
 use Application\Http\Response\ContentType;
 use Application\Service\Protocol\Rest as Service;
@@ -90,4 +89,49 @@ class BookService extends Service
    // public function patch() {}
    // public function delete() {}
 }
+```
+
+## Application
+
+### Folder Structure
+
+```bash
+./
+   app/ # all your in app folder
+      global/
+         cfg.php         # user configs
+         def.php         # user constants
+         fun.php         # user functions (misc.)
+      library/
+         class/          # user objects (class, trait etc.)
+         function/       # user functions (language, localization etc.)
+      service/
+         BookService/
+            config/      # optional (service specific configs)
+               config.php
+            model/
+               model.php # optional, where BookModel comes
+            view/
+               main.php  # optional, for main() method
+               ...
+            BookService.php
+         default/
+            FailService/
+               FailService.php
+            MainService/
+               MainService.php
+         view/
+            fail/
+               main.php
+               403.php
+               404.php
+               ...
+            partial/
+               head.php
+               foot.php
+
+   pub/
+      index.php
+   sys/
+      ...
 ```
