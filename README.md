@@ -2,6 +2,7 @@
 
 Froq! is a uber-easy service generator that designed especially for RESTful back-end'd structures, but may be used for front-end'd platforms as well. You simply create your service object (aka resource/endpoint class) and return its actions data.
 
+
 ### Using as Site Page Responder
 
 ```php
@@ -91,6 +92,16 @@ class BookService extends Service
    // public function delete() { ... }
 }
 ```
+
+
+## Fails (Error Handling)
+
+All fails go to `app/service/default/FailService` file, so you can easily default fail files as wish.
+
+## Composer Support
+
+You can integrate any library you want use into Froq!. Composer's `vendor` file will be in root and its autoloader will be included automatically in application.
+
 
 ## Folder Structure
 
