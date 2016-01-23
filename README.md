@@ -15,7 +15,7 @@ class BookService extends Service
    protected $useMainOnly = true;
    // opt: use header/footer partials, default=false
    protected $useViewPartialAll = true;
-   // opt: restrict requests method, accept only GET, POST, default=[]
+   // opt: restrict requests method, accept only GET, POST, default=[] so accept all
    protected $allowedRequestMethods = ['GET', 'POST'];
 
    // @optional initialization
