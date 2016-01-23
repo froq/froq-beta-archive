@@ -111,17 +111,17 @@ class BookService extends Service
 
 ## Configuration
 
-All config object's option might be reachable via `config->get()` method or simply array access like `config['key']`. Also its possible request a value by dot notations like `config['x.y.z']`.
+All config object's option may be reachable via `config->get()` method or simply array access like `config['key']`. Also its possible request a value by dot notations like `config['x.y.z']`.
 
-Global application config file is in `sys/global/cfg.php` file but user might override all these config options filling `app/global/cfg.php` file. However each service might have its own config file such `FooService/config/config.php`, but these config options reachable only in service object, e.g `$x = $this->config->get('x')` or `$this->config['x']`.
+Global application config file is in `sys/global/cfg.php` file but user may override all these config options filling `app/global/cfg.php` file. However each service may have its own config file such `FooService/config/config.php`, but these config options reachable only in service object, e.g `$x = $this->config->get('x')` or `$this->config['x']`.
 
 ## Services
 
 All service objects must be in `app/service/` in its folder: e.g. `FooService/FooService.php` with same name and suffixed with `Service` phrase, also;
 
-- Each service might have its config file: e.g. `FooService/config/config.php`.
-- Each service might have its model file: e.g. `FooService/model/model.php`.
-- Each service might have its view file: e.g. `FooService/view/view.php`.
+- Each service may have its config file: e.g. `FooService/config/config.php`.
+- Each service may have its model file: e.g. `FooService/model/model.php`.
+- Each service may have its view file: e.g. `FooService/view/view.php`.
 
 A service `init()` method always called first of all methods, so it could be used as constructor. By the way, you can not define `__construct()` method in any service cos it's finalized in parent object.
 
@@ -140,7 +140,7 @@ Note: Even service does not handle all these method must be found in extender se
 
 ## Partials
 
-All service might have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
+All service may have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
 
 ## Output Handling
 
