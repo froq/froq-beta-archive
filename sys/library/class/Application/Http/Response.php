@@ -514,7 +514,7 @@ final class Response
       }
 
       // real load time
-      // $this->sendHeader('X-Load-Time', app()->loadTime());
+      $this->sendHeader('X-Load-Time', app()->loadTime());
 
       // print it beybe!
       print $this->body;

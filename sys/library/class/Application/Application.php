@@ -251,6 +251,16 @@ final class Application
       return ($this->env == self::ENVIRONMENT_PRODUCTION);
    }
 
+   final public function loadTime(): string
+   {
+      $loadTime = '';
+      if (defined('APP_START_TIME')) {
+         $loadTime = sprintf('%.10f', (microtime(true) - APP_START_TIME));
+      }
+
+      return $loadTime;
+   }
+
    final private function halt(string $status)
    {
       header(sprintf('%s %s', $_SERVER['SERVER_PROTOCOL'], $status));
