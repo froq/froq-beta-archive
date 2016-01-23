@@ -287,7 +287,7 @@ final class Response
       }
 
       // send
-      header(sprintf('%s: %s', $name, trim($value)));
+      header(sprintf('%s: %s', $name, trim((string) $value)));
     }
 
    /**
@@ -447,25 +447,26 @@ final class Response
     */
    final public function setBody($body): self
    {
+      // @todo
       // check content type
-      if ($this->contentType == self::CONTENT_TYPE_HTML) {
-         // check for page title
-            if ($pageTitle = get_global('page.title')) {
-               $body = preg_replace(
-                  '~<title>(.*?)</title>~s',
-                   '<title>'. html_encode($pageTitle) .'</title>',
-                     $body, 1 // only once
-               );
-            }
-            // check page description
-            if ($pageDescription = get_global('page.description')) {
-               $body = preg_replace(
-                  '~<meta\s+name="description"\s+content="(.*?)">~',
-                   '<meta\s+name="description"\s+content="'. html_encode($pageDescription) .'">',
-                     $body, 1 // only once
-               );
-            }
-      }
+      // if ($this->contentType == self::CONTENT_TYPE_HTML) {
+      //    // check for page title
+      //       if ($pageTitle = get_global('page.title')) {
+      //          $body = preg_replace(
+      //             '~<title>(.*?)</title>~s',
+      //              '<title>'. html_encode($pageTitle) .'</title>',
+      //                $body, 1 // only once
+      //          );
+      //       }
+      //       // check page description
+      //       if ($pageDescription = get_global('page.description')) {
+      //          $body = preg_replace(
+      //             '~<meta\s+name="description"\s+content="(.*?)">~',
+      //              '<meta\s+name="description"\s+content="'. html_encode($pageDescription) .'">',
+      //                $body, 1 // only once
+      //          );
+      //       }
+      // }
       // @todo
       // elseif ($this->contentType == self::CONTENT_TYPE_XML) {
       // } elseif ($this->contentType == self::CONTENT_TYPE_JSON) {
@@ -481,11 +482,10 @@ final class Response
       // content length
       $this->setContentLength(strlen($body));
 
-      $this->body = $body;
-   }
+      $this->body = $body ."\n";
 
-   // @wait
-   final public function sendFile($file) {}
+      return $this;
+   }
 
    /**
     * Send status, content type and body.
@@ -514,9 +514,12 @@ final class Response
       }
 
       // real load time
-      $this->sendHeader('X-Load-Time', app()->loadTime());
+      // $this->sendHeader('X-Load-Time', app()->loadTime());
 
       // print it beybe!
       print $this->body;
    }
+
+   // @wait
+   final public function sendFile($file) {}
 }

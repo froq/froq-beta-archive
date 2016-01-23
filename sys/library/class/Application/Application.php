@@ -193,32 +193,49 @@ final class Application
    {
       ini_set('implicit_flush', '1');
 
-      $gzipOptions = $this->config->get('app.gzipz', []);
+      $gzipOptions = $this->config->get('app.gzip', []);
       if (!empty($gzipOptions)) {
          if (!headers_sent()) {
             ini_set('zlib.output_compression', '0');
          }
-         $this->response->setGzipOptions($gzipOptions);
+
+         // detect client gzip status
+         if (isset($this->request->headers['accept_encoding'])
+            && (false !== strpos($this->request->headers['accept_encoding'], 'gzip'))) {
+            $this->response->setGzipOptions($gzipOptions);
+         }
       }
       ob_start();
    }
 
    final public function endOutputBuffer(string $output = null)
    {
-      // print'ed service methods return null
-      if ($output === null) {
-         $output = '';
-         while (ob_get_level()) {
-            $output .= ob_get_clean();
+      // handle redirections
+      if ($this->response->status->code >= 300 && $this->response->status->code < 400) {
+         // no content
+         $this->response->setContentType('n/a');
+         // prepare & send response body / headers / cookies
+      } else {
+         // print'ed service methods return null
+         if ($output === null) {
+            $output = '';
+            while (ob_get_level()) {
+               $output .= ob_get_clean();
+            }
+         }
+
+         if (isset($this->handlers['output'])) {
+            $output = $this->handlers['output']($output);
          }
       }
 
-      if (isset($this->handlers['output'])) {
-         $output = $this->handlers['output']($output);
-      }
+      // prepare response body
+      $this->response->setBody($output);
 
-      print $output;
-      print PHP_EOL;
+      // send response body, headers and cookies
+      $this->response->sendCookieAll();
+      $this->response->sendHeaderAll();
+      $this->response->send();
    }
 
    final public function isDev(): bool
