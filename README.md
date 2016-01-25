@@ -4,6 +4,8 @@ Froq! is a uber-easy service generator that designed especially for RESTful back
 
 Let's dive into that sweet thing quickly keeping short the introduction..
 
+Notice: All framework coded in strict-type mode, please see PHP's strict-type document [here](https://wiki.php.net/rfc/scalar_type_hints_v5).
+
 ### Using as REST Resource Responder
 
 ```php
@@ -170,7 +172,7 @@ All fails go to `app/service/default/FailService` file, so you can edit easily d
 
 ## Composer Support
 
-You can integrate any library you want use into Froq!. Composer's `vendor` folder will be in root (`/`) directory and composer's autoloader will be included automatically in `Application` constructor.
+You can integrate any library you want use into Froq!. Composer's `vendor` folder will be in root (`/`) directory and composer's autoloader will be included automatically in `Application` constructor".
 
 
 ## Folder Structure
