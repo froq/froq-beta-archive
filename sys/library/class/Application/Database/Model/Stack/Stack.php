@@ -80,6 +80,7 @@ abstract class Stack implements StackInterface
    final public function set(string $key, $value): self
    {
       $this->data[$key] = $value;
+
       return $this;
    }
 
