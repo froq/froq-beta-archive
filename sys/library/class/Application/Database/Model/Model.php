@@ -46,14 +46,24 @@ abstract class Model
    protected $vendor;
 
    /**
-    * [$stack description]
-    * @var [type]
+    * Stack agent,
+    *    stack name (table, collection, etc.),
+    *    stack primary (key).
+    * @var Application\Database\Model\Stack\Stack,
+    *    string,
+    *    string
     */
    protected $stack, $stackName, $stackPrimary;
 
+   /**
+    * Constructor.
+    *
+    * @throws \Exception
+    */
    final public function __construct()
    {
       switch ($this->vendor) {
+         // only mysql for now
          case Database::VENDOR_MYSQL:
             $this->stack = new Mysql(
                Database::init(Database::VENDOR_MYSQL), $this->stackName, $this->stackPrimary);
@@ -71,50 +81,113 @@ abstract class Model
       }
    }
 
+   /**
+    * Proxy call method to stack methods.
+    *
+    * @param  string $method
+    * @param  array  $arguments
+    * @return mixed
+    * @throws \BadMethodCallException
+    */
    final public function __call($method, array $arguments)
    {
       if (method_exists($this->stack, $method)) {
          return call_user_func_array([$this->stack, $method], $arguments);
       }
+
       throw new \BadMethodCallException("Call to undefined method `{$method}`!");
    }
 
+   /**
+    * Proxy set method to stack set.
+    *
+    * @param  string $key
+    * @param  mixed  $value
+    * @return Application\Database\Model\Stack\Stack
+    */
    final public function __set(string $key, $value)
    {
       return $this->stack->set($key, $value);
    }
 
+   /**
+    * Proxy getter method to stack getter.
+    *
+    * @param  string $key
+    * @return mixed
+    */
    final public function __get(string $key)
    {
       return $this->stack->get($key);
    }
 
-   final public function __isset(string $key)
+   /**
+    * Proxy isset method to stack isset.
+    *
+    * @param  string $key
+    * @return bool
+    */
+   final public function __isset(string $key): bool
    {
       return $this->stack->isset($key);
    }
 
+   /**
+    * Proxy unset method to stack unset.
+    *
+    * @param  string $key
+    * @return void
+    */
    final public function __unset(string $key)
    {
       return $this->stack->unset($key);
    }
 
+   /**
+    * Get verdor name.
+    *
+    * @return string
+    */
    final public function getVendor(): string
    {
       return $this->vendor;
    }
+
+   /**
+    * Get stack object.
+    *
+    * @return Application\Database\Model\Stack\Stack
+    */
    final public function getStack(): Stack
    {
       return $this->stack;
    }
+
+   /**
+    * Get stack database object.
+    *
+    * @return Application\Database\Vendor\Vendor
+    */
    final public function getStackDb(): Vendor
    {
       return $this->stack->db;
    }
+
+   /**
+    * Get stack name.
+    *
+    * @return string
+    */
    final public function getStackName(): string
    {
       return $this->stack->name;
    }
+
+   /**
+    * Get stack primary.
+    *
+    * @return string
+    */
    final public function getStackPrimary(): string
    {
       return $this->stack->primary;
