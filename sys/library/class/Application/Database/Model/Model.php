@@ -82,7 +82,7 @@ abstract class Model
    }
 
    /**
-    * Proxy call method to stack methods.
+    * Proxy call method to stack object methods.
     *
     * @param  string $method
     * @param  array  $arguments
