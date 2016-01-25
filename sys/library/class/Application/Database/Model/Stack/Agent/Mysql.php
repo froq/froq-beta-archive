@@ -30,7 +30,6 @@ use Application\Database\Vendor\Vendor as Database;
  * @package    Application
  * @subpackage Application\Database\Model\Stack\Agent
  * @object     Application\Database\Model\Stack\Agent\Mysql
- * @extends    Application\Database\Model\Stack\Stack
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Mysql extends Stack

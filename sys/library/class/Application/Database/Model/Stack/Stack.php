@@ -29,7 +29,6 @@ use Application\Util\Traits\GetterTrait as Getter;
  * @package    Application
  * @subpackage Application\Database\Model\Stack
  * @object     Application\Database\Model\Stack\Stack
- * @implements Application\Database\Model\Stack\StackInterface
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 abstract class Stack implements StackInterface
