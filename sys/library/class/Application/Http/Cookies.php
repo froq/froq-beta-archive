@@ -7,7 +7,6 @@ use Application\Util\Collection;
  * @package    Application
  * @subpackage Application\Http
  * @object     Application\Http\Cookies
- * @extends    Application\Util\Collection
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Cookies

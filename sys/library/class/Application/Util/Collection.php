@@ -5,7 +5,6 @@ namespace Application\Util;
  * @package    Application
  * @subpackage Application\Util
  * @object     Application\Util\Collection
- * @implements \Countable, \IteratorAggregate, \ArrayAccess
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 class Collection

@@ -7,7 +7,6 @@ use Application\Util\Collection;
  * @package    Application
  * @subpackage Application\Http\Request\Params
  * @object     Application\Http\Request\Params\Cookie
- * @extends    Application\Util\Collection
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Cookie
