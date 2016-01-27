@@ -33,6 +33,10 @@ use Application\Util\Traits\SingleTrait as Single;
  */
 abstract class Vendor
 {
+   /**
+    * Single.
+    * @object Application\Util\Traits\SingleTrait
+    */
    use Single;
 
    /**
