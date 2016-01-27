@@ -23,12 +23,31 @@ declare(strict_types=1);
 
 namespace Application\Encoding;
 
+/**
+ * @package    Application
+ * @subpackage Application\Encoding
+ * @object     Application\Encoding\Gzip
+ * @author     Kerem Güneş <qeremy@gmail.com>
+ */
 final class Gzip
 {
+   /**
+    * GZip level & mode.
+    * @const int, int
+    */
    const DEFAULT_LEVEL = -1,
          DEFAULT_MODE  = FORCE_GZIP;
 
+   /**
+    * Data.
+    * @var string
+    */
    private $data;
+
+   /**
+    * Data minlen for encoding.
+    * @var int
+    */
    private $dataMinLength = 1024;
    private $level;
    private $mode;
