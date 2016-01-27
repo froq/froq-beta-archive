@@ -85,7 +85,7 @@ final class Database
     *
     * @return Application\Database\Vendor\Mysql
     */
-   final public function initMysql(): Mysql
+   final public static function initMysql(): Mysql
    {
       return self::init(self::VENDOR_MYSQL);
    }
@@ -95,7 +95,7 @@ final class Database
     *
     * @return Application\Database\Vendor\Couch
     */
-   final public function initCouch(): Couch
+   final public static function initCouch(): Couch
    {
       return self::init(self::VENDOR_COUCH);
    }
@@ -105,7 +105,7 @@ final class Database
     *
     * @return Application\Database\Vendor\Mongo
     */
-   final public function initMongo(): Mongo
+   final public static function initMongo(): Mongo
    {
       return self::init(self::VENDOR_MONGO);
    }
