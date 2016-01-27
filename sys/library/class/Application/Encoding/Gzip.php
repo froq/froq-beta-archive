@@ -49,10 +49,32 @@ final class Gzip
     * @var int
     */
    private $dataMinLength = 1024;
+
+   /**
+    * GZip level.
+    * @var int
+    */
    private $level;
+
+   /**
+    * GZip mode.
+    * @var int
+    */
    private $mode;
+
+   /**
+    * Encoded flag.
+    * @var bool
+    */
    private $isEncoded = false;
 
+   /**
+    * Constructor.
+    *
+    * @var string $data
+    * @var int    $level
+    * @var int    $mode
+    */
    final public function __construct(string $data = null,
       int $level = self::DEFAULT_LEVEL, int $mode = self::DEFAULT_MODE)
    {
@@ -61,54 +83,102 @@ final class Gzip
          ->setMode($mode);
    }
 
+   /**
+    * Set data.
+    *
+    * @param string $data
+    */
    final public function setData(string $data = null): self
    {
       $this->data = (string) $data;
+
       return $this;
    }
 
+   /**
+    * Set data minlen.
+    *
+    * @param int $dataMinLength
+    */
    final public function setDataMinLength(int $dataMinLength): self
    {
       $this->dataMinLength = $dataMinLength;
+
       return $this;
    }
 
+   /**
+    * Set level.
+    * @param int $level
+    */
    final public function setLevel(int $level): self
    {
       $this->level = $level;
+
       return $this;
    }
 
+   /**
+    * Set mode.
+    * @param int $mode
+    */
    final public function setMode(int $mode): self
    {
       $this->mode = $mode;
+
       return $this;
    }
 
+   /**
+    * Get data.
+    *
+    * @return string
+    */
    final public function getData(): string
    {
       return $this->data;
    }
 
+   /**
+    * Get data minlen.
+    *
+    * @return int
+    */
    final public function getDataMinLength(): int
    {
       return $this->dataMinLength;
    }
 
+   /**
+    * Get level.
+    *
+    * @return int
+    */
    final public function getLevel(): int
    {
       return $this->level;
    }
 
+   /**
+    * Get mode.
+    *
+    * @return int
+    */
    final public function getMode(): int
    {
       return $this->mode;
    }
 
-
+   /**
+    * Encode.
+    *
+    * @return string
+    */
    final public function encode(): string
    {
-      if ($this->isEncoded == false && strlen($this->data) >= $this->dataMinLength) {
+      if (!$this->isEncoded
+         // if data length > minlen
+         && strlen($this->data) >= $this->dataMinLength) {
          $this->isEncoded = true;
          $this->data = gzencode($this->data, $this->level, $this->mode);
       }
@@ -116,9 +186,14 @@ final class Gzip
       return $this->data;
    }
 
+   /**
+    * Decoder.
+    *
+    * @return string
+    */
    final public function decode(): string
    {
-      if ($this->isEncoded == true) {
+      if ($this->isEncoded) {
          $this->isEncoded = false;
          $this->data = gzdecode($this->data);
       }
@@ -126,6 +201,11 @@ final class Gzip
       return $this->data;
    }
 
+   /**
+    * Check is encoded.
+    *
+    * @return bool
+    */
    final public function isEncoded(): bool
    {
       return $this->isEncoded;
