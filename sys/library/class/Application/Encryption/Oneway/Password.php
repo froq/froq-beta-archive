@@ -75,7 +75,7 @@ final class Password
     */
    final public function hash(string $salt = null): string
    {
-      if (trim($salt)) {
+      if ($salt != '') {
          $this->options['salt'] = $salt;
       }
 
