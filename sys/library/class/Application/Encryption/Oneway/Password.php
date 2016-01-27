@@ -60,7 +60,7 @@ final class Password
    {
       $this->input = $input;
 
-      if ($algo) {
+      if ($algo != null) {
          $this->algo = $algo;
       }
 
