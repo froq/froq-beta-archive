@@ -41,7 +41,7 @@ final class Salt
     * Salt type.
     * @const int
     */
-   const TYPE_SELF = 1,
+   const TYPE_SELF    = 1,
          TYPE_URANDOM = 2;
 
    /**
