@@ -29,7 +29,7 @@ namespace Application\Encryption\Twoway;
  * @object     Application\Encryption\Twoway\Cryptee
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
-final class Cryptee
+final class Cryptee extends Twoway
 {
    // @todo
 }

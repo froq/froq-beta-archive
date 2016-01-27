@@ -29,7 +29,7 @@ namespace Application\Encryption\Twoway;
  * @object     Application\Encryption\Twoway\OpenSsl
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
-final class OpenSsl
+final class OpenSsl extends Twoway
 {
    // @todo
 }

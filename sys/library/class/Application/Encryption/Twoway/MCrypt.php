@@ -29,7 +29,7 @@ namespace Application\Encryption\Twoway;
  * @object     Application\Encryption\Twoway\MCrypt
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
-final class MCrypt
+final class MCrypt extends Twoway
 {
    // @todo
 }
