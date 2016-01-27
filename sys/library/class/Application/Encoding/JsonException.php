@@ -23,5 +23,11 @@ declare(strict_types=1);
 
 namespace Application\Encoding;
 
+/**
+ * @package    Application
+ * @subpackage Application\Encoding
+ * @object     Application\Encoding\JsonException
+ * @author     Kerem Güneş <qeremy@gmail.com>
+ */
 final class JsonException extends \Exception
 {}
