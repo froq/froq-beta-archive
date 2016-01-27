@@ -108,7 +108,7 @@ final class Gzip
 
    final public function encode(): string
    {
-      if ($this->isEncoded == false && strlen($this->data) >= $this->minlen) {
+      if ($this->isEncoded == false && strlen($this->data) >= $this->dataMinLength) {
          $this->isEncoded = true;
          $this->data = gzencode($this->data, $this->level, $this->mode);
       }
