@@ -32,12 +32,6 @@ namespace Application\Encryption\Oneway;
 final class Password
 {
    /**
-    * Crypt input.
-    * @var string
-    */
-   private $input;
-
-   /**
     * Hashing algorithm.
     * @var int
     */
@@ -52,13 +46,13 @@ final class Password
    /**
     * Constructor.
     *
-    * @param string $input
+    * @param string $data
     * @param int    $algo
     * @param array  $options
     */
-   final public function __construct(string $input, int $algo = null, array $options = [])
+   final public function __construct(string $data, int $algo = null, array $options = [])
    {
-      $this->input = $input;
+      $this->data = $data;
 
       if ($algo != null) {
          $this->algo = $algo;
@@ -79,7 +73,7 @@ final class Password
          $this->options['salt'] = $salt;
       }
 
-      return password_hash($this->input, $this->algo, $this->options);
+      return password_hash($this->data, $this->algo, $this->options);
    }
 
    /**
@@ -90,6 +84,6 @@ final class Password
     */
    final public function verify(string $hash): bool
    {
-      return password_verify($this->input, $hash);
+      return password_verify($this->data, $hash);
    }
 }
