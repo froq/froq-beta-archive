@@ -29,19 +29,13 @@ namespace Application\Encryption\Oneway;
  * @object     Application\Encryption\Oneway\Crypt
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
-final class Crypt
+final class Crypt extends Oneway
 {
    /**
     * Default salt lentgh.
     * @const int
     */
    const SALT_LENGTH = 64;
-
-   /**
-    * Crypt input.
-    * @var string
-    */
-   private $input;
 
    /**
     * Crypt salt format.
@@ -58,11 +52,11 @@ final class Crypt
    /**
     * Constructor.
     *
-    * @param string $input
+    * @param string $data
     */
-   final public function __construct(string $input)
+   final public function __construct(string $data)
    {
-      $this->input = $input;
+      $this->data = $data;
    }
 
    /**
@@ -88,7 +82,7 @@ final class Crypt
          $salt = $this->generateSalt();
       }
 
-      return crypt($this->input, sprintf($this->format, $salt));
+      return crypt($this->data, sprintf($this->format, $salt));
    }
 
    /**
@@ -99,6 +93,6 @@ final class Crypt
     */
    final public function verify(string $hash): bool
    {
-      return ($hash == crypt($this->input, $hash));
+      return ($hash == crypt($this->data, $hash));
    }
 }
