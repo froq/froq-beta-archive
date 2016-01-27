@@ -99,6 +99,6 @@ final class Crypt
     */
    final public function verify(string $hash): bool
    {
-      return $hash == crypt($this->input, $hash);
+      return ($hash == crypt($this->input, $hash));
    }
 }
