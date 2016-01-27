@@ -32,7 +32,7 @@ namespace Application\Encoding;
 final class Json
 {
    /**
-    * Data hodler.
+    * Data.
     * @var mixed
     */
    private $data;
