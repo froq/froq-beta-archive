@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace Application;
 
+use Application\Logger\Logger;
 use Application\Database\Database;
 use Application\Util\{Config, Session};
 use Application\Service\{ServiceAdapter, ServiceInterface};
