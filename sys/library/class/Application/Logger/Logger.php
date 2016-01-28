@@ -80,7 +80,7 @@ final class Logger
    protected $directoryChecked = false;
 
    /**
-    * Log file format, e.g 2015-01-01.txt
+    * Log file format with a valid date format (e.g 2015-01-01.txt)
     * @var string
     */
    protected $filenameFormat = 'Y-m-d';
@@ -132,6 +132,29 @@ final class Logger
    }
 
    /**
+    * Set log filename format.
+    *
+    * @param  string $filenameFormat
+    * @return self
+    */
+   final public function setFilenameFormat($filenameFormat): self
+   {
+      $this->filenameFormat = $filenameFormat;
+
+      return $this;
+   }
+
+   /**
+    * Get log filename format.
+    *
+    * @return string
+    */
+   final public function getFilenameFormat(): string
+   {
+      return $this->filenameFormat;
+   }
+
+   /**
     * Check log directory, if not exists create it.
     *
     * @throws \RuntimeException
@@ -160,29 +183,6 @@ final class Logger
       }
 
       return $this->directoryChecked;
-   }
-
-   /**
-    * Set log filename format.
-    *
-    * @param  string $filenameFormat
-    * @return self
-    */
-   final public function setFilenameFormat($filenameFormat): self
-   {
-      $this->filenameFormat = $filenameFormat;
-
-      return $this;
-   }
-
-   /**
-    * Get log filename format.
-    *
-    * @return string
-    */
-   final public function getFilenameFormat(): string
-   {
-      return $this->filenameFormat;
    }
 
    /**
