@@ -282,7 +282,7 @@ final class Logger
     * @param  mixed $message
     * @return bool
     */
-   final public function logInfo($message): bool
+   final public function logDebug($message): bool
    {
       return $this->log(self::DEBUG, $message);
    }
