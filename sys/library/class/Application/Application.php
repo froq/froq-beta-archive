@@ -187,6 +187,8 @@ final class Application
       $this->request = new Request();
       $this->response = new Response();
 
+      $a=$b;
+
       // set application defaults
       $this->setDefaults();
 
