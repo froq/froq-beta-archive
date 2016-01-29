@@ -7,7 +7,6 @@ use \Application\Util\Traits\GetterTrait as Getter;
  * @package    Application
  * @subpackage Application\Http
  * @object     Application\Http\Client
- * @uses       Application\Util\Traits\GetterTrait
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Client

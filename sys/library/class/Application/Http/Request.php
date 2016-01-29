@@ -10,10 +10,6 @@ use Application\Util\Traits\GetterTrait as Getter;
  * @package    Application
  * @subpackage Application\Http
  * @object     Application\Http\Request
- * @uses       Application\Http\Uri\Uri,
- *             Application\Http\Request\Params,
- *             Application\Http\{Client, Headers, Cookies},
- *             Application\Util\Traits\GetterTrait
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Request

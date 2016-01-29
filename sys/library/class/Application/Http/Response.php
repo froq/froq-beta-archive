@@ -9,11 +9,6 @@ use Application\{Encoding\Gzip, Encoding\Xml, Encoding\Json, Encoding\JsonExcept
  * @package    Application
  * @subpackage Application\Http
  * @object     Application\Http\Response
- * @uses       Application\Encoding\Gzip,
- *             @todo Application\Encoding\Xml,
- *             @todo Application\Encoding\Json,
- *             Application\Http\Response\Status,
- *             Application\Util\Traits\SetGetTrait
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Response

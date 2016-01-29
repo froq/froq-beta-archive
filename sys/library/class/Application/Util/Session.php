@@ -8,8 +8,6 @@ use Application\Encryption\Salt;
  * @package    Application
  * @subpackage Application\Util
  * @object     Application\Util\Session
- * @uses       Application\Util\Traits\{SingleTrait, GetterTrait}
- *             Application\Encryption\Salt
  * @author     Kerem Güneş <qeremy@gmail.com>
  */
 final class Session
