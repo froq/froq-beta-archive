@@ -7,7 +7,7 @@ final class Exception
    {
       return function(\Throwable $e) {
          // if not local no error display (so set & store option)
-         if (!is_local() or 1) {
+         if (!is_local()) {
             set_global('display_errors', ini_set('display_errors', '0'));
          }
 
