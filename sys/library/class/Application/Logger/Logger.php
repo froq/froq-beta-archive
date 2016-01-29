@@ -242,7 +242,7 @@ final class Logger
       }
 
       // prepare message
-      $message  = sprintf("[%s] %s%s\n---\n",
+      $message  = sprintf("[%s] %s%s\n\n",
          date('D, d M Y H:i:s O'), $messagePrepend, trim($message));
 
       return (bool) file_put_contents($filename, $message, LOCK_EX | FILE_APPEND);
