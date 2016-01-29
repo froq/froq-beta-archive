@@ -439,7 +439,15 @@ final class Response
          // handle json
          case ContentType::JSON:
             $json = new Json($body);
-            $body = $json->encode();
+
+            // simply check for pretty print
+            $app = app();
+            if (is_in($app->request->params->get['pp'], ['1', 'true'])) {
+               $body = $json->encode(JSON_PRETTY_PRINT);
+            } else {
+               $body = $json->encode();
+            }
+
             if ($json->hasError()) {
                throw new JsonException($json->getErrorMessage(), $json->getErrorCode());
             }
