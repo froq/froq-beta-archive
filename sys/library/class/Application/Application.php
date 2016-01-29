@@ -464,13 +464,13 @@ final class Application
    final private function haltCheck(): string
    {
       // check request count
-      $maxRequest = $this->config->get('security.maxRequest');
+      $maxRequest = $this->config->get('app.security.maxRequest');
       if ($maxRequest && count($_REQUEST) > $maxRequest) {
          return '429 Too Many Requests';
       }
 
       // check user agent
-      $allowEmptyUserAgent = $this->config->get('security.allowEmptyUserAgent');
+      $allowEmptyUserAgent = $this->config->get('app.security.allowEmptyUserAgent');
       if ($allowEmptyUserAgent === false
          && (!isset($_SERVER['HTTP_USER_AGENT']) || !trim($_SERVER['HTTP_USER_AGENT']))) {
          return '400 Bad Request';
@@ -484,7 +484,7 @@ final class Application
       }
 
       // check file extension
-      $allowFileExtensionSniff = $this->config->get('security.allowFileExtensionSniff');
+      $allowFileExtensionSniff = $this->config->get('app.security.allowFileExtensionSniff');
       if ($allowFileExtensionSniff === false
          && preg_match('~\.(p[hyl]p?|rb|cgi|cf[mc]|p(pl|lx|erl)|aspx?)$~i',
                parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {

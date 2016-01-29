@@ -17,11 +17,10 @@ $cfg['app']['http'] = 'http://'. $_SERVER['SERVER_NAME'];
 $cfg['app']['https'] = 'https://'. $_SERVER['SERVER_NAME'];
 
 // directories
-$cfg['app']['dir'] = [
-   'tmp' => root .'/.tmp',
-   'class' => root .'/sys/library/class',
-   'function' => root .'/sys/library/function',
-];
+$cfg['app']['dir'] = [];
+$cfg['app']['dir']['tmp'] = root .'/.tmp';
+$cfg['app']['dir']['class'] = root .'/sys/library/class';
+$cfg['app']['dir']['function'] = root .'/sys/library/function';
 
 // defaults
 $cfg['app']['language']  = 'en';
@@ -59,26 +58,25 @@ $cfg['app']['session']['cookie'] = [
 ];
 
 // gzip
-$cfg['app']['gzip'] = [
-   'use'    => true,
-   'level'  => -1,
-   'mode'   => FORCE_GZIP,
-   'minlen' => 1024,
-];
+$cfg['app']['gzip'] = [];
+$cfg['app']['gzip']['use']    = true;
+$cfg['app']['gzip']['level']  = -1;
+$cfg['app']['gzip']['mode']   = FORCE_GZIP;
+$cfg['app']['gzip']['minlen'] = 1024;
 
 // logger
 $cfg['app']['logger'] = [];
-$cfg['app']['logger']['level'] = 0;
+$cfg['app']['logger']['level'] = 0; // none
 $cfg['app']['logger']['directory'] = $cfg['app']['dir']['tmp'] .'/log/app/';
 $cfg['app']['logger']['filenameFormat'] = 'Y-m-d';
 
 /**
  * Security options.
  */
-$cfg['security'] = [];
-$cfg['security']['maxRequest'] = 100;
-$cfg['security']['allowEmptyUserAgent'] = false;
-$cfg['security']['allowFileExtensionSniff'] = false;
+$cfg['app']['security'] = [];
+$cfg['app']['security']['maxRequest'] = 100;
+$cfg['app']['security']['allowEmptyUserAgent'] = false;
+$cfg['app']['security']['allowFileExtensionSniff'] = false;
 
 /**
  * Etc. options.
