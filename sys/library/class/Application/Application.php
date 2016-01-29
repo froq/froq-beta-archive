@@ -293,6 +293,7 @@ final class Application
               'encoding' => $this->config['app.encoding'],
               'timezone' => $this->config['app.timezone'],
       ];
+
       // multibyte
       mb_internal_encoding($cfg['encoding']);
       // timezone
