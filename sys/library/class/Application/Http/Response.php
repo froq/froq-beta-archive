@@ -154,12 +154,12 @@ final class Response
     */
    final public function setGzipOptions(array $gzipOptions): self
    {
-      isset($gzipOptions['level'])
-         && $this->gzip->setLevel($gzipOptions['level']);
-      isset($gzipOptions['mode'])
-         && $this->gzip->setMode($gzipOptions['mode']);
-      isset($gzipOptions['minlen'])
-         && $this->gzip->setDataMinLength($gzipOptions['minlen']);
+      isset($gzipOptions['level']) &&
+         $this->gzip->setLevel($gzipOptions['level']);
+      isset($gzipOptions['mode']) &&
+         $this->gzip->setMode($gzipOptions['mode']);
+      isset($gzipOptions['minlen']) &&
+         $this->gzip->setDataMinLength($gzipOptions['minlen']);
 
       $this->gzipOptions = $gzipOptions;
 
