@@ -5,11 +5,19 @@ class FailService extends Service
 {
    public function main()
    {
+      if (!isset($this->viewData['fail']['code'])) {
+         return $this->view('./app/service/view/fail/main', $data);
+      }
+
       if ($this->viewData['fail']['code'] == 404) {
          $data['error'] = '404 Not Found';
          $data['error_detail'] = $this->viewData['fail']['text'];
-         $this->view('./app/service/view/fail/404', $data);
+      } elseif ($this->viewData['fail']['code'] == 500) {
+         $data['error'] = '500 Internal Server Error';
+         $data['error_detail'] = $this->viewData['fail']['text'];
+      // } elseif () { ...
       }
-      // @todo add more if's
+
+      $this->view('./app/service/view/fail/main', $data);
    }
 }
