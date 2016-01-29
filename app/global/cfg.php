@@ -16,9 +16,13 @@ $cfg['app']['locales']['en_US'] = 'English';
 
 // logger
 $cfg['app']['logger'] = [];
-$cfg['app']['logger']['level'] = Application\Logger\Logger::ALL;
 $cfg['app']['logger']['directory'] = $app->config->get('app.dir.tmp') .'/log/app/';
 $cfg['app']['logger']['filenameFormat'] = 'Y-m-d';
+if (is_local()) {
+   $cfg['app']['logger']['level'] = Application\Logger\Logger::ALL;
+} else {
+   $cfg['app']['logger']['level'] = Application\Logger\Logger::WARN | Application\Logger\Logger::FAIL;
+}
 
 /**
  * Database options.
