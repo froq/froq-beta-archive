@@ -62,7 +62,7 @@ $cfg['app']['gzip'] = [];
 $cfg['app']['gzip']['use']    = true;
 $cfg['app']['gzip']['level']  = -1;
 $cfg['app']['gzip']['mode']   = FORCE_GZIP;
-$cfg['app']['gzip']['minlen'] = 1024;
+$cfg['app']['gzip']['minlen'] = 128;
 
 // logger
 $cfg['app']['logger'] = [];
