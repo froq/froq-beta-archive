@@ -102,6 +102,10 @@ final class Json
     */
    final public function encode(...$args): string
    {
+      if ($this->data === '') {
+         return '';
+      }
+
       // remove useless second arg if empty
       $args = array_filter($args);
 
