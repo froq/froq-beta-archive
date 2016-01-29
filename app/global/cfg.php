@@ -7,17 +7,12 @@ $cfg = [];
 /**
  * Application options.
  */
-// allowed hosts
-$cfg['app']['hosts'] = [
-   $_SERVER['SERVER_NAME'],
-   // add more if needed..
-];
+// allowed hosts (add more if needed)
+$cfg['app']['hosts'][] = $_SERVER['SERVER_NAME'];
 
 // defaults
-$cfg['app']['locales'] = [
-   'tr_TR' => 'Türkçe',
-   'en_US' => 'English',
-];
+$cfg['app']['locales']['tr_TR'] = 'Türkçe';
+$cfg['app']['locales']['en_US'] = 'English';
 
 // logger
 $cfg['app']['logger'] = [];
