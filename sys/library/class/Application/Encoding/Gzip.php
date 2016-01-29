@@ -48,7 +48,7 @@ final class Gzip
     * Data minlen for encoding.
     * @var int
     */
-   private $dataMinLength = 1024;
+   private $dataMinlen = 1024;
 
    /**
     * GZip level.
@@ -98,11 +98,11 @@ final class Gzip
    /**
     * Set data minlen.
     *
-    * @param int $dataMinLength
+    * @param int $dataMinlen
     */
-   final public function setDataMinLength(int $dataMinLength): self
+   final public function setDataMinlen(int $dataMinlen): self
    {
-      $this->dataMinLength = $dataMinLength;
+      $this->dataMinlen = $dataMinlen;
 
       return $this;
    }
@@ -144,9 +144,9 @@ final class Gzip
     *
     * @return int
     */
-   final public function getDataMinLength(): int
+   final public function getDataMinlen(): int
    {
-      return $this->dataMinLength;
+      return $this->dataMinlen;
    }
 
    /**
@@ -176,9 +176,7 @@ final class Gzip
     */
    final public function encode(): string
    {
-      if (!$this->isEncoded
-         // if data length > minlen
-         && strlen($this->data) >= $this->dataMinLength) {
+      if (!$this->isEncoded) {
          $this->isEncoded = true;
          $this->data = gzencode($this->data, $this->level, $this->mode);
       }
@@ -209,5 +207,15 @@ final class Gzip
    final public function isEncoded(): bool
    {
       return $this->isEncoded;
+   }
+
+   /**
+    * Check minlen limit to encode.
+    *
+    * @return bool
+    */
+   final public function isDataMinlenOK(): bool
+   {
+      return (strlen($this->data) >= $this->dataMinlen);
    }
 }
