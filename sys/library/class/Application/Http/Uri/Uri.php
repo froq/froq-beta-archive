@@ -128,7 +128,7 @@ final class Uri
          // segments
          if ($this->path != '') {
             $app = app();
-            $this->segments = UriPath::parse($this->path, $app->root);
+            $this->segments = UriPath::generateSegments($this->path, $app->root);
          }
       }
    }
