@@ -30,7 +30,6 @@ use Application\Service\{Service, ServiceInterface};
  * @subpackage Application\Service\Protocol
  * @object     Application\Service\Protocol\Rest
  * @author     Kerem Güneş <qeremy@gmail.com>
- * @thanks     https://spring.io/understanding/REST
  */
 abstract class Site extends Service
 {
