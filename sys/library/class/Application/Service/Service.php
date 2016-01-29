@@ -43,7 +43,7 @@ abstract class Service
    use Getter;
 
    /**
-    * Application.
+    * Application object.
     * @var Application\Application
     */
    protected $app;
