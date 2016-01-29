@@ -159,7 +159,7 @@ final class Response
       isset($gzipOptions['mode']) &&
          $this->gzip->setMode($gzipOptions['mode']);
       isset($gzipOptions['minlen']) &&
-         $this->gzip->setDataMinLength($gzipOptions['minlen']);
+         $this->gzip->setDataMinlen($gzipOptions['minlen']);
 
       $this->gzipOptions = $gzipOptions;
 
@@ -489,9 +489,12 @@ final class Response
 
       // can gzip?
       if (!empty($this->gzipOptions)) {
-         $body = $this->gzip->encode($body);
-         $this->setHeader('Vary', 'Accept-Encoding');
-         $this->setHeader('Content-Encoding', 'gzip');
+         $this->gzip->setData($body);
+         if ($this->gzip->isDataMinlenOK()) {
+            $body = $this->gzip->encode();
+            $this->setHeader('Vary', 'Accept-Encoding');
+            $this->setHeader('Content-Encoding', 'gzip');
+         }
       }
 
       // content length
