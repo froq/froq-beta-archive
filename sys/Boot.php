@@ -58,6 +58,6 @@ $autoload = require(root .'/sys/library/class/Autoload.php');
 $autoload->register();
 
 /**
- * Init application.
+ * Init application with default configs (comes from cfg.php).
  */
-return Application\Application::init();
+return Application\Application::init($cfg);
