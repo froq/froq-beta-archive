@@ -228,6 +228,11 @@ final class Logger
       // prepare filename
       $filename = sprintf('%s/%s.log', $this->directory, date($this->filenameFormat));
 
+      // just for local
+      if (is_local()) {
+         chmod($filename, 0666);
+      }
+
       if ($message instanceof \Throwable) {
          $message = get_class($message) ." thrown in '". $message->getFile() .":".
             $message->getLine() ."' with message '". $message->getMessage() ."'.\n".
@@ -237,8 +242,8 @@ final class Logger
       }
 
       // prepare message
-      $message  = sprintf('[%s] %s%s',
-         date('D, d M Y H:i:s O'), $messagePrepend, trim($message) ."\n");
+      $message  = sprintf("[%s] %s%s\n---\n",
+         date('D, d M Y H:i:s O'), $messagePrepend, trim($message));
 
       return (bool) file_put_contents($filename, $message, LOCK_EX | FILE_APPEND);
    }
