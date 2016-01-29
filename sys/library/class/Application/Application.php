@@ -120,6 +120,8 @@ final class Application
 
    /**
     * Constructor.
+    *
+    * @param array $cfg
     */
    final private function __construct(array $cfg = [])
    {
