@@ -51,7 +51,7 @@ final class UriPath
       $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
       if ($path != '') {
          $this->path = $path;
-         $this->segments = self::parse($path);
+         $this->segments = self::generateSegments($path);
       }
    }
 
@@ -112,22 +112,20 @@ final class UriPath
    }
 
    /**
-    * Parse.
+    * Generate segments.
     *
     * @param  string $path
     * @param  string $pathRoot
     * @return array
     */
-   final public static function parse($path, string $pathRoot = null): array
+   final public static function generateSegments($path, string $pathRoot = null): array
    {
       // remove path root
       if ($pathRoot != '' && $pathRoot != '/') {
          $path = preg_replace('~^'. preg_quote($pathRoot) .'~', '', $path);
       }
 
-      $path = array_filter(array_map('trim',
+      return array_filter(array_map('trim',
          preg_split('~/+~', $path, -1, PREG_SPLIT_NO_EMPTY)));
-
-      return $path;
    }
 }
