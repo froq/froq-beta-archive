@@ -1,20 +1,92 @@
-<?php declare(strict_types=1);
+<?php
+/**
+ * Copyright (c) 2016 Kerem Güneş
+ *    <http://qeremy.com>
+ *
+ * GNU General Public License v3.0
+ *    <http://www.gnu.org/licenses/gpl-3.0.txt>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+declare(strict_types=1);
+
 namespace Application\Service;
 
-use \Application\Application;
-use \Application\Http\Response\Status;
+use Application\Application;
+use Application\Http\Response\Status;
 
+/**
+ * @package    Application
+ * @subpackage Application\Service
+ * @object     Application\Service\ServiceAdapter
+ * @author     Kerem Güneş <qeremy@gmail.com>
+ */
 final class ServiceAdapter
 {
+   /**
+    * Application object.
+    * @var Application\Application
+    */
    private $app;
+
+   /**
+    * Service object.
+    * @var Application\Service\Service
+    */
    private $service;
+
+   /**
+    * Service name.
+    * @var string
+    */
    private $serviceName;
+
+   /**
+    * Service default name.
+    * @var string
+    */
    private $serviceNameDefault = ServiceInterface::SERVICE_MAIN;
+
+   /**
+    * Service method.
+    * @var string
+    */
    private $serviceMethod;
+
+   /**
+    * Service default method.
+    * @var string
+    */
    private $serviceMethodDefault = ServiceInterface::METHOD_MAIN;
+
+   /**
+    * Service file.
+    * @var string
+    */
    private $serviceFile;
+
+   /**
+    * Service view data.
+    * @var string
+    */
    private $serviceViewData = null;
 
+   /**
+    * Constructor.
+    *
+    * @param Application\Application $app
+    */
    final public function __construct(Application $app)
    {
       $this->app = $app;
@@ -26,6 +98,7 @@ final class ServiceAdapter
       // detect service file
       $this->serviceFile = $this->toServiceFile($this->serviceName);
 
+      // set service as FailService
       if (!$this->isServiceExists()) {
          $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
          $this->serviceViewData['fail']['text'] = sprintf(
@@ -45,6 +118,7 @@ final class ServiceAdapter
          $this->serviceMethod = strtolower($this->app->request->method);
       }
 
+      // set service as FailService
       if (!$this->isServiceFail() && !$this->isServiceMethodExists()) {
          $this->serviceViewData['fail']['code'] = Status::NOT_FOUND;
          $this->serviceViewData['fail']['text'] = sprintf(
@@ -62,41 +136,81 @@ final class ServiceAdapter
       $this->service->setMethod($this->serviceMethod);
    }
 
+   /**
+    * Check service is FailService.
+    *
+    * @return bool
+    */
    final public function isServiceFail(): bool
    {
       return ($this->serviceName == ServiceInterface::SERVICE_FAIL);
    }
 
+   /**
+    * Cehck service is exists.
+    *
+    * @return bool
+    */
    final public function isServiceExists(): bool
    {
       return is_file($this->serviceFile) && class_exists($this->serviceName);
    }
 
+   /**
+    * Cehck service method is exists.
+    *
+    * @return bool
+    */
    final public function isServiceMethodExists(): bool
    {
       return ($this->service && method_exists($this->service, $this->serviceMethod));
    }
 
+   /**
+    * Get service.
+    *
+    * @return Application\Service\ServiceInterface
+    */
    final public function getService(): ServiceInterface
    {
       return $this->service;
    }
 
+   /**
+    * Get service name.
+    *
+    * @return string
+    */
    final public function getServiceName(): string
    {
       return $this->serviceName;
    }
 
+   /**
+    * Get service method.
+    *
+    * @return string
+    */
    final public function getServiceMethod(): string
    {
       return $this->serviceMethod;
    }
 
+   /**
+    * Get service file.
+    *
+    * @return string
+    */
    final public function getServiceFile(): string
    {
       return $this->serviceFile;
    }
 
+   /**
+    * Create service.
+    *
+    * @return Application\Service\ServiceInterface
+    */
    final private function createService(): ServiceInterface
    {
       return new $this->serviceName(
@@ -107,20 +221,42 @@ final class ServiceAdapter
       );
    }
 
+   /**
+    * Prepare service name.
+    *
+    * @param  string $name
+    * @return string
+    */
    final private function toServiceName(string $name): string
    {
       $name = preg_replace_callback('~-([a-z])~i', function($match) {
          return ucfirst($match[1]);
       }, ucfirst($name));
+
       return sprintf('%s%s', $name, ServiceInterface::SERVICE_NAME_SUFFIX);
    }
+
+   /**
+    * Prepare service method.
+    *
+    * @param  string $method
+    * @return string
+    */
    final private function toServiceMethod(string $method): string
    {
       $method = preg_replace_callback('~-([a-z])~i', function($match) {
          return ucfirst($match[1]);
       }, ucfirst($method));
+
       return sprintf('%s%s', ServiceInterface::METHOD_NAME_PREFIX, $method);
    }
+
+   /**
+    * Prepare service file.
+    *
+    * @param  string $file
+    * @return string
+    */
    final private function toServiceFile(string $serviceName): string
    {
       $serviceFile = sprintf('./app/service/%s/%s.php', $serviceName, $serviceName);
@@ -132,6 +268,7 @@ final class ServiceAdapter
          // no need to autoload
          require_once($serviceFile);
       }
+
       return $serviceFile;
    }
 }
