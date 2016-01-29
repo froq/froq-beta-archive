@@ -209,30 +209,34 @@ final class Logger
       $this->checkDirectory();
 
       // prepare message prepend
-      $messagePrepend = '';
+      $messageType = '';
       switch ($level) {
          case self::FAIL:
-            $messagePrepend = '[FAIL] ';
+            $messageType = 'FAIL';
             break;
          case self::INFO:
-            $messagePrepend = '[INFO] ';
+            $messageType = 'INFO';
             break;
          case self::WARN:
-            $messagePrepend = '[WARN] ';
+            $messageType = 'WARN';
             break;
          case self::DEBUG:
-            $messagePrepend = '[DEBUG] ';
+            $messageType = 'DEBUG';
             break;
       }
+
+      // prepare message date
+      $messageDate = date('D, d M Y H:i:s O');
 
       // prepare filename
       $filename = sprintf('%s/%s.log', $this->directory, date($this->filenameFormat));
 
-      // just for local
+      // @tmp just for local
       if (is_local()) {
          chmod($filename, 0666);
       }
 
+      // handle exception, object, array messages
       if ($message instanceof \Throwable) {
          $message = get_class($message) ." thrown in '". $message->getFile() .":".
             $message->getLine() ."' with message '". $message->getMessage() ."'.\n".
@@ -242,8 +246,7 @@ final class Logger
       }
 
       // prepare message
-      $message  = sprintf("[%s] %s%s\n\n",
-         date('D, d M Y H:i:s O'), $messagePrepend, trim($message));
+      $message  = sprintf("[%s] [%s] %s\n\n", $messageType, $messageDate, trim($message));
 
       return (bool) file_put_contents($filename, $message, LOCK_EX | FILE_APPEND);
    }
