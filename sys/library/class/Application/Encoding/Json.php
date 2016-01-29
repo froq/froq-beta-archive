@@ -102,11 +102,11 @@ final class Json
     */
    final public function encode(...$args): string
    {
-      // add data as first arg
-      array_unshift($args, $this->data);
-
       // remove useless second arg if empty
       $args = array_filter($args);
+
+      // add data as first arg
+      array_unshift($args, $this->data);
 
       $return = call_user_func_array('json_encode', $args);
       if ($return === false) {
@@ -127,11 +127,11 @@ final class Json
          return null;
       }
 
-      // add data as first arg
-      array_unshift($args, $this->data);
-
       // remove useless second arg if empty
       $args = array_filter($args);
+
+      // add data as first arg
+      array_unshift($args, $this->data);
 
       $return = call_user_func_array('json_decode', $args);
       if (json_last_error()) {
