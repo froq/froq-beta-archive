@@ -66,6 +66,12 @@ $cfg['app']['gzip'] = [
    'minlen' => 1024,
 ];
 
+// logger
+$cfg['app']['logger'] = [];
+$cfg['app']['logger']['level'] = 0;
+$cfg['app']['logger']['directory'] = $cfg['app']['dir']['tmp'] .'/log/app/';
+$cfg['app']['logger']['filenameFormat'] = 'Y-m-d';
+
 /**
  * Security options.
  */

@@ -107,23 +107,32 @@ final class Application
    private $db;
 
    /**
+    * Logger object.
+    * @var Application\Logger\Logger
+    */
+   private $logger;
+
+   /**
     * Handlers (output etc.).
     * @var array
     */
-   private $handlers = array();
+   private $handlers = [];
 
    /**
     * Constructor.
     */
-   final private function __construct()
+   final private function __construct(array $cfg = [])
    {
+      // logger
+      $this->logger = new Logger();
+
+      // set default config first
+      $this->setConfig($cfg);
+
       // set app as global
       set_global('app', $this);
 
-      // set default config first
-      $this->setConfig(include('./sys/global/cfg.php'));
-
-      // load sys helpers
+      // load app helpers
       $files = glob('./sys/library/function/*.php');
       foreach ($files as $file) {
          require_once($file);
@@ -162,36 +171,6 @@ final class Application
       restore_include_path();
       restore_error_handler();
       restore_exception_handler();
-   }
-
-   /**
-    * Set error handler.
-    *
-    * @return void
-    */
-   final public function setErrorHandler()
-   {
-      set_error_handler(ErrorHandler::handler());
-   }
-
-   /**
-    * Set exception handler.
-    *
-    * @return void
-    */
-   final public function setExceptionHandler()
-   {
-      set_exception_handler(ExceptionHandler::handler());
-   }
-
-   /**
-    * Set shutdown handler.
-    *
-    * @return void
-    */
-   final public function setShutdownHandler()
-   {
-      register_shutdown_function(ShutdownHandler::handler());
    }
 
    final public function run()
@@ -274,6 +253,12 @@ final class Application
          $config = Config::merge($config, $this->config->getData());
       }
       $this->config = new Config($config);
+
+      // set log options
+      $this->logger
+         ->setLevel($this->config['app.logger.level'])
+         ->setDirectory($this->config['app.logger.directory'])
+         ->setFilenameFormat($this->config['app.logger.filenameFormat']);
 
       return $this;
    }
@@ -412,6 +397,36 @@ final class Application
    final public function isProduction(): bool
    {
       return ($this->env == self::ENVIRONMENT_PRODUCTION);
+   }
+
+   /**
+    * Set error handler.
+    *
+    * @return void
+    */
+   final public function setErrorHandler()
+   {
+      set_error_handler(ErrorHandler::handler());
+   }
+
+   /**
+    * Set exception handler.
+    *
+    * @return void
+    */
+   final public function setExceptionHandler()
+   {
+      set_exception_handler(ExceptionHandler::handler());
+   }
+
+   /**
+    * Set shutdown handler.
+    *
+    * @return void
+    */
+   final public function setShutdownHandler()
+   {
+      register_shutdown_function(ShutdownHandler::handler());
    }
 
    /**

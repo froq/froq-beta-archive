@@ -19,6 +19,12 @@ $cfg['app']['locales'] = [
    'en_US' => 'English',
 ];
 
+// logger
+$cfg['app']['logger'] = [];
+$cfg['app']['logger']['level'] = Application\Logger\Logger::ALL;
+$cfg['app']['logger']['directory'] = $app->config->get('app.dir.tmp') .'/log/app/';
+$cfg['app']['logger']['filenameFormat'] = 'Y-m-d';
+
 /**
  * Database options.
  */
@@ -28,7 +34,7 @@ $cfg['db']['mysql']['development'] = [
    'agent' => 'mysqli',
    'profiling' => true,
    'query_log' => true,
-   'query_log_level' => Oppa\Logger::WARN | Oppa\Logger::FAIL, // @todo make your own logger
+   'query_log_level' => Oppa\Logger::WARN | Oppa\Logger::FAIL,
    'query_log_directory' => $app->config->get('app.dir.tmp') .'/log/db/',
    'query_log_filename_format' => 'Y-m-d',
    'database' => [
