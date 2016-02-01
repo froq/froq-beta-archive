@@ -245,7 +245,7 @@ As you guess, all files in `app` directory your and may be modified as you wish,
 
 ## Todo
 
-- Wiki.
+- Wiki (OK guys, I promise).
 - Add callback-driven service definition support.
 - Have a tequila.
 
