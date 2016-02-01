@@ -142,7 +142,31 @@ Note: Even service does not handle all these method must be found in extender se
 
 ## Partials
 
-All service may have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
+All services may have individual `head/foot` file in its own folder such as `FooService/view/partial/head.php`. If it has no partial file(s) then default partial file(s) will be included and used. Services could be directed to use `head/foot` file setting `$useViewPartialAll = true`, or use only `head` setting `$useViewPartialHead = true` or vice versa `foot` setting `$useViewPartialFoot = true` in service object.
+
+## Models
+
+You can create your model for each service that behaves like an ORM object and comes with all these methods: `find()`, `findAll()`, `save()`, `remove()`.
+
+Here is simply `BookModel` for `BookService`;
+
+```php
+use Application\Database\Database;
+use Application\Database\Model\Model;
+
+class BookModel extends Model
+{
+   // default vendor is MySQL
+   protected $vendor = Database::VENDOR_MYSQL;
+   // table, collection etc. name & primary key
+   protected $stackName = 'book';
+   protected $stackPrimary = 'id';
+
+   // ie. sets default id value
+   // public $id;
+}
+```
+Notice: For now, modelling is available with MySQL databases only using [Oppa](//github.com/qeremy/oppa) library. But MongoDB and CouchDB supports will be soon. Please see `app/service/BookService/model/model.php` and `app/service/BookService/BookService.php` for usage samples.
 
 ## Output Handling
 
@@ -172,7 +196,7 @@ All fails go to `app/service/default/FailService` file, so you can edit easily d
 
 ## Composer Support
 
-You can integrate any library you want use into Froq!. Composer's `vendor` folder will be in root (`/`) directory and composer's autoloader will be included automatically in `Application` constructor".
+You can integrate any library you want use into Froq!. Composer's `vendor` folder will be in root (`/`) directory and composer's autoloader will be included automatically in `Application` constructor.
 
 
 ## Folder Structure
