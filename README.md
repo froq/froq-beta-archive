@@ -39,13 +39,13 @@ class BookService extends Service
       if (!is_id($id)) {
          $this->app->response->setStatus(Status::BAD_REQUEST);
          $this->app->response->setContentType(ContentType::NONE);
-         return null;
+         return;
       }
 
       // find book by id
       $book = $this->model->find($id);
       if (empty($book)) {
-         return null;
+         return;
       }
 
       // return book object that will be json encoded
