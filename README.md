@@ -63,10 +63,11 @@ class BookService extends Service
 Example `GET` call:
 
 ```
-curl -i -XGET froq.local/book/1
+~$ curl -i -XGET froq.local/book/1
+
 HTTP/1.1 200 OK
-Status: 200 OK
 Server: Apache/2.4.18 (Ubuntu)
+Status: 200 OK
 Date: Sat, 23 Jan 2016 15:37:59 GMT
 Content-Type: application/json; charset=utf-8
 Content-Length: 48
