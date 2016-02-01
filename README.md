@@ -182,7 +182,7 @@ $app->setHandler('output', function($output) {
 
 ## Service Environments
 
-If you set your local development server like `froq.local`, Froq! will decide that you are on local development environment. Otherwise, it always thinks running on production environment. Note: this feature is not implemented yet properly/completely, just all exceptions thrown directly if environment is local.
+If you set your local development server like `froq.local`, Froq! will decide that you are on local development environment. Otherwise, it always thinks running on production environment. Note: this feature is not implemented yet properly/completely, just all exceptions will be thrown directly if environment is "local".
 
 ## Service Root (Base URI)
 
