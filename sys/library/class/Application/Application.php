@@ -228,6 +228,7 @@ final class Application
    final public function setEnv(string $env): self
    {
       $this->env = $env;
+
       return $this;
    }
 
@@ -240,6 +241,7 @@ final class Application
    final public function setRoot(string $root): self
    {
       $this->root = $root;
+
       return $this;
    }
 
