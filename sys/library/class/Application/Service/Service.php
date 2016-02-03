@@ -235,6 +235,7 @@ abstract class Service
    final public function setAllowedRequestMethods(array ...$allowedRequestMethods): self
    {
       $this->allowedRequestMethods = array_map('strtoupper', $allowedRequestMethods);
+
       return $this;
    }
 
