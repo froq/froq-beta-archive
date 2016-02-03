@@ -1,6 +1,6 @@
 ## Froq! Hassle-free service generator.
 
-Froq! is a uber-easy service generator that designed especially for RESTful back-end'd structures, but may be used for front-end'd platforms as well. You simply create your service object (aka resource/endpoint class) and return its actions data.
+Froq! is a uber-easy service generator that designed especially for RESTful back-end'd structures, but may be used for front-end'd platforms as well. You simply create your service object (aka resource/endpoint class) and return its actions data to your clients.
 
 **Notice: All framework coded in strict-type mode so [PHP7-way](http://php.net/manual/en/migration70.new-features.php) (yes, we elephants waited too long for this..). Please see scalar-type-hints [RFC](https://wiki.php.net/rfc/scalar_type_hints_v5), [document](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration.types) and return-type [document](http://php.net/manual/en/functions.returning-values.php).**
 
