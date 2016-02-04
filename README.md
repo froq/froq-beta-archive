@@ -74,6 +74,18 @@ X-Load-Time: 0.0209240913
 {"id":1,"name":"PHP in Action","price":16.55}
 ```
 
+Example bad `GET` call:
+
+```
+~$ curl -i -XGET froq.local/book/nö!
+
+HTTP/1.1 400 Bad Request
+...
+Content-Type: none
+Content-Length: 0
+X-Load-Time: 0.0237870216
+```
+
 ### Using as Site Page Responder
 
 ```php
