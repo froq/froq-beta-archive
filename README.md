@@ -126,7 +126,7 @@ class BookService extends Service
 
 All config object's option may be reachable via `config->get()` method or simply array access like `config['key']`. Also its possible to get a value by dot notations like `config->get('x.y.z')` or `config['x.y.z']` as well.
 
-Global application config file is in `sys/global/cfg.php` file but user may override all these config options filling `app/global/cfg.php` file. However each service may have its own config file such `FooService/config/config.php`, but these config options reachable only in service object, e.g `$x = $this->config->get('x')` or `$this->config['x']`.
+Global application config file is in `sys/global/cfg.php` file but user may override all these config options filling `app/global/cfg.php` file. However each service may have its own config file such `FooService/config/config.php`, but these config options reachable only in same service object, e.g `$x = $this->config->get('x')` or `$this->config['x']`.
 
 ## Services
 
