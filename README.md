@@ -188,7 +188,7 @@ Output handler could be defined for once in `pub/index.php` (line 36).
 // simply fulfill callback closure
 $app->setHandler('output', function($output) {
    // assuming that already set in BookService::doDetail()
-   // like "set_global('page_title', $this->book->title)"
+   // like "set_global('page_title', $book->title)"
    $pageTitle = get_global('page_title');
 
    // replace output's page title
