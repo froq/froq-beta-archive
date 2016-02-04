@@ -6,7 +6,7 @@ Froq! is a uber-easy service generator that designed especially for RESTful back
 
 Let's dive into that sweet thing quickly keeping short the introduction..
 
-### Using as REST Resource Responder
+### Using as 'REST Resource' Responder
 
 ```php
 use Application\Http\Response\Status;
@@ -86,7 +86,7 @@ Content-Length: 0
 X-Load-Time: 0.0237870216
 ```
 
-### Using as Site Page Responder
+### Using as 'Site Page' Responder
 
 ```php
 use Application\Service\Protocol\Site as Service;
