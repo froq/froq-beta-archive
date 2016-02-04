@@ -204,9 +204,9 @@ If you set your local development server like `froq.local`, Froq! will decide th
 
 Service root could be set easily in `pub/index.php`. For example, if you want to use a versioning approach in your applications, you can set `$appRoot = '/api/v1'`. Then call your URL's like `/api/v1/book/123` but just define your book service as `BookService` normally. So you do not need to create another service such as `ApiService` for all these requests cos `/api/v1` part will be dropped while routing act and all calls will be redirected to `BookService` as well.
 
-## Fails (Error Handling)
+## Fails (Errors)
 
-All fails go to `app/service/default/FailService` file, so you can edit easily default fail files as you wish.
+All fails go to `app/service/default/FailService` file, so you can edit easily default fail files as you wish. Also if `.local`, all exceptions will be thrown instantly.
 
 ## Composer Support
 
