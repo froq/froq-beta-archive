@@ -187,8 +187,12 @@ Output handler could be defined for once in `pub/index.php` (line 36).
 ```php
 // simply fulfill callback closure
 $app->setHandler('output', function($output) {
-   // and do something with output
-   return str_replace("\t", '   ', $output);
+   // assuming that already set in BookService::doDetail()
+   // like "set_global('page_title', $this->book->title)"
+   $pageTitle = get_global('page_title');
+
+   // replace output's page title
+   return preg_replace('~<title>(.*?)</title>~s', $pageTitle, $output);
 });
 ```
 
