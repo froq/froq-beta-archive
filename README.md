@@ -132,9 +132,9 @@ Global application config file is in `sys/global/cfg.php` file but user may over
 
 All service objects must be in `app/service/` in its folder: e.g. `FooService/FooService.php` with same name and suffixed with `Service` phrase, also;
 
-- Each service may have its config file: e.g. `FooService/config/config.php`.
-- Each service may have its model file: e.g. `FooService/model/model.php`.
-- Each service may have its view file: e.g. `FooService/view/view.php`.
+- Each service may have its config file as same as `FooService/config/config.php`.
+- Each service may have its model file as same as `FooService/model/model.php`.
+- Each service may have its view file as same as `FooService/view/view.php`.
 
 A service `init()` method always called first of all methods, so it could be used as constructor. By the way, you can not define `__construct()` method in any service cos it's finalized in parent object.
 
