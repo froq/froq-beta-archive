@@ -12,6 +12,6 @@
    }],
    "require": {
      "php": ">=7.0.0",
-     "k-gun/oppa": "dev-master"
+     "k-gun/oppa": "1.*"
    }
 }
