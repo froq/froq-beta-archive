@@ -172,7 +172,7 @@ class BookModel extends Model
    // public $id;
 }
 ```
-Notice: For now, modelling is available with MySQL databases only using [Oppa](//github.com/qeremy/oppa) library. But MongoDB and CouchDB supports will be added soon. Please see `app/service/BookService/model/model.php` and `app/service/BookService/BookService.php` for usage samples.
+Notice: For now, modelling is available with MySQL databases only using [Oppa](//github.com/k-gun/oppa) library. But MongoDB and CouchDB supports will be added soon. Please see `app/service/BookService/model/model.php` and `app/service/BookService/BookService.php` for usage samples.
 
 ## Partials
 

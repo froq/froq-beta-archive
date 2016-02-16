@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2016 Kerem Güneş
- *    <http://qeremy.com>
+ *    <k-gun@mail.com>
  *
  * GNU General Public License v3.0
  *    <http://www.gnu.org/licenses/gpl-3.0.txt>
@@ -27,7 +27,7 @@ namespace Application\Encryption\Oneway;
  * @package    Application
  * @subpackage Application\Encryption\Oneway
  * @object     Application\Encryption\Oneway\Password
- * @author     Kerem Güneş <qeremy@gmail.com>
+ * @author     Kerem Güneş <k-gun@mail.com>
  */
 final class Password
 {

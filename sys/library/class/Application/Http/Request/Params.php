@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2016 Kerem Güneş
- *    <http://qeremy.com>
+ *    <k-gun@mail.com>
  *
  * GNU General Public License v3.0
  *    <http://www.gnu.org/licenses/gpl-3.0.txt>
@@ -30,7 +30,7 @@ use Application\Http\Request\Params\{Get, Post, Cookie};
  * @package    Application
  * @subpackage Application\Http\Request
  * @object     Application\Http\Request\Params
- * @author     Kerem Güneş <qeremy@gmail.com>
+ * @author     Kerem Güneş <k-gun@mail.com>
  */
 final class Params
 {

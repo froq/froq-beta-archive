@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2016 Kerem Güneş
- *    <http://qeremy.com>
+ *    <k-gun@mail.com>
  *
  * GNU General Public License v3.0
  *    <http://www.gnu.org/licenses/gpl-3.0.txt>
@@ -29,7 +29,7 @@ use Application\Service\{Service, ServiceInterface};
  * @package    Application
  * @subpackage Application\Service\Protocol
  * @object     Application\Service\Protocol\Rest
- * @author     Kerem Güneş <qeremy@gmail.com>
+ * @author     Kerem Güneş <k-gun@mail.com>
  * @thanks     https://spring.io/understanding/REST
  */
 abstract class Rest extends Service

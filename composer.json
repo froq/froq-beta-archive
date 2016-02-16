@@ -1,15 +1,14 @@
 {
    "name": "froq/froq",
    "type": "framework",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "homepage": "https://github.com/froq/froq",
    "description": "Froq! Hassle-free service generator.",
    "keywords": ["rest", "restful", "service"],
    "license": "GNU General Public License v3.0",
    "authors": [{
       "name": "Kerem Gunes",
-      "email": "qeremy@gmail.com",
-      "homepage": "http://qeremy.com"
+      "email": "k-gun@mail.com"
    }],
    "require": {
      "php": ">=7.0.0"
