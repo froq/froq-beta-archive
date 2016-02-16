@@ -107,24 +107,6 @@ final class Autoload
          $objectFile = self::fixSlashes(sprintf(
             '%s/app/service/%s/%s.php', root, $objectName, $objectName
          ));
-         // external object invoked with namespace
-         if (!is_file($objectFile)) {
-            $objectFile = self::fixSlashes(sprintf(
-               '%s/app/library/class/%s/%s.php', root,
-                  // here namespace a prefix as subdir
-                  strtolower(substr($objectName, 0, strpos($objectName, '\\'))),
-                     $objectName
-            ));
-            // try without namespace
-            if (!is_file($objectFile)) {
-               $objectFile = self::fixSlashes(sprintf(
-                  '%s/app/library/class/%s/%s.php', root,
-                     // here namespace a prefix as subdir
-                     strtolower($objectName),
-                        $objectName
-               ));
-            }
-         }
       }
 
       // check file exists
