@@ -1,7 +1,7 @@
 {
    "name": "froq/froq",
    "type": "framework",
-   "version": "1.0.2",
+   "version": "1.0.0-beta",
    "homepage": "https://github.com/froq/froq",
    "description": "Froq! Hassle-free service generator.",
    "keywords": ["rest", "restful", "service"],
@@ -11,7 +11,6 @@
       "email": "k-gun@mail.com"
    }],
    "require": {
-     "php": ">=7.0.0",
-     "k-gun/oppa": "1.*"
+     "php": ">=7.0.0"
    }
 }
